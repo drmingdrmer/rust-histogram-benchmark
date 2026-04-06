@@ -7,7 +7,7 @@ throughput, percentile query latency, and accuracy across distributions.
 
 | Crate | Version | Algorithm | Value Type | Repo |
 |-------|---------|-----------|------------|------|
-| [base2histogram] | 0.1 | Base-2 log-linear + trapezoidal interpolation | `u64` | [drmingdrmer/base2histogram](https://github.com/drmingdrmer/base2histogram) |
+| [base2histogram] | 0.2 | Base-2 log-linear + trapezoidal interpolation | `u64` | [drmingdrmer/base2histogram](https://github.com/drmingdrmer/base2histogram) |
 | [hdrhistogram] | 7 | Linear sub-buckets within power-of-2 ranges | `u64` | [HdrHistogram/HdrHistogram_rust](https://github.com/HdrHistogram/HdrHistogram_rust) |
 | [histogram] (H2) | 1 | Base-2 log-linear | `u64` | [iopsystems/histogram](https://github.com/iopsystems/histogram) |
 | [sketches-ddsketch] | 0.4 | Logarithmic with relative accuracy guarantee | `f64` | [mheffner/rust-sketches-ddsketch](https://github.com/mheffner/rust-sketches-ddsketch) |
@@ -34,10 +34,21 @@ throughput, percentile query latency, and accuracy across distributions.
 | Value removal | | | ✓ | | |
 | Inverse query (prank) | | ✓ | | | |
 
+## Highlights
+
+| Histogram | Memory | Record (ns) | P99 Query (ns) | P99 Error: log-normal | bimodal | exponential |
+|---|---:|---:|---:|---:|---:|---:|
+| base2histogram | 2 KB | 1.9 | 14.2 | 🏆 0.000% | 🏆 0.018% | 0.130% |
+| h2histogram | 2 KB | 🏆 1.5 | 153.4 | 9.070% | 0.424% | 🏆 0.109% |
+| hdrhistogram | ~56 KB | 2.4 | 195.2 | 0.388% | 0.141% | 0.109% |
+| ddsketch | 🏆 ~1.6 KB | 4.5 | 73.0 | 0.782% | 0.999% | 0.401% |
+| tdigest | ~1.6 KB | 14.2 | 🏆 4.1 | 0.223% | 0.184% | 0.118% |
+
 ## Results
 
 Raw JSON results per implementation: [`results/`](results/)
-([full markdown report](results/report.md))
+([full markdown report](results/report.md) |
+[highlights](results/highlights.md))
 
 ### Recording Throughput (ns/op)
 

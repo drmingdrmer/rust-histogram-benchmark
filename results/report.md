@@ -2,21 +2,21 @@
 
 | Histogram | sequential | uniform | log-normal |
 |---|---:|---:|---:|
-| base2histogram | 1.9 | 0.8 | 0.8 |
-| ddsketch | 4.9 | 4.5 | 4.5 |
-| h2histogram | 2.1 | 1.5 | 1.5 |
-| hdrhistogram | 2.4 | 2.1 | 2.1 |
-| tdigest | 2.1 | 14.6 | 14.3 |
+| base2histogram | 2.0 | 0.9 | 0.7 |
+| ddsketch | 4.9 | 4.6 | 4.5 |
+| h2histogram | 2.0 | 1.5 | 1.5 |
+| hdrhistogram | 2.4 | 2.3 | 2.0 |
+| tdigest | 2.2 | 14.1 | 14.1 |
 
 ## Percentile Query Latency (ns/op)
 
 | Histogram | P50 | P90 | P95 | P99 | P99.9 |
 |---|---:|---:|---:|---:|---:|
-| base2histogram | 36.1 | 35.6 | 45.3 | 47.7 | 39.5 |
-| ddsketch | 56.6 | 64.8 | 64.2 | 69.7 | 80.2 |
-| h2histogram | 137.3 | 143.3 | 142.0 | 146.3 | 160.4 |
-| hdrhistogram | 125.8 | 165.0 | 179.9 | 193.7 | 204.0 |
-| tdigest | 39.0 | 9.6 | 7.6 | 4.5 | 2.5 |
+| base2histogram | 39.5 | 38.4 | 39.1 | 40.2 | 42.4 |
+| ddsketch | 64.1 | 67.3 | 71.8 | 69.5 | 81.9 |
+| h2histogram | 135.4 | 142.9 | 148.7 | 152.5 | 153.3 |
+| hdrhistogram | 126.4 | 168.1 | 182.6 | 199.6 | 222.8 |
+| tdigest | 40.1 | 9.7 | 7.8 | 5.0 | 2.5 |
 
 ## Accuracy: Relative Error %
 

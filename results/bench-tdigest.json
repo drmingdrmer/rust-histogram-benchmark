@@ -1,0 +1,47 @@
+{
+  "name": "tdigest",
+  "record_throughput": {
+    "sequential_ns": 2.148333,
+    "uniform_ns": 14.585958,
+    "log_normal_ns": 14.261291
+  },
+  "percentile_latency": {
+    "p50_ns": 38.9834,
+    "p90_ns": 9.6,
+    "p95_ns": 7.5625,
+    "p99_ns": 4.5083,
+    "p999_ns": 2.4875
+  },
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.00322410305226626,
+      "p95_error_pct": 0.11006120220953422,
+      "p99_error_pct": 0.03336533664137132
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.26609907938744537,
+      "p95_error_pct": 0.03394585482574,
+      "p99_error_pct": 0.13279816356824212
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.25086429774647695,
+      "p95_error_pct": 0.5592740716836181,
+      "p99_error_pct": 0.4234662058846155
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.18506923771655096,
+      "p95_error_pct": 0.11288600123482663,
+      "p99_error_pct": 0.1782378207726075
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.5566903649029723,
+      "p99_error_pct": 0.5679125022075888
+    }
+  ]
+}

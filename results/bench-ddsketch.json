@@ -1,0 +1,47 @@
+{
+  "name": "ddsketch",
+  "record_throughput": {
+    "sequential_ns": 4.863708,
+    "uniform_ns": 4.471667,
+    "log_normal_ns": 4.451917
+  },
+  "percentile_latency": {
+    "p50_ns": 56.6417,
+    "p90_ns": 64.7708,
+    "p95_ns": 64.2166,
+    "p99_ns": 69.6542,
+    "p999_ns": 80.1833
+  },
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.8459978101727952,
+      "p95_error_pct": 0.6209857917867209,
+      "p99_error_pct": 0.4949181755102212
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.8748393942018496,
+      "p95_error_pct": 0.8012214572246091,
+      "p99_error_pct": 0.7821947322044387
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.6811623190994202,
+      "p95_error_pct": 0.5532752424313061,
+      "p99_error_pct": 0.5193224002739512
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.7940453257124389,
+      "p95_error_pct": 0.5197127340059284,
+      "p99_error_pct": 0.5304071488713863
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 1.0000000000000009,
+      "p95_error_pct": 0.41132887906812754,
+      "p99_error_pct": 0.554454696240977
+    }
+  ]
+}

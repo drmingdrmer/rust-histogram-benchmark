@@ -1,0 +1,47 @@
+{
+  "name": "base2histogram",
+  "record_throughput": {
+    "sequential_ns": 1.910208,
+    "uniform_ns": 0.817291,
+    "log_normal_ns": 0.797167
+  },
+  "percentile_latency": {
+    "p50_ns": 36.1042,
+    "p90_ns": 35.625,
+    "p95_ns": 45.2625,
+    "p99_ns": 47.6791,
+    "p999_ns": 39.4625
+  },
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.008003201280512205,
+      "p95_error_pct": 1.0591514609378663,
+      "p99_error_pct": 3.732675114387128
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.10893246187363835,
+      "p99_error_pct": 0.0
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.10016694490818029,
+      "p99_error_pct": 0.0703977472720873
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.10013351134846463,
+      "p99_error_pct": 0.15190972222222224
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    }
+  ]
+}

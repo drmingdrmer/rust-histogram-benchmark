@@ -10,7 +10,7 @@ use rust_histogram_benchmark::output::PercentileLatency;
 use rust_histogram_benchmark::output::RecordThroughput;
 use tdigest::TDigest;
 
-const N: usize = 1_000_000;
+const N: usize = 2_000_000;
 const BATCH_SIZE: usize = 1_000;
 const MAX_SIZE: usize = 100;
 
@@ -25,8 +25,8 @@ fn build_tdigest(values: &[u64]) -> TDigest {
 
 /// Measure amortized ns per value for batched merge.
 fn measure_tdigest_record_ns(values: &[u64]) -> f64 {
-    let warmup = 3;
-    let measure = 10;
+    let warmup = 5;
+    let measure = 20;
     let mut timings = Vec::with_capacity(warmup + measure);
 
     for _ in 0..(warmup + measure) {

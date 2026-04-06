@@ -43,21 +43,21 @@ Raw JSON results per implementation: [`results/`](results/)
 
 | Histogram | sequential | uniform | log-normal |
 |---|---:|---:|---:|
-| base2histogram | 1.9 | 0.8 | 0.8 |
-| ddsketch | 4.9 | 4.5 | 4.5 |
+| base2histogram | 2.0 | 2.0 | 1.8 |
+| ddsketch | 4.8 | 4.6 | 4.5 |
 | h2histogram | 2.1 | 1.5 | 1.5 |
-| hdrhistogram | 2.4 | 2.1 | 2.1 |
-| tdigest | 2.1 | 14.6 | 14.3 |
+| hdrhistogram | 2.4 | 2.1 | 2.0 |
+| tdigest | 2.1 | 14.0 | 14.2 |
 
 ### Percentile Query Latency (ns/op)
 
 | Histogram | P50 | P90 | P95 | P99 | P99.9 |
 |---|---:|---:|---:|---:|---:|
-| base2histogram | 36.1 | 35.6 | 45.3 | 47.7 | 39.5 |
-| ddsketch | 56.6 | 64.8 | 64.2 | 69.7 | 80.2 |
-| h2histogram | 137.3 | 143.3 | 142.0 | 146.3 | 160.4 |
-| hdrhistogram | 125.8 | 165.0 | 179.9 | 193.7 | 204.0 |
-| tdigest | 39.0 | 9.6 | 7.6 | 4.5 | 2.5 |
+| base2histogram | 19.7 | 11.7 | 12.4 | 14.6 | 15.1 |
+| ddsketch | 52.5 | 63.2 | 68.2 | 75.2 | 79.7 |
+| h2histogram | 130.9 | 138.0 | 148.7 | 152.5 | 157.7 |
+| hdrhistogram | 125.7 | 167.9 | 180.7 | 201.7 | 227.8 |
+| tdigest | 39.6 | 9.3 | 7.3 | 4.2 | 3.0 |
 
 ### Accuracy: Relative Error %
 
@@ -65,11 +65,11 @@ Raw JSON results per implementation: [`results/`](results/)
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
-| base2histogram | 0.008% | 1.059% | 3.733% |
-| ddsketch | 0.846% | 0.621% | 0.495% |
-| h2histogram | 1.657% | 3.478% | 0.704% |
-| hdrhistogram | 0.392% | 0.028% | 0.123% |
-| tdigest | 0.003% | 0.110% | 0.033% |
+| base2histogram | 0.016% | 1.063% | 3.740% |
+| ddsketch | 0.783% | 0.596% | 0.494% |
+| h2histogram | 1.718% | 3.452% | 0.705% |
+| hdrhistogram | 0.329% | 0.003% | 0.122% |
+| tdigest | 0.109% | 0.020% | 0.020% |
 
 #### log_normal_api
 
@@ -79,27 +79,27 @@ Raw JSON results per implementation: [`results/`](results/)
 | ddsketch | 0.875% | 0.801% | 0.782% |
 | h2histogram | 2.978% | 4.466% | 9.070% |
 | hdrhistogram | 0.000% | 0.109% | 0.388% |
-| tdigest | 0.266% | 0.034% | 0.133% |
+| tdigest | 0.027% | 0.039% | 0.223% |
 
 #### bimodal
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
-| base2histogram | 0.000% | 0.100% | 0.070% |
-| ddsketch | 0.681% | 0.553% | 0.519% |
-| h2histogram | 7.143% | 6.010% | 0.898% |
-| hdrhistogram | 0.000% | 0.401% | 0.229% |
-| tdigest | 0.251% | 0.559% | 0.423% |
+| base2histogram | 0.000% | 0.033% | 0.018% |
+| ddsketch | 0.681% | 0.553% | 0.999% |
+| h2histogram | 7.143% | 6.010% | 0.424% |
+| hdrhistogram | 0.000% | 0.401% | 0.141% |
+| tdigest | 0.091% | 0.982% | 0.184% |
 
 #### exponential
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
-| base2histogram | 0.000% | 0.100% | 0.152% |
-| ddsketch | 0.794% | 0.520% | 0.530% |
-| h2histogram | 1.737% | 6.041% | 0.022% |
-| hdrhistogram | 0.000% | 0.367% | 0.673% |
-| tdigest | 0.185% | 0.113% | 0.178% |
+| base2histogram | 0.000% | 0.100% | 0.130% |
+| ddsketch | 0.918% | 0.520% | 0.401% |
+| h2histogram | 1.443% | 6.041% | 0.109% |
+| hdrhistogram | 0.289% | 0.367% | 0.109% |
+| tdigest | 0.020% | 0.042% | 0.118% |
 
 #### pareto
 
@@ -109,15 +109,15 @@ Raw JSON results per implementation: [`results/`](results/)
 | ddsketch | 1.000% | 0.411% | 0.554% |
 | h2histogram | 0.000% | 0.000% | 0.000% |
 | hdrhistogram | 0.000% | 0.000% | 0.000% |
-| tdigest | 0.000% | 0.557% | 0.568% |
+| tdigest | 0.000% | 0.745% | 1.280% |
 
 ## Methodology
 
 ### Recording Throughput
 
 Measures time per `record(value)` call. Each histogram is pre-created, then
-values are recorded in a tight loop. 3 warmup iterations + 10 measured
-iterations, median reported.
+values are recorded in a tight loop. 2M values per workload, 5 warmup
+iterations + 20 measured iterations, median reported.
 
 **Workloads:**
 - Sequential: values `1..N`
@@ -130,12 +130,12 @@ ns per value.
 
 ### Percentile Query Latency
 
-Measures time to compute a single percentile after recording 1M values
-from the log-normal API distribution. 10K queries per measurement iteration.
+Measures time to compute a single percentile after recording 2M values
+from the log-normal API distribution. 20K queries per measurement iteration.
 
 ### Accuracy
 
-Records 1M samples from known distributions, compares histogram percentile
+Records 2M samples from known distributions, compares histogram percentile
 estimates against exact values computed from the sorted sample.
 Relative error = `|exact - estimated| / exact × 100%`.
 

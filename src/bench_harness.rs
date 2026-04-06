@@ -8,10 +8,10 @@ use crate::output::BenchResult;
 use crate::output::PercentileLatency;
 use crate::output::RecordThroughput;
 
-const N: usize = 1_000_000;
-const WARMUP_ITERS: usize = 3;
-const MEASURE_ITERS: usize = 10;
-const PERCENTILE_ITERS: usize = 10_000;
+const N: usize = 2_000_000;
+const WARMUP_ITERS: usize = 5;
+const MEASURE_ITERS: usize = 20;
+const PERCENTILE_ITERS: usize = 20_000;
 
 pub fn accuracy_distributions() -> Vec<(&'static str, Vec<u64>)> {
     vec![

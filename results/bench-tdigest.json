@@ -1,47 +1,47 @@
 {
   "name": "tdigest",
   "record_throughput": {
-    "sequential_ns": 2.151208,
-    "uniform_ns": 14.079084,
-    "log_normal_ns": 14.135041
+    "sequential_ns": 2.101542,
+    "uniform_ns": 14.011625,
+    "log_normal_ns": 14.211646
   },
   "percentile_latency": {
-    "p50_ns": 40.1292,
-    "p90_ns": 9.6542,
-    "p95_ns": 7.825,
-    "p99_ns": 5.0417,
-    "p999_ns": 2.5166
+    "p50_ns": 39.3854,
+    "p90_ns": 8.83125,
+    "p95_ns": 7.275,
+    "p99_ns": 4.14585,
+    "p999_ns": 3.0354
   },
   "accuracy": [
     {
       "distribution": "uniform",
-      "p50_error_pct": 0.00322410305226626,
-      "p95_error_pct": 0.11006120220953422,
-      "p99_error_pct": 0.03336533664137132
+      "p50_error_pct": 0.1091943614847503,
+      "p95_error_pct": 0.020033106184115242,
+      "p99_error_pct": 0.0204933807182146
     },
     {
       "distribution": "log_normal_api",
-      "p50_error_pct": 0.26609907938744537,
-      "p95_error_pct": 0.03394585482574,
-      "p99_error_pct": 0.13279816356824212
+      "p50_error_pct": 0.026598436319154733,
+      "p95_error_pct": 0.03914538268365746,
+      "p99_error_pct": 0.2232462110419141
     },
     {
       "distribution": "bimodal",
-      "p50_error_pct": 0.25086429774647695,
-      "p95_error_pct": 0.5592740716836181,
-      "p99_error_pct": 0.4234662058846155
+      "p50_error_pct": 0.09119685403349691,
+      "p95_error_pct": 0.9820343320308184,
+      "p99_error_pct": 0.1844120427758319
     },
     {
       "distribution": "exponential",
-      "p50_error_pct": 0.18506923771655096,
-      "p95_error_pct": 0.11288600123482663,
-      "p99_error_pct": 0.1782378207726075
+      "p50_error_pct": 0.020155718914945636,
+      "p95_error_pct": 0.042424301557594364,
+      "p99_error_pct": 0.11802693028911539
     },
     {
       "distribution": "pareto",
       "p50_error_pct": 0.0,
-      "p95_error_pct": 0.5566903649029723,
-      "p99_error_pct": 0.5679125022075888
+      "p95_error_pct": 0.7445243118201336,
+      "p99_error_pct": 1.2802041856817241
     }
   ]
 }

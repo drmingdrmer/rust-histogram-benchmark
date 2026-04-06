@@ -1,23 +1,23 @@
 {
   "name": "hdrhistogram",
   "record_throughput": {
-    "sequential_ns": 2.365083,
-    "uniform_ns": 2.329958,
-    "log_normal_ns": 2.048917
+    "sequential_ns": 2.3472085,
+    "uniform_ns": 2.291208,
+    "log_normal_ns": 2.3559585
   },
   "percentile_latency": {
-    "p50_ns": 126.3958,
-    "p90_ns": 168.1416,
-    "p95_ns": 182.5833,
-    "p99_ns": 199.5584,
-    "p999_ns": 222.85
+    "p50_ns": 129.17915,
+    "p90_ns": 166.59375,
+    "p95_ns": 181.24585,
+    "p99_ns": 195.1521,
+    "p999_ns": 228.47915
   },
   "accuracy": [
     {
       "distribution": "uniform",
-      "p50_error_pct": 0.3919567827130852,
-      "p95_error_pct": 0.028415758066801067,
-      "p99_error_pct": 0.12302565351084037
+      "p50_error_pct": 0.32912561761042003,
+      "p95_error_pct": 0.003357049820447563,
+      "p99_error_pct": 0.12231974988061006
     },
     {
       "distribution": "log_normal_api",
@@ -29,13 +29,13 @@
       "distribution": "bimodal",
       "p50_error_pct": 0.0,
       "p95_error_pct": 0.40066777963272115,
-      "p99_error_pct": 0.2287926786342837
+      "p99_error_pct": 0.14146772767462423
     },
     {
       "distribution": "exponential",
-      "p50_error_pct": 0.0,
+      "p50_error_pct": 0.2886002886002886,
       "p95_error_pct": 0.36715620827770357,
-      "p99_error_pct": 0.6727430555555556
+      "p99_error_pct": 0.10864841373315949
     },
     {
       "distribution": "pareto",

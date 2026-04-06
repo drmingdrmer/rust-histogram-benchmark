@@ -16,9 +16,9 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 
 [[package]]
 name = "base2histogram"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e19fd918be53da4d36f7d29d08b5b3cab8ce7d2cdba034658393f920e2fd2e8"
+checksum = "290d8be47e72b0d3e9b784e4c7d63bdf78f5086ff6eccf39bbfcf317f9f735fc"
 
 [[package]]
 name = "base64"

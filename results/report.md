@@ -2,21 +2,21 @@
 
 | Histogram | sequential | uniform | log-normal |
 |---|---:|---:|---:|
-| base2histogram | 2.0 | 0.9 | 0.7 |
-| ddsketch | 4.9 | 4.6 | 4.5 |
-| h2histogram | 2.0 | 1.5 | 1.5 |
-| hdrhistogram | 2.4 | 2.3 | 2.0 |
-| tdigest | 2.2 | 14.1 | 14.1 |
+| base2histogram | 1.9 | 2.1 | 1.9 |
+| ddsketch | 4.8 | 4.5 | 4.5 |
+| h2histogram | 2.1 | 1.4 | 1.5 |
+| hdrhistogram | 2.3 | 2.3 | 2.4 |
+| tdigest | 2.1 | 14.0 | 14.2 |
 
 ## Percentile Query Latency (ns/op)
 
 | Histogram | P50 | P90 | P95 | P99 | P99.9 |
 |---|---:|---:|---:|---:|---:|
-| base2histogram | 39.5 | 38.4 | 39.1 | 40.2 | 42.4 |
-| ddsketch | 64.1 | 67.3 | 71.8 | 69.5 | 81.9 |
-| h2histogram | 135.4 | 142.9 | 148.7 | 152.5 | 153.3 |
-| hdrhistogram | 126.4 | 168.1 | 182.6 | 199.6 | 222.8 |
-| tdigest | 40.1 | 9.7 | 7.8 | 5.0 | 2.5 |
+| base2histogram | 19.7 | 12.2 | 13.3 | 14.2 | 15.2 |
+| ddsketch | 53.2 | 62.5 | 69.0 | 73.0 | 79.7 |
+| h2histogram | 137.3 | 145.2 | 153.5 | 153.4 | 157.2 |
+| hdrhistogram | 129.2 | 166.6 | 181.2 | 195.2 | 228.5 |
+| tdigest | 39.4 | 8.8 | 7.3 | 4.1 | 3.0 |
 
 ## Accuracy: Relative Error %
 
@@ -24,11 +24,11 @@
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
-| base2histogram | 0.008% | 1.059% | 3.733% |
-| ddsketch | 0.846% | 0.621% | 0.495% |
-| h2histogram | 1.657% | 3.478% | 0.704% |
-| hdrhistogram | 0.392% | 0.028% | 0.123% |
-| tdigest | 0.003% | 0.110% | 0.033% |
+| base2histogram | 0.016% | 1.063% | 3.740% |
+| ddsketch | 0.783% | 0.596% | 0.494% |
+| h2histogram | 1.718% | 3.452% | 0.705% |
+| hdrhistogram | 0.329% | 0.003% | 0.122% |
+| tdigest | 0.109% | 0.020% | 0.020% |
 
 ### log_normal_api
 
@@ -38,27 +38,27 @@
 | ddsketch | 0.875% | 0.801% | 0.782% |
 | h2histogram | 2.978% | 4.466% | 9.070% |
 | hdrhistogram | 0.000% | 0.109% | 0.388% |
-| tdigest | 0.266% | 0.034% | 0.133% |
+| tdigest | 0.027% | 0.039% | 0.223% |
 
 ### bimodal
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
-| base2histogram | 0.000% | 0.100% | 0.070% |
-| ddsketch | 0.681% | 0.553% | 0.519% |
-| h2histogram | 7.143% | 6.010% | 0.898% |
-| hdrhistogram | 0.000% | 0.401% | 0.229% |
-| tdigest | 0.251% | 0.559% | 0.423% |
+| base2histogram | 0.000% | 0.033% | 0.018% |
+| ddsketch | 0.681% | 0.553% | 0.999% |
+| h2histogram | 7.143% | 6.010% | 0.424% |
+| hdrhistogram | 0.000% | 0.401% | 0.141% |
+| tdigest | 0.091% | 0.982% | 0.184% |
 
 ### exponential
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
-| base2histogram | 0.000% | 0.100% | 0.152% |
-| ddsketch | 0.794% | 0.520% | 0.530% |
-| h2histogram | 1.737% | 6.041% | 0.022% |
-| hdrhistogram | 0.000% | 0.367% | 0.673% |
-| tdigest | 0.185% | 0.113% | 0.178% |
+| base2histogram | 0.000% | 0.100% | 0.130% |
+| ddsketch | 0.918% | 0.520% | 0.401% |
+| h2histogram | 1.443% | 6.041% | 0.109% |
+| hdrhistogram | 0.289% | 0.367% | 0.109% |
+| tdigest | 0.020% | 0.042% | 0.118% |
 
 ### pareto
 
@@ -68,5 +68,5 @@
 | ddsketch | 1.000% | 0.411% | 0.554% |
 | h2histogram | 0.000% | 0.000% | 0.000% |
 | hdrhistogram | 0.000% | 0.000% | 0.000% |
-| tdigest | 0.000% | 0.557% | 0.568% |
+| tdigest | 0.000% | 0.745% | 1.280% |
 

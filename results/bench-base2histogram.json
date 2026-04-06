@@ -1,23 +1,23 @@
 {
   "name": "base2histogram",
   "record_throughput": {
-    "sequential_ns": 2.042708,
-    "uniform_ns": 0.930833,
-    "log_normal_ns": 0.697333
+    "sequential_ns": 1.9433125,
+    "uniform_ns": 2.113146,
+    "log_normal_ns": 1.925146
   },
   "percentile_latency": {
-    "p50_ns": 39.5,
-    "p90_ns": 38.3958,
-    "p95_ns": 39.0584,
-    "p99_ns": 40.2333,
-    "p999_ns": 42.4209
+    "p50_ns": 19.6729,
+    "p90_ns": 12.19375,
+    "p95_ns": 13.30625,
+    "p99_ns": 14.23125,
+    "p999_ns": 15.2146
   },
   "accuracy": [
     {
       "distribution": "uniform",
-      "p50_error_pct": 0.008003201280512205,
-      "p95_error_pct": 1.0591514609378663,
-      "p99_error_pct": 3.732675114387128
+      "p50_error_pct": 0.016396294437457135,
+      "p95_error_pct": 1.062879858343061,
+      "p99_error_pct": 3.740024406173365
     },
     {
       "distribution": "log_normal_api",
@@ -28,14 +28,14 @@
     {
       "distribution": "bimodal",
       "p50_error_pct": 0.0,
-      "p95_error_pct": 0.10016694490818029,
-      "p99_error_pct": 0.0703977472720873
+      "p95_error_pct": 0.0333889816360601,
+      "p99_error_pct": 0.01768346595932803
     },
     {
       "distribution": "exponential",
       "p50_error_pct": 0.0,
       "p95_error_pct": 0.10013351134846463,
-      "p99_error_pct": 0.15190972222222224
+      "p99_error_pct": 0.1303780964797914
     },
     {
       "distribution": "pareto",

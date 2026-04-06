@@ -1,23 +1,23 @@
 {
   "name": "ddsketch",
   "record_throughput": {
-    "sequential_ns": 4.879125,
-    "uniform_ns": 4.553125,
-    "log_normal_ns": 4.502084
+    "sequential_ns": 4.753354,
+    "uniform_ns": 4.503625,
+    "log_normal_ns": 4.467021
   },
   "percentile_latency": {
-    "p50_ns": 64.0583,
-    "p90_ns": 67.2583,
-    "p95_ns": 71.7917,
-    "p99_ns": 69.4625,
-    "p999_ns": 81.9375
+    "p50_ns": 53.1979,
+    "p90_ns": 62.54375,
+    "p95_ns": 68.9979,
+    "p99_ns": 73.0,
+    "p999_ns": 79.6708
   },
   "accuracy": [
     {
       "distribution": "uniform",
-      "p50_error_pct": 0.8459978101727952,
-      "p95_error_pct": 0.6209857917867209,
-      "p99_error_pct": 0.4949181755102212
+      "p50_error_pct": 0.7828824796083347,
+      "p95_error_pct": 0.5957786353271473,
+      "p99_error_pct": 0.4942096499028821
     },
     {
       "distribution": "log_normal_api",
@@ -29,13 +29,13 @@
       "distribution": "bimodal",
       "p50_error_pct": 0.6811623190994202,
       "p95_error_pct": 0.5532752424313061,
-      "p99_error_pct": 0.5193224002739512
+      "p99_error_pct": 0.9992555045723415
     },
     {
       "distribution": "exponential",
-      "p50_error_pct": 0.7940453257124389,
+      "p50_error_pct": 0.9180226897139506,
       "p95_error_pct": 0.5197127340059284,
-      "p99_error_pct": 0.5304071488713863
+      "p99_error_pct": 0.4007205871358861
     },
     {
       "distribution": "pareto",

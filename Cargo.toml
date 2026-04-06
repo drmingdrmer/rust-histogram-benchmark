@@ -9,7 +9,7 @@ repository = "https://github.com/drmingdrmer/rust-histogram-benchmark"
 homepage = "https://github.com/drmingdrmer/rust-histogram-benchmark"
 
 [dependencies]
-base2histogram = "0.2.0"
+base2histogram = "0.2.1"
 hdrhistogram = "7.5.4"
 histogram = "1.0.0"
 sketches-ddsketch = "0.4.0"

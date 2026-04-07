@@ -12,6 +12,7 @@ const N: usize = 2_000_000;
 const WARMUP_ITERS: usize = 5;
 const MEASURE_ITERS: usize = 20;
 const PERCENTILE_ITERS: usize = 20_000;
+const MERGE_ITERS: usize = 1_000;
 
 pub fn accuracy_distributions() -> Vec<(&'static str, Vec<u64>)> {
     vec![
@@ -23,7 +24,6 @@ pub fn accuracy_distributions() -> Vec<(&'static str, Vec<u64>)> {
     ]
 }
 
-/// Compute exact percentile from a sorted slice using linear interpolation.
 pub fn exact_percentile(sorted: &[u64], p: f64) -> f64 {
     let rank = p * (sorted.len() - 1) as f64;
     let lo = rank.floor() as usize;
@@ -40,7 +40,6 @@ pub fn relative_error_pct(exact: f64, estimated: f64) -> f64 {
     }
 }
 
-/// Measure ns/op for recording values one at a time.
 pub fn measure_record_ns<S, F, G>(values: &[u64], setup: F, mut record_one: G) -> f64
 where
     F: Fn() -> S,
@@ -62,7 +61,6 @@ where
     median_ns_per_op(&timings[WARMUP_ITERS..], values.len())
 }
 
-/// Measure ns/op for a percentile query, generic over return type.
 pub fn measure_percentile_ns<S, R, F>(state: &S, quantile: f64, query: F) -> f64
 where
     R: 'static,
@@ -82,7 +80,25 @@ where
     median_ns_per_op(&timings[WARMUP_ITERS..], PERCENTILE_ITERS)
 }
 
-/// Compute accuracy for a histogram, generic over the query return type.
+/// Measure ns/op for merging `source` into a clone of itself.
+pub fn measure_merge_ns<S: Clone, MergeFn>(source: &S, merge: MergeFn) -> f64
+where MergeFn: Fn(&mut S, &S) {
+    let mut timings = Vec::with_capacity(WARMUP_ITERS + MEASURE_ITERS);
+
+    for _ in 0..(WARMUP_ITERS + MEASURE_ITERS) {
+        let mut target = source.clone();
+        let start = Instant::now();
+        for _ in 0..MERGE_ITERS {
+            merge(&mut target, source);
+        }
+        let elapsed = start.elapsed();
+        black_box(&target);
+        timings.push(elapsed);
+    }
+
+    median_ns_per_op(&timings[WARMUP_ITERS..], MERGE_ITERS)
+}
+
 pub fn compute_accuracy<S, F>(name: &str, values: &[u64], state: &S, query: F) -> AccuracyResult
 where F: Fn(&S, f64) -> f64 {
     let mut sorted = values.to_vec();
@@ -100,7 +116,7 @@ where F: Fn(&S, f64) -> f64 {
     }
 }
 
-/// Run the full benchmark suite for a u64-returning histogram.
+/// Run the full benchmark suite for a u64-returning histogram (no merge).
 pub fn run_full_bench<S, SetupFn, RecordFn, QueryFn>(
     name: &str,
     setup: SetupFn,
@@ -112,11 +128,34 @@ pub fn run_full_bench<S, SetupFn, RecordFn, QueryFn>(
     QueryFn: Fn(&S, f64) -> u64,
 {
     let query_f64 = |s: &S, q: f64| -> f64 { query(s, q) as f64 };
-
-    run_full_bench_inner(name, &setup, &mut record_one, &query_f64);
+    let result = run_core(name, &setup, &mut record_one, &query_f64);
+    println!("{}", serde_json::to_string_pretty(&result).unwrap());
 }
 
-/// Run the full benchmark suite for an f64-returning histogram.
+/// Run the full benchmark suite for a u64-returning histogram with merge.
+pub fn run_bench_with_merge<S: Clone, SetupFn, RecordFn, QueryFn, MergeFn>(
+    name: &str,
+    setup: SetupFn,
+    mut record_one: RecordFn,
+    query: QueryFn,
+    merge_fn: MergeFn,
+) where
+    SetupFn: Fn() -> S,
+    RecordFn: FnMut(&mut S, u64),
+    QueryFn: Fn(&S, f64) -> u64,
+    MergeFn: Fn(&mut S, &S),
+{
+    let query_f64 = |s: &S, q: f64| -> f64 { query(s, q) as f64 };
+    let mut result = run_core(name, &setup, &mut record_one, &query_f64);
+
+    eprintln!("[{name}] measuring merge...");
+    let state = build_state(&setup, &mut record_one);
+    result.merge_ns = Some(measure_merge_ns(&state, &merge_fn));
+
+    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+}
+
+/// Run the full benchmark suite for an f64-returning histogram (no merge).
 pub fn run_full_bench_f64<S, SetupFn, RecordFn, QueryFn>(
     name: &str,
     setup: SetupFn,
@@ -127,15 +166,48 @@ pub fn run_full_bench_f64<S, SetupFn, RecordFn, QueryFn>(
     RecordFn: FnMut(&mut S, u64),
     QueryFn: Fn(&S, f64) -> f64,
 {
-    run_full_bench_inner(name, &setup, &mut record_one, &query);
+    let result = run_core(name, &setup, &mut record_one, &query);
+    println!("{}", serde_json::to_string_pretty(&result).unwrap());
 }
 
-fn run_full_bench_inner<S, SetupFn, RecordFn, QueryFn>(
+/// Run the full benchmark suite for an f64-returning histogram with merge.
+pub fn run_bench_f64_with_merge<S: Clone, SetupFn, RecordFn, QueryFn, MergeFn>(
+    name: &str,
+    setup: SetupFn,
+    mut record_one: RecordFn,
+    query: QueryFn,
+    merge_fn: MergeFn,
+) where
+    SetupFn: Fn() -> S,
+    RecordFn: FnMut(&mut S, u64),
+    QueryFn: Fn(&S, f64) -> f64,
+    MergeFn: Fn(&mut S, &S),
+{
+    let mut result = run_core(name, &setup, &mut record_one, &query);
+
+    eprintln!("[{name}] measuring merge...");
+    let state = build_state(&setup, &mut record_one);
+    result.merge_ns = Some(measure_merge_ns(&state, &merge_fn));
+
+    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+}
+
+fn build_state<S>(setup: &impl Fn() -> S, record_one: &mut impl FnMut(&mut S, u64)) -> S {
+    let lnorm = distributions::log_normal_api(N);
+    let mut state = setup();
+    for &v in &lnorm {
+        record_one(&mut state, v);
+    }
+    state
+}
+
+fn run_core<S, SetupFn, RecordFn, QueryFn>(
     name: &str,
     setup: &SetupFn,
     record_one: &mut RecordFn,
     query: &QueryFn,
-) where
+) -> BenchResult
+where
     SetupFn: Fn() -> S,
     RecordFn: FnMut(&mut S, u64),
     QueryFn: Fn(&S, f64) -> f64,
@@ -174,7 +246,7 @@ fn run_full_bench_inner<S, SetupFn, RecordFn, QueryFn>(
         accuracy.push(compute_accuracy(dist_name, &values, &h, query));
     }
 
-    let result = BenchResult {
+    BenchResult {
         name: name.to_string(),
         record_throughput: RecordThroughput {
             sequential_ns: seq_ns,
@@ -188,10 +260,9 @@ fn run_full_bench_inner<S, SetupFn, RecordFn, QueryFn>(
             p99_ns,
             p999_ns,
         },
+        merge_ns: None,
         accuracy,
-    };
-
-    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+    }
 }
 
 fn median_ns_per_op(timings: &[Duration], ops: usize) -> f64 {

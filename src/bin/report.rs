@@ -60,6 +60,13 @@ fn parse_results(input: &str) -> Vec<BenchResult> {
         .collect()
 }
 
+fn fmt_merge_ns(v: Option<f64>) -> String {
+    match v {
+        Some(ns) => format!("{ns:.1}"),
+        None => "—".to_string(),
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Text output (terminal)
 // ---------------------------------------------------------------------------
@@ -94,6 +101,13 @@ fn print_text(results: &[BenchResult]) {
             r.percentile_latency.p99_ns,
             r.percentile_latency.p999_ns,
         );
+    }
+
+    println!("\nMerge Latency (ns/op)\n");
+    println!("{:<20} {:>12}", "", "merge");
+    println!("{}", "-".repeat(34));
+    for r in results {
+        println!("{:<20} {:>12}", r.name, fmt_merge_ns(r.merge_ns));
     }
 
     println!("\nAccuracy: Relative Error %\n");
@@ -149,6 +163,13 @@ fn print_markdown(results: &[BenchResult]) {
             r.percentile_latency.p99_ns,
             r.percentile_latency.p999_ns,
         );
+    }
+
+    println!("\n## Merge Latency (ns/op)\n");
+    println!("| Histogram | merge |");
+    println!("|---|---:|");
+    for r in results {
+        println!("| {} | {} |", r.name, fmt_merge_ns(r.merge_ns));
     }
 
     println!("\n## Accuracy: Relative Error %\n");

@@ -3,6 +3,7 @@ use std::time::Instant;
 
 use rust_histogram_benchmark::bench_harness::accuracy_distributions;
 use rust_histogram_benchmark::bench_harness::compute_accuracy;
+use rust_histogram_benchmark::bench_harness::measure_merge_ns;
 use rust_histogram_benchmark::bench_harness::measure_percentile_ns;
 use rust_histogram_benchmark::distributions;
 use rust_histogram_benchmark::output::BenchResult;
@@ -23,7 +24,6 @@ fn build_tdigest(values: &[u64]) -> TDigest {
     td
 }
 
-/// Measure amortized ns per value for batched merge.
 fn measure_tdigest_record_ns(values: &[u64]) -> f64 {
     let warmup = 5;
     let measure = 20;
@@ -67,6 +67,12 @@ fn main() {
     let p99_ns = measure_percentile_ns(&state, 0.99, query);
     let p999_ns = measure_percentile_ns(&state, 0.999, query);
 
+    // --- Merge ---
+    eprintln!("[{name}] measuring merge...");
+    let merge_ns = measure_merge_ns(&state, |target: &mut TDigest, other: &TDigest| {
+        *target = TDigest::merge_digests(vec![target.clone(), other.clone()]);
+    });
+
     // --- Accuracy ---
     eprintln!("[{name}] measuring accuracy...");
     let mut accuracy = Vec::new();
@@ -91,6 +97,7 @@ fn main() {
             p99_ns,
             p999_ns,
         },
+        merge_ns: Some(merge_ns),
         accuracy,
     };
 

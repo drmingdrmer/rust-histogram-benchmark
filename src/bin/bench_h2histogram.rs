@@ -1,7 +1,7 @@
 use rust_histogram_benchmark::bench_harness;
 
 fn main() {
-    bench_harness::run_full_bench(
+    bench_harness::run_bench_with_merge(
         "h2histogram",
         || histogram::Histogram::new(2, 64).unwrap(),
         |h, v| {
@@ -14,6 +14,11 @@ fn main() {
                 (lo + hi) / 2
             }
             _ => 0,
+        },
+        |target, other| {
+            if let Ok(merged) = target.wrapping_add(other) {
+                *target = merged;
+            }
         },
     );
 }

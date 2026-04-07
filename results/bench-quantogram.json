@@ -1,0 +1,47 @@
+{
+  "name": "quantogram",
+  "record_throughput": {
+    "sequential_ns": 46.041083,
+    "uniform_ns": 76.890396,
+    "log_normal_ns": 70.0934375
+  },
+  "percentile_latency": {
+    "p50_ns": 86.4875,
+    "p90_ns": 83.13545,
+    "p95_ns": 109.0229,
+    "p99_ns": 58.16875,
+    "p999_ns": 105.2375
+  },
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.23034794136525144,
+      "p95_error_pct": 0.9400686627187174,
+      "p99_error_pct": 0.7981646754796391
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.7444168734491315,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.31007751937984496
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.6493506493506493,
+      "p95_error_pct": 0.6010016694490818,
+      "p99_error_pct": 0.42440318302387264
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.4329004329004329,
+      "p95_error_pct": 0.5674232309746329,
+      "p99_error_pct": 0.7388092133854846
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    }
+  ]
+}

@@ -11,7 +11,9 @@ cargo build --release 2>&1 | tail -1
 BINS=(
     bench-base2histogram
     bench-hdrhistogram
+    bench-hdrhistogram-3
     bench-h2histogram
+    bench-quantogram
     bench-ddsketch
     bench-tdigest
 )

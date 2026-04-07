@@ -12,6 +12,7 @@ homepage = "https://github.com/drmingdrmer/rust-histogram-benchmark"
 base2histogram = "0.2.1"
 hdrhistogram = "7.5.4"
 histogram = "1.0.0"
+quantogram = "0.4.4"
 sketches-ddsketch = "0.4.0"
 tdigest = "0.2.3"
 rand = "0.9.2"
@@ -30,6 +31,14 @@ path = "src/bin/bench_hdrhistogram.rs"
 [[bin]]
 name = "bench-h2histogram"
 path = "src/bin/bench_h2histogram.rs"
+
+[[bin]]
+name = "bench-hdrhistogram-3"
+path = "src/bin/bench_hdrhistogram_3.rs"
+
+[[bin]]
+name = "bench-quantogram"
+path = "src/bin/bench_quantogram.rs"
 
 [[bin]]
 name = "bench-ddsketch"

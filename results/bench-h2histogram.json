@@ -1,16 +1,16 @@
 {
   "name": "h2histogram",
   "record_throughput": {
-    "sequential_ns": 2.0512295,
-    "uniform_ns": 1.446917,
-    "log_normal_ns": 1.4564165
+    "sequential_ns": 1.9789165,
+    "uniform_ns": 1.4152915,
+    "log_normal_ns": 1.4835415
   },
   "percentile_latency": {
-    "p50_ns": 137.2896,
-    "p90_ns": 145.15,
-    "p95_ns": 153.52085,
-    "p99_ns": 153.42295,
-    "p999_ns": 157.2271
+    "p50_ns": 138.03125,
+    "p90_ns": 141.7,
+    "p95_ns": 147.79585,
+    "p99_ns": 147.04585,
+    "p999_ns": 153.8625
   },
   "accuracy": [
     {

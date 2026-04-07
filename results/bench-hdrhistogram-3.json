@@ -1,0 +1,47 @@
+{
+  "name": "hdrhistogram-3",
+  "record_throughput": {
+    "sequential_ns": 2.265583,
+    "uniform_ns": 1.9704375,
+    "log_normal_ns": 2.065125
+  },
+  "percentile_latency": {
+    "p50_ns": 141.95625,
+    "p90_ns": 263.9292,
+    "p95_ns": 318.6375,
+    "p99_ns": 443.98335,
+    "p999_ns": 661.7125
+  },
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.021995029123418105,
+      "p95_error_pct": 0.003357049820447563,
+      "p99_error_pct": 0.018887497031498453
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.03337783711615487,
+      "p99_error_pct": 0.0217296827466319
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    }
+  ]
+}

@@ -3,6 +3,12 @@
 Benchmark suite for Rust histogram implementations, measuring recording
 throughput, percentile query latency, and accuracy across distributions.
 
+## Normalized Radar (outer = better)
+
+<img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram-3.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
+
+[Full charts dashboard](results/charts.html) | [Detailed report](results/report.md) | [Highlights](results/highlights.md)
+
 ## Implementations
 
 | Crate | Version | Algorithm | Value Type | Repo |
@@ -36,24 +42,6 @@ hdrhistogram is benchmarked at two precision levels: `sigfig=2` and `sigfig=3`.
 | Sparse representation | | | ✓ | | | |
 | Value removal | | | ✓ | | | |
 | Inverse query (prank) | | ✓ | | | | |
-
-## Highlights
-
-| Histogram | Memory | Record (ns) | P99 Query (ns) | Merge (ns) | P99 Error: log-normal | bimodal | exponential |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| base2histogram | 2.1 KB | 🥈 1.8 | 🥈 14.0 | 🏆 35.5 | 🏆 0.000% | 🥈 0.018% | 0.130% |
-| h2histogram | 🥈 2.0 KB | 🏆 1.4 | 154.1 | 🥈 64.7 | 9.070% | 0.424% | 🥈 0.109% |
-| hdrhistogram | 8.0 KB | 2.0 | 194.2 | 502.5 | 0.388% | 0.141% | 🥈 0.109% |
-| hdrhistogram-3 | 32.0 KB | 2.1 | 454.2 | 1919.2 | 🏆 0.000% | 🏆 0.000% | 🏆 0.022% |
-| quantogram | 31.6 KB | 71.0 | 61.5 | — | 0.310% | 0.424% | 0.739% |
-| ddsketch | 🥈 2.0 KB | 4.5 | 72.5 | 177.3 | 0.782% | 0.999% | 0.401% |
-| tdigest | 🏆 1.6 KB | 14.1 | 🏆 4.5 | 1214.3 | 0.223% | 0.184% | 0.118% |
-
-## Detailed Results
-
-- [Full benchmark report](results/report.md)
-- [Highlights](results/highlights.md)
-- [Raw JSON per implementation](results/)
 
 ## Methodology
 

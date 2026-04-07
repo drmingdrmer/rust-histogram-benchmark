@@ -29,6 +29,9 @@ echo "Generating reports..."
 # Markdown report for embedding in README
 ./target/release/report --markdown "$RESULTS_DIR"/*.json > "$RESULTS_DIR/report.md"
 
+# Charts (SVG + HTML dashboard)
+./target/release/gen-charts --output-dir "$RESULTS_DIR" "$RESULTS_DIR"/*.json
+
 # Text report to terminal
 echo ""
 ./target/release/report --text "$RESULTS_DIR"/*.json

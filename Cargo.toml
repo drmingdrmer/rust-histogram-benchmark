@@ -51,3 +51,7 @@ path = "src/bin/bench_tdigest.rs"
 [[bin]]
 name = "report"
 path = "src/bin/report.rs"
+
+[[bin]]
+name = "gen-charts"
+path = "src/bin/gen_charts.rs"

@@ -1,18 +1,19 @@
 {
   "name": "ddsketch",
   "record_throughput": {
-    "sequential_ns": 4.8296875,
-    "uniform_ns": 4.5202915,
-    "log_normal_ns": 4.2804795
+    "sequential_ns": 4.7482705,
+    "uniform_ns": 4.517854,
+    "log_normal_ns": 4.4633125
   },
   "percentile_latency": {
-    "p50_ns": 54.4,
-    "p90_ns": 65.1375,
-    "p95_ns": 66.28125,
-    "p99_ns": 74.46455,
-    "p999_ns": 81.5375
+    "p50_ns": 52.3833,
+    "p90_ns": 62.80835,
+    "p95_ns": 66.46875,
+    "p99_ns": 72.5271,
+    "p999_ns": 77.55205
   },
-  "merge_ns": 153.375,
+  "memory_bytes": 2048,
+  "merge_ns": 177.292,
   "accuracy": [
     {
       "distribution": "uniform",

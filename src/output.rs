@@ -9,6 +9,7 @@ pub struct BenchResult {
     pub name: String,
     pub record_throughput: RecordThroughput,
     pub percentile_latency: PercentileLatency,
+    pub memory_bytes: usize,
     pub merge_ns: Option<f64>,
     pub accuracy: Vec<AccuracyResult>,
 }

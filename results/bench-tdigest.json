@@ -1,18 +1,19 @@
 {
   "name": "tdigest",
   "record_throughput": {
-    "sequential_ns": 2.122542,
-    "uniform_ns": 14.106521,
-    "log_normal_ns": 14.0173125
+    "sequential_ns": 2.092104,
+    "uniform_ns": 13.929792,
+    "log_normal_ns": 14.0942915
   },
   "percentile_latency": {
-    "p50_ns": 39.0917,
-    "p90_ns": 10.6104,
-    "p95_ns": 8.28545,
+    "p50_ns": 37.79585,
+    "p90_ns": 9.20625,
+    "p95_ns": 7.47915,
     "p99_ns": 4.51875,
-    "p999_ns": 3.0542
+    "p999_ns": 3.175
   },
-  "merge_ns": 1313.292,
+  "memory_bytes": 1600,
+  "merge_ns": 1214.292,
   "accuracy": [
     {
       "distribution": "uniform",

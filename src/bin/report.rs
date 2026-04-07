@@ -60,10 +60,20 @@ fn parse_results(input: &str) -> Vec<BenchResult> {
         .collect()
 }
 
-fn fmt_merge_ns(v: Option<f64>) -> String {
+fn fmt_optional_f64(v: Option<f64>) -> String {
     match v {
         Some(ns) => format!("{ns:.1}"),
         None => "—".to_string(),
+    }
+}
+
+fn fmt_memory(bytes: usize) -> String {
+    if bytes >= 1024 * 1024 {
+        format!("{:.1} MB", bytes as f64 / (1024.0 * 1024.0))
+    } else if bytes >= 1024 {
+        format!("{:.1} KB", bytes as f64 / 1024.0)
+    } else {
+        format!("{bytes} B")
     }
 }
 
@@ -103,11 +113,18 @@ fn print_text(results: &[BenchResult]) {
         );
     }
 
+    println!("\nMemory (after recording 2M log-normal values)\n");
+    println!("{:<20} {:>12}", "", "heap bytes");
+    println!("{}", "-".repeat(34));
+    for r in results {
+        println!("{:<20} {:>12}", r.name, fmt_memory(r.memory_bytes));
+    }
+
     println!("\nMerge Latency (ns/op)\n");
     println!("{:<20} {:>12}", "", "merge");
     println!("{}", "-".repeat(34));
     for r in results {
-        println!("{:<20} {:>12}", r.name, fmt_merge_ns(r.merge_ns));
+        println!("{:<20} {:>12}", r.name, fmt_optional_f64(r.merge_ns));
     }
 
     println!("\nAccuracy: Relative Error %\n");
@@ -165,11 +182,18 @@ fn print_markdown(results: &[BenchResult]) {
         );
     }
 
+    println!("\n## Memory (after recording 2M log-normal values)\n");
+    println!("| Histogram | heap bytes |");
+    println!("|---|---:|");
+    for r in results {
+        println!("| {} | {} |", r.name, fmt_memory(r.memory_bytes));
+    }
+
     println!("\n## Merge Latency (ns/op)\n");
     println!("| Histogram | merge |");
     println!("|---|---:|");
     for r in results {
-        println!("| {} | {} |", r.name, fmt_merge_ns(r.merge_ns));
+        println!("| {} | {} |", r.name, fmt_optional_f64(r.merge_ns));
     }
 
     println!("\n## Accuracy: Relative Error %\n");

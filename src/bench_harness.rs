@@ -2,6 +2,7 @@ use std::hint::black_box;
 use std::time::Duration;
 use std::time::Instant;
 
+use crate::alloc_tracker;
 use crate::distributions;
 use crate::output::AccuracyResult;
 use crate::output::BenchResult;
@@ -97,6 +98,43 @@ where MergeFn: Fn(&mut S, &S) {
     }
 
     median_ns_per_op(&timings[WARMUP_ITERS..], MERGE_ITERS)
+}
+
+/// Measure heap bytes used by creating and populating a histogram.
+pub fn measure_memory_bytes<S>(
+    setup: &impl Fn() -> S,
+    record_one: &mut impl FnMut(&mut S, u64),
+    values: &[u64],
+) -> usize {
+    // Warm up to avoid measuring one-time lazy allocations
+    let _ = {
+        let mut h = setup();
+        for &v in values {
+            record_one(&mut h, v);
+        }
+        h
+    };
+
+    let before = alloc_tracker::live_bytes();
+    let mut h = setup();
+    for &v in values {
+        record_one(&mut h, v);
+    }
+    let after = alloc_tracker::live_bytes();
+    black_box(&h);
+    drop(h);
+    let _ = after.saturating_sub(before);
+
+    // Measure again more precisely: the delta while h is alive
+    let before = alloc_tracker::live_bytes();
+    let mut h = setup();
+    for &v in values {
+        record_one(&mut h, v);
+    }
+    let after = alloc_tracker::live_bytes();
+    let memory = after.saturating_sub(before);
+    black_box(&h);
+    memory
 }
 
 pub fn compute_accuracy<S, F>(name: &str, values: &[u64], state: &S, query: F) -> AccuracyResult
@@ -223,6 +261,10 @@ where
     let uni_ns = measure_record_ns(&uni, setup, &mut *record_one);
     let ln_ns = measure_record_ns(&lnorm, setup, &mut *record_one);
 
+    // --- Memory ---
+    eprintln!("[{name}] measuring memory...");
+    let memory_bytes = measure_memory_bytes(setup, record_one, &lnorm);
+
     // --- Percentile latency ---
     eprintln!("[{name}] measuring percentile latency...");
     let mut state = setup();
@@ -260,6 +302,7 @@ where
             p99_ns,
             p999_ns,
         },
+        memory_bytes,
         merge_ns: None,
         accuracy,
     }

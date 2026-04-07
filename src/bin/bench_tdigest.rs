@@ -1,3 +1,7 @@
+#[global_allocator]
+static ALLOC: rust_histogram_benchmark::alloc_tracker::TrackingAllocator =
+    rust_histogram_benchmark::alloc_tracker::TrackingAllocator;
+
 use std::hint::black_box;
 use std::time::Instant;
 
@@ -56,6 +60,16 @@ fn main() {
     let uni_ns = measure_tdigest_record_ns(&uni);
     let ln_ns = measure_tdigest_record_ns(&lnorm);
 
+    // --- Memory ---
+    eprintln!("[{name}] measuring memory...");
+    let _ = build_tdigest(&lnorm); // warmup
+    let before = rust_histogram_benchmark::alloc_tracker::live_bytes();
+    let mem_state = build_tdigest(&lnorm);
+    let after = rust_histogram_benchmark::alloc_tracker::live_bytes();
+    let memory_bytes = after.saturating_sub(before);
+    black_box(&mem_state);
+    drop(mem_state);
+
     // --- Percentile latency ---
     eprintln!("[{name}] measuring percentile latency...");
     let state = build_tdigest(&lnorm);
@@ -97,6 +111,7 @@ fn main() {
             p99_ns,
             p999_ns,
         },
+        memory_bytes,
         merge_ns: Some(merge_ns),
         accuracy,
     };

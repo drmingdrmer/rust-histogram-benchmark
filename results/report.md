@@ -3,36 +3,48 @@
 | Histogram | sequential | uniform | log-normal |
 |---|---:|---:|---:|
 | base2histogram | 2.0 | 2.0 | 1.8 |
-| ddsketch | 4.8 | 4.5 | 4.3 |
-| h2histogram | 2.0 | 1.5 | 1.5 |
-| hdrhistogram-3 | 2.4 | 2.1 | 2.1 |
-| hdrhistogram | 2.3 | 2.1 | 2.2 |
-| quantogram | 49.7 | 77.8 | 72.1 |
-| tdigest | 2.1 | 14.1 | 14.0 |
+| ddsketch | 4.7 | 4.5 | 4.5 |
+| h2histogram | 2.0 | 1.5 | 1.4 |
+| hdrhistogram-3 | 2.3 | 2.1 | 2.1 |
+| hdrhistogram | 2.3 | 2.1 | 2.0 |
+| quantogram | 52.4 | 79.0 | 71.0 |
+| tdigest | 2.1 | 13.9 | 14.1 |
 
 ## Percentile Query Latency (ns/op)
 
 | Histogram | P50 | P90 | P95 | P99 | P99.9 |
 |---|---:|---:|---:|---:|---:|
-| base2histogram | 19.3 | 12.2 | 13.2 | 13.0 | 15.0 |
-| ddsketch | 54.4 | 65.1 | 66.3 | 74.5 | 81.5 |
-| h2histogram | 135.4 | 142.8 | 146.2 | 150.0 | 146.5 |
-| hdrhistogram-3 | 141.2 | 256.8 | 323.4 | 428.2 | 657.9 |
-| hdrhistogram | 125.1 | 164.9 | 177.9 | 203.2 | 224.1 |
-| quantogram | 93.5 | 72.4 | 96.7 | 63.2 | 104.7 |
-| tdigest | 39.1 | 10.6 | 8.3 | 4.5 | 3.1 |
+| base2histogram | 19.6 | 11.0 | 12.2 | 14.0 | 14.8 |
+| ddsketch | 52.4 | 62.8 | 66.5 | 72.5 | 77.6 |
+| h2histogram | 137.2 | 144.4 | 150.9 | 154.1 | 163.4 |
+| hdrhistogram-3 | 152.5 | 272.9 | 308.6 | 454.2 | 647.6 |
+| hdrhistogram | 125.1 | 166.4 | 167.3 | 194.2 | 226.1 |
+| quantogram | 118.3 | 108.4 | 138.4 | 61.5 | 111.8 |
+| tdigest | 37.8 | 9.2 | 7.5 | 4.5 | 3.2 |
+
+## Memory (after recording 2M log-normal values)
+
+| Histogram | heap bytes |
+|---|---:|
+| base2histogram | 2.1 KB |
+| ddsketch | 2.0 KB |
+| h2histogram | 2.0 KB |
+| hdrhistogram-3 | 32.0 KB |
+| hdrhistogram | 8.0 KB |
+| quantogram | 31.6 KB |
+| tdigest | 1.6 KB |
 
 ## Merge Latency (ns/op)
 
 | Histogram | merge |
 |---|---:|
-| base2histogram | 37.6 |
-| ddsketch | 153.4 |
-| h2histogram | 67.5 |
-| hdrhistogram-3 | 2060.8 |
-| hdrhistogram | 504.6 |
+| base2histogram | 35.5 |
+| ddsketch | 177.3 |
+| h2histogram | 64.7 |
+| hdrhistogram-3 | 1919.2 |
+| hdrhistogram | 502.5 |
 | quantogram | — |
-| tdigest | 1313.3 |
+| tdigest | 1214.3 |
 
 ## Accuracy: Relative Error %
 

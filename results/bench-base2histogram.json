@@ -1,19 +1,19 @@
 {
   "name": "base2histogram",
   "record_throughput": {
-    "sequential_ns": 2.025042,
-    "uniform_ns": 1.9554375,
-    "log_normal_ns": 1.8437915
+    "sequential_ns": 2.0714795,
+    "uniform_ns": 1.882104,
+    "log_normal_ns": 1.7865835
   },
   "percentile_latency": {
-    "p50_ns": 19.60415,
-    "p90_ns": 11.0125,
-    "p95_ns": 12.15415,
-    "p99_ns": 13.9875,
-    "p999_ns": 14.76455
+    "p50_ns": 18.6354,
+    "p90_ns": 13.9708,
+    "p95_ns": 12.23545,
+    "p99_ns": 13.0625,
+    "p999_ns": 14.38955
   },
   "memory_bytes": 2144,
-  "merge_ns": 35.5,
+  "merge_ns": 33.375,
   "accuracy": [
     {
       "distribution": "uniform",

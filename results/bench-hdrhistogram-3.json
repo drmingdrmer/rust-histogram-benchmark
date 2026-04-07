@@ -1,19 +1,19 @@
 {
   "name": "hdrhistogram-3",
   "record_throughput": {
-    "sequential_ns": 2.3369375,
-    "uniform_ns": 2.0685625,
-    "log_normal_ns": 2.0512915
+    "sequential_ns": 2.343146,
+    "uniform_ns": 2.0834375,
+    "log_normal_ns": 2.0369375
   },
   "percentile_latency": {
-    "p50_ns": 152.4625,
-    "p90_ns": 272.93125,
-    "p95_ns": 308.57085,
-    "p99_ns": 454.21045,
-    "p999_ns": 647.6271
+    "p50_ns": 150.8125,
+    "p90_ns": 276.8771,
+    "p95_ns": 332.65625,
+    "p99_ns": 450.48335,
+    "p999_ns": 666.90625
   },
   "memory_bytes": 32768,
-  "merge_ns": 1919.208,
+  "merge_ns": 2042.708,
   "accuracy": [
     {
       "distribution": "uniform",

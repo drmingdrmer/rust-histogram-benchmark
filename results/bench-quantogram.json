@@ -1,18 +1,18 @@
 {
   "name": "quantogram",
   "record_throughput": {
-    "sequential_ns": 52.4110835,
-    "uniform_ns": 79.0297915,
-    "log_normal_ns": 70.968792
+    "sequential_ns": 50.7479585,
+    "uniform_ns": 80.569854,
+    "log_normal_ns": 70.1110835
   },
   "percentile_latency": {
-    "p50_ns": 118.25625,
-    "p90_ns": 108.35415,
-    "p95_ns": 138.3708,
-    "p99_ns": 61.49375,
-    "p999_ns": 111.75835
+    "p50_ns": 83.0542,
+    "p90_ns": 87.875,
+    "p95_ns": 107.9271,
+    "p99_ns": 68.5583,
+    "p999_ns": 117.82915
   },
-  "memory_bytes": 32352,
+  "memory_bytes": 32032,
   "merge_ns": null,
   "accuracy": [
     {

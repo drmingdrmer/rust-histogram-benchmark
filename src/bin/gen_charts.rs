@@ -326,9 +326,9 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
 
     let w = 240.0_f64;
     let h = 210.0;
-    let cx = 130.0;
-    let cy = 118.0;
-    let radius = 62.0;
+    let cx = 125.0;
+    let cy = 115.0;
+    let radius = 44.0;
 
     scores
         .iter()
@@ -340,9 +340,9 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
 
             // Histogram name at top
             let name_attrs = format!(
-                r##"font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="{color}" text-anchor="middle""##
+                r##"font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="{color}" text-anchor="middle""##
             );
-            svg_text(&mut svg, cx, 18.0, &name_attrs, &esc(name));
+            svg_text(&mut svg, cx, 28.0, &name_attrs, &esc(name));
 
             // Grid rings
             for ring in 1..=5 {
@@ -370,9 +370,9 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
             // Axis labels — positioned outside the outermost ring
             for (i, label) in axes.iter().enumerate() {
                 let angle = axis_angle(i, n_axes);
-                let label_r = radius + 16.0;
+                let label_r = radius + 10.0;
                 let lx = cx + label_r * angle.cos();
-                let ly = cy + label_r * angle.sin() + 4.0;
+                let ly = cy + label_r * angle.sin() + 5.0;
                 let anchor = if angle.cos().abs() < 0.15 {
                     "middle"
                 } else if angle.cos() > 0.0 {
@@ -381,7 +381,7 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
                     "end"
                 };
                 let attrs = format!(
-                    r##"font-family="system-ui,sans-serif" font-size="9.5" fill="#999" text-anchor="{anchor}""##
+                    r##"font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="{anchor}""##
                 );
                 svg_text(&mut svg, lx, ly, &attrs, label);
             }
@@ -398,7 +398,7 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
             }
             writeln!(
                 svg,
-                r#"<polygon points="{points}" fill="{color}" fill-opacity="0.20" stroke="{color}" stroke-width="1.3"/>"#
+                r#"<polygon points="{points}" fill="{color}" fill-opacity="0.20" stroke="{color}" stroke-width="1.5"/>"#
             )
             .unwrap();
 
@@ -408,7 +408,7 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
                 let r = radius * score;
                 let px = cx + r * angle.cos();
                 let py = cy + r * angle.sin();
-                writeln!(svg, r#"<circle cx="{px:.1}" cy="{py:.1}" r="2" fill="{color}"/>"#)
+                writeln!(svg, r#"<circle cx="{px:.1}" cy="{py:.1}" r="3" fill="{color}"/>"#)
                     .unwrap();
             }
 

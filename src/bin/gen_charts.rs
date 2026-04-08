@@ -183,13 +183,13 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
     ];
 
     let chart_w = 780.0_f64;
-    let panel_gap = 35.0;
+    let panel_gap = 20.0;
     let left_margin = 140.0;
     let right_margin = 85.0;
     let bar_area_w = chart_w - left_margin - right_margin;
-    let bar_h = 26.0;
-    let bar_gap = 8.0;
-    let title_h = 32.0;
+    let bar_h = 16.0;
+    let bar_gap = 5.0;
+    let title_h = 26.0;
 
     let n = results.len() as f64;
     let panel_h = title_h + n * (bar_h + bar_gap) - bar_gap + 10.0;
@@ -220,7 +220,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
 
         for entry in &entries {
             let bar_y = y_offset;
-            let text_y = bar_y + bar_h / 2.0 + 5.0;
+            let text_y = bar_y + bar_h / 2.0 + 4.0;
             let name = esc(&entry.name);
 
             let label_attrs = r##"font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end""##;
@@ -249,14 +249,14 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
 
                 // Value
                 let label = format_value(entry.value, unit);
-                let val_attrs = r##"font-family="system-ui,sans-serif" font-size="11" fill="#333" font-weight="500""##;
+                let val_attrs = r##"font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500""##;
                 svg_text(&mut svg, left_margin + bar_w + 8.0, text_y, val_attrs, &label);
             }
 
             y_offset += bar_h + bar_gap;
         }
 
-        y_offset += panel_gap - bar_gap + 10.0;
+        y_offset += panel_gap - bar_gap + 6.0;
     }
 
     write_svg_close(&mut svg);
@@ -364,9 +364,14 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
             for ring in 1..=5 {
                 let r = radius * ring as f64 / 5.0;
                 let points = polygon_points(cx, cy, r, n_axes);
+                let (stroke, stroke_width) = if ring == 5 {
+                    ("#d0d0d0", "0.8")
+                } else {
+                    ("#e8e8e8", "0.5")
+                };
                 writeln!(
                     svg,
-                    r##"<polygon points="{points}" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>"##
+                    r#"<polygon points="{points}" fill="none" stroke="{stroke}" stroke-width="{stroke_width}"/>"#
                 )
                 .unwrap();
             }

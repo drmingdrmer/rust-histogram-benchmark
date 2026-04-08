@@ -39,6 +39,7 @@ fn main() {
     let perf_svg = perf_bars_svg(&results);
     let radar_svgs = radar_svgs(&results);
     let heatmap_svg = heatmap_svg(&results);
+    let highlights_md = highlights_markdown(&results);
 
     fs::create_dir_all(&output_dir).unwrap();
     fs::write(format!("{output_dir}/chart-perf.svg"), &perf_svg).unwrap();
@@ -46,12 +47,13 @@ fn main() {
         fs::write(format!("{output_dir}/chart-radar-{}.svg", slugify(name)), svg).unwrap();
     }
     fs::write(format!("{output_dir}/chart-accuracy.svg"), &heatmap_svg).unwrap();
+    fs::write(format!("{output_dir}/highlights.md"), &highlights_md).unwrap();
 
     let html = html_dashboard(&perf_svg, &radar_svgs, &heatmap_svg);
     fs::write(format!("{output_dir}/charts.html"), &html).unwrap();
 
     eprintln!(
-        "Generated charts: perf, radar (x{}), accuracy, dashboard",
+        "Generated charts: perf, radar (x{}), accuracy, highlights, dashboard",
         radar_svgs.len()
     );
 }
@@ -281,6 +283,122 @@ fn format_value(v: f64, unit: &str) -> String {
     }
 }
 
+fn highlights_markdown(results: &[BenchResult]) -> String {
+    let log_normal_errors: Vec<Option<f64>> = results.iter().map(|r| find_p99_error(r, "log_normal_api")).collect();
+    let bimodal_errors: Vec<Option<f64>> = results.iter().map(|r| find_p99_error(r, "bimodal")).collect();
+    let exponential_errors: Vec<Option<f64>> = results.iter().map(|r| find_p99_error(r, "exponential")).collect();
+
+    let (mem_best, mem_second) =
+        top_two_indices(&results.iter().map(|r| Some(r.memory_bytes as f64)).collect::<Vec<_>>());
+    let (record_best, record_second) =
+        top_two_indices(&results.iter().map(|r| Some(r.record_throughput.log_normal_ns)).collect::<Vec<_>>());
+    let (query_best, query_second) =
+        top_two_indices(&results.iter().map(|r| Some(r.percentile_latency.p99_ns)).collect::<Vec<_>>());
+    let (merge_best, merge_second) = top_two_indices(&results.iter().map(|r| r.merge_ns).collect::<Vec<_>>());
+    let (logn_best, logn_second) = top_two_indices(&log_normal_errors);
+    let (bimodal_best, bimodal_second) = top_two_indices(&bimodal_errors);
+    let (exp_best, exp_second) = top_two_indices(&exponential_errors);
+
+    let mut out = String::new();
+    writeln!(out, "# Benchmark Highlights").unwrap();
+    writeln!(out).unwrap();
+    // JSON outputs do not currently encode run-size metadata, so this heading
+    // mirrors the benchmark harness defaults.
+    writeln!(
+        out,
+        "{} Rust histogram implementations, 2M samples, median of 20 iterations.",
+        results.len()
+    )
+    .unwrap();
+    writeln!(
+        out,
+        "[Full results](report.md) | [Source](https://github.com/drmingdrmer/rust-histogram-benchmark)"
+    )
+    .unwrap();
+    writeln!(out).unwrap();
+    writeln!(
+        out,
+        "| Histogram | Memory | Record (ns) | P99 Query (ns) | Merge (ns) | P99 Error: log-normal | bimodal | exponential |"
+    )
+    .unwrap();
+    writeln!(out, "|---|---:|---:|---:|---:|---:|---:|---:|").unwrap();
+
+    for (idx, r) in results.iter().enumerate() {
+        let memory = format!(
+            "{}{}",
+            medal_prefix(idx, mem_best, mem_second),
+            format_value(r.memory_bytes as f64, "")
+        );
+        let record = format!(
+            "{}{:.1}",
+            medal_prefix(idx, record_best, record_second),
+            r.record_throughput.log_normal_ns
+        );
+        let query = format!(
+            "{}{:.1}",
+            medal_prefix(idx, query_best, query_second),
+            r.percentile_latency.p99_ns
+        );
+        let merge = format!(
+            "{}{}",
+            medal_prefix(idx, merge_best, merge_second),
+            fmt_optional_decimal(r.merge_ns)
+        );
+        let logn = format!(
+            "{}{}",
+            medal_prefix(idx, logn_best, logn_second),
+            fmt_optional_percent(log_normal_errors[idx])
+        );
+        let bimodal = format!(
+            "{}{}",
+            medal_prefix(idx, bimodal_best, bimodal_second),
+            fmt_optional_percent(bimodal_errors[idx])
+        );
+        let exponential = format!(
+            "{}{}",
+            medal_prefix(idx, exp_best, exp_second),
+            fmt_optional_percent(exponential_errors[idx])
+        );
+
+        writeln!(
+            out,
+            "| {} | {} | {} | {} | {} | {} | {} | {} |",
+            r.name, memory, record, query, merge, logn, bimodal, exponential
+        )
+        .unwrap();
+    }
+
+    out
+}
+
+fn top_two_indices(values: &[Option<f64>]) -> (Option<usize>, Option<usize>) {
+    let mut ranked: Vec<(usize, f64)> = values.iter().enumerate().filter_map(|(i, v)| v.map(|x| (i, x))).collect();
+    ranked.sort_by(|a, b| a.1.total_cmp(&b.1).then_with(|| a.0.cmp(&b.0)));
+    (ranked.first().map(|(i, _)| *i), ranked.get(1).map(|(i, _)| *i))
+}
+
+fn medal_prefix(index: usize, best: Option<usize>, second: Option<usize>) -> &'static str {
+    if Some(index) == best {
+        "🏆 "
+    } else if Some(index) == second {
+        "🥈 "
+    } else {
+        ""
+    }
+}
+
+fn fmt_optional_decimal(v: Option<f64>) -> String {
+    v.map(|x| format!("{x:.1}")).unwrap_or_else(|| "—".to_string())
+}
+
+fn fmt_optional_percent(v: Option<f64>) -> String {
+    v.map(|x| format!("{x:.3}%")).unwrap_or_else(|| "—".to_string())
+}
+
+fn find_p99_error(result: &BenchResult, dist: &str) -> Option<f64> {
+    result.accuracy.iter().find(|a| a.distribution == dist).map(|a| a.p99_error_pct)
+}
+
 // ---------------------------------------------------------------------------
 // Radar chart
 // ---------------------------------------------------------------------------
@@ -466,31 +584,31 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
     let dists = ["log_normal_api", "bimodal", "exponential", "pareto", "uniform"];
     let dist_labels = ["Log-Normal", "Bimodal", "Exponential", "Pareto", "Uniform"];
 
-    let cell_w = 90.0_f64;
-    let cell_h = 42.0;
-    let label_w = 110.0;
-    let header_h = 140.0;
+    let cell_w = 74.0_f64;
+    let cell_h = 30.0;
+    let label_w = 96.0;
+    let header_h = 102.0;
 
     let n_cols = results.len();
     let n_rows = dists.len();
     let w = label_w + n_cols as f64 * cell_w + 20.0;
-    let h = header_h + n_rows as f64 * cell_h + 55.0;
+    let h = header_h + n_rows as f64 * cell_h + 42.0;
 
     let mut svg = String::new();
     write_svg_open(&mut svg, w, h);
     svg_rect(&mut svg, 0.0, 0.0, w, h, r#"fill="white" rx="8""#);
 
     let title_attrs =
-        r##"font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333" text-anchor="middle""##;
-    svg_text(&mut svg, w / 2.0, 24.0, title_attrs, "P99 Accuracy Error %");
+        r##"font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle""##;
+    svg_text(&mut svg, w / 2.0, 20.0, title_attrs, "P99 Accuracy Error %");
 
     // Column headers (rotated)
     for (j, r) in results.iter().enumerate() {
         let x = label_w + j as f64 * cell_w + cell_w / 2.0;
-        let y = header_h - 12.0;
+        let y = header_h - 10.0;
         writeln!(
             svg,
-            r##"<text x="{x:.1}" y="{y:.1}" font-family="system-ui,sans-serif" font-size="11" fill="#444" text-anchor="start" transform="rotate(-55,{x:.1},{y:.1})">{}</text>"##,
+            r##"<text x="{x:.1}" y="{y:.1}" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,{x:.1},{y:.1})">{}</text>"##,
             esc(&r.name),
         ).unwrap();
     }
@@ -499,7 +617,7 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
     for (i, dist) in dists.iter().enumerate() {
         let y = header_h + i as f64 * cell_h;
 
-        let row_attrs = r##"font-family="system-ui,sans-serif" font-size="11" fill="#444" text-anchor="end""##;
+        let row_attrs = r##"font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end""##;
         svg_text(
             &mut svg,
             label_w - 10.0,
@@ -519,7 +637,7 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
                 error_color(p99)
             };
 
-            let cell_attrs = format!(r#"fill="{fill}" stroke="white" stroke-width="2" rx="3""#);
+            let cell_attrs = format!(r#"fill="{fill}" stroke="white" stroke-width="1.5" rx="2.5""#);
             svg_rect(&mut svg, x, y, cell_w - 2.0, cell_h, &cell_attrs);
 
             let text_color = if p99.is_nan() || p99 < 0.8 { "#333" } else { "#fff" };
@@ -531,7 +649,7 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
                 format!("{p99:.3}%")
             };
             let val_attrs = format!(
-                r#"font-family="system-ui,sans-serif" font-size="10" font-weight="500" fill="{text_color}" text-anchor="middle""#
+                r#"font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="{text_color}" text-anchor="middle""#
             );
             svg_text(
                 &mut svg,
@@ -544,10 +662,10 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
     }
 
     // Color scale legend
-    let legend_y = header_h + n_rows as f64 * cell_h + 18.0;
+    let legend_y = header_h + n_rows as f64 * cell_h + 12.0;
     let legend_x = label_w;
-    let legend_w = 200.0;
-    let legend_h = 12.0;
+    let legend_w = 160.0;
+    let legend_h = 8.0;
     let steps = 40;
 
     for s in 0..steps {
@@ -559,21 +677,21 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
         svg_rect(&mut svg, sx, legend_y, sw, legend_h, &attrs);
     }
 
-    let scale_attrs = r##"font-family="system-ui,sans-serif" font-size="9" fill="#666""##;
-    svg_text(&mut svg, legend_x, legend_y + legend_h + 12.0, scale_attrs, "0%");
-    let mid_attrs = r##"font-family="system-ui,sans-serif" font-size="9" fill="#666" text-anchor="middle""##;
+    let scale_attrs = r##"font-family="system-ui,sans-serif" font-size="8.5" fill="#666""##;
+    svg_text(&mut svg, legend_x, legend_y + legend_h + 11.0, scale_attrs, "0%");
+    let mid_attrs = r##"font-family="system-ui,sans-serif" font-size="8.5" fill="#666" text-anchor="middle""##;
     svg_text(
         &mut svg,
         legend_x + legend_w / 2.0,
-        legend_y + legend_h + 12.0,
+        legend_y + legend_h + 11.0,
         mid_attrs,
         "1%",
     );
-    let end_attrs = r##"font-family="system-ui,sans-serif" font-size="9" fill="#666" text-anchor="end""##;
+    let end_attrs = r##"font-family="system-ui,sans-serif" font-size="8.5" fill="#666" text-anchor="end""##;
     svg_text(
         &mut svg,
         legend_x + legend_w,
-        legend_y + legend_h + 12.0,
+        legend_y + legend_h + 11.0,
         end_attrs,
         "2%+",
     );

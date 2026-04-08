@@ -107,6 +107,9 @@ cargo run --release --bin bench-base2histogram
 # Generate report from saved JSON results
 cargo run --release --bin report -- results/*.json
 
+# Generate charts + dashboard + highlights markdown
+cargo run --release --bin gen-charts -- --output-dir results results/*.json
+
 # Generate markdown report
 cargo run --release --bin report -- --markdown results/*.json
 ```

@@ -33,7 +33,7 @@ echo "Generating reports..."
 # Markdown report for embedding in README
 ./target/release/report --markdown "${JSON_PATHS[@]}" > "$RESULTS_DIR/report.md"
 
-# Charts (SVG + HTML dashboard)
+# Charts (SVG + HTML dashboard + highlights markdown)
 ./target/release/gen-charts --output-dir "$RESULTS_DIR" "${JSON_PATHS[@]}"
 
 # Text report to terminal

@@ -1,25 +1,27 @@
 {
   "name": "quantogram",
+  "family": "quantogram",
+  "config": "bins_per_doubling=35,smallest_power=0,largest_power=observed_max_power",
   "record_throughput": {
-    "sequential_ns": 50.7479585,
-    "uniform_ns": 80.569854,
-    "log_normal_ns": 70.1110835
+    "sequential_ns": 46.653396,
+    "uniform_ns": 78.2445625,
+    "log_normal_ns": 71.4592915
   },
   "percentile_latency": {
-    "p50_ns": 83.0542,
-    "p90_ns": 87.875,
-    "p95_ns": 107.9271,
-    "p99_ns": 68.5583,
-    "p999_ns": 117.82915
+    "p50_ns": 83.45625,
+    "p90_ns": 99.35835,
+    "p95_ns": 122.87915,
+    "p99_ns": 76.60415,
+    "p999_ns": 127.28955
   },
-  "memory_bytes": 32032,
+  "memory_bytes": 32272,
   "merge_ns": null,
   "accuracy": [
     {
       "distribution": "uniform",
-      "p50_error_pct": 0.23034794136525144,
-      "p95_error_pct": 0.9400686627187174,
-      "p99_error_pct": 0.7981646754796391
+      "p50_error_pct": 0.22514911629971626,
+      "p95_error_pct": 0.9449095496070805,
+      "p99_error_pct": 0.8034170945696331
     },
     {
       "distribution": "log_normal_api",

@@ -5,7 +5,7 @@ throughput, percentile query latency, and accuracy across distributions.
 
 ## Normalized Radar (outer = better)
 
-<img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram-3.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
+<img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
 
 [Full charts dashboard](results/charts.html) | [Detailed report](results/report.md) | [Highlights](results/highlights.md)
 
@@ -20,7 +20,8 @@ throughput, percentile query latency, and accuracy across distributions.
 | [sketches-ddsketch] | 0.4 | Logarithmic with relative accuracy guarantee | `f64` | [mheffner/rust-sketches-ddsketch](https://github.com/mheffner/rust-sketches-ddsketch) |
 | [tdigest] | 0.2 | t-digest merging with centroid compression | `f64` | [MnO2/t-digest](https://github.com/MnO2/t-digest) |
 
-hdrhistogram is benchmarked at two precision levels: `sigfig=2` and `sigfig=3`.
+Each implementation is benchmarked with one standard balanced configuration,
+chosen to keep accuracy, memory, and throughput in a comparable middle ground.
 
 ## Feature Matrix
 
@@ -56,9 +57,9 @@ iterations + 20 measured iterations, median reported.
 - Random uniform: `u64` drawn from `[1, 10^6]`
 - Log-normal: `μ=6, σ=0.5` (typical API latency shape)
 
-Note: t-digest does not support per-value recording. Its benchmark uses
-batched `merge_unsorted()` with batch size 1000 and reports amortized
-ns per value.
+Note: t-digest is benchmarked through a buffered adapter that locally sorts
+each batch and feeds `merge_sorted()`. This better reflects the best available
+path in the current crate than repeatedly calling `merge_unsorted()`.
 
 ### Percentile Query Latency
 
@@ -77,19 +78,20 @@ quantogram, and t-digest accept `f64`; u64 values are cast via `as f64`.
 
 ## Configuration
 
-| Crate | Config | Measured Memory |
-|-------|--------|---:|
-| base2histogram | `WIDTH=3` (default) | 2.1 KB |
-| hdrhistogram | `sigfig=2` (auto-resize) | 8.0 KB |
-| hdrhistogram-3 | `sigfig=3` (auto-resize) | 32.0 KB |
-| H2 histogram | `grouping_power=2` | 2.0 KB |
-| quantogram | default (1% error) | 31.6 KB |
-| DDSketch | default config (`α≈0.01`) | 2.0 KB |
-| t-digest | `max_size=100` | 1.6 KB |
+The suite uses the following standard balanced configuration for each crate:
 
-Memory is measured programmatically using a tracking allocator that
-records heap bytes allocated while creating and populating each histogram
-with 2M log-normal values.
+| Crate | Selected config |
+|-------|-----------------|
+| base2histogram | `width=3` |
+| hdrhistogram | `sigfig=2`, fixed bounds |
+| H2 histogram | `grouping_power=4`, `max_value_power=64` |
+| quantogram | `bins_per_doubling=35`, bounded powers |
+| DDSketch | `alpha=0.01`, `max_num_bins=2048`, `min_value=1.0` |
+| t-digest | `max_size=100`, `batch_size=1000`, `local_sort+merge_sorted` |
+
+Memory is measured as retained heap bytes after recording 2M log-normal
+values. This is the live heap footprint of the populated structure, not peak
+build-time working memory and not total allocation traffic.
 
 ## Usage
 

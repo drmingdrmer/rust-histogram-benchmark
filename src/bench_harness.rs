@@ -15,7 +15,15 @@ const MEASURE_ITERS: usize = 20;
 const PERCENTILE_ITERS: usize = 20_000;
 const MERGE_ITERS: usize = 1_000;
 
-pub fn accuracy_distributions() -> Vec<(&'static str, Vec<u64>)> {
+struct BenchInputs {
+    seq: Vec<u64>,
+    uni: Vec<u64>,
+    lnorm: Vec<u64>,
+    accuracy: Vec<(&'static str, Vec<u64>)>,
+    max_value: u64,
+}
+
+fn accuracy_distributions() -> Vec<(&'static str, Vec<u64>)> {
     vec![
         ("uniform", distributions::uniform(N, 1_000_000)),
         ("log_normal_api", distributions::log_normal_api(N)),
@@ -25,7 +33,9 @@ pub fn accuracy_distributions() -> Vec<(&'static str, Vec<u64>)> {
     ]
 }
 
-pub fn exact_percentile(sorted: &[u64], p: f64) -> f64 {
+pub fn noop_finish<S>(_state: &mut S) {}
+
+fn exact_percentile(sorted: &[u64], p: f64) -> f64 {
     let rank = p * (sorted.len() - 1) as f64;
     let lo = rank.floor() as usize;
     let hi = rank.ceil() as usize;
@@ -33,7 +43,7 @@ pub fn exact_percentile(sorted: &[u64], p: f64) -> f64 {
     sorted[lo] as f64 * (1.0 - frac) + sorted[hi] as f64 * frac
 }
 
-pub fn relative_error_pct(exact: f64, estimated: f64) -> f64 {
+fn relative_error_pct(exact: f64, estimated: f64) -> f64 {
     if exact == 0.0 {
         if estimated == 0.0 { 0.0 } else { 100.0 }
     } else {
@@ -41,11 +51,12 @@ pub fn relative_error_pct(exact: f64, estimated: f64) -> f64 {
     }
 }
 
-pub fn measure_record_ns<S, F, G>(values: &[u64], setup: F, mut record_one: G) -> f64
-where
-    F: Fn() -> S,
-    G: FnMut(&mut S, u64),
-{
+fn measure_record_ns<S>(
+    values: &[u64],
+    setup: &impl Fn() -> S,
+    record_one: &mut impl FnMut(&mut S, u64),
+    finish: &mut impl FnMut(&mut S),
+) -> f64 {
     let mut timings = Vec::with_capacity(WARMUP_ITERS + MEASURE_ITERS);
 
     for _ in 0..(WARMUP_ITERS + MEASURE_ITERS) {
@@ -54,6 +65,7 @@ where
         for &v in values {
             record_one(&mut state, v);
         }
+        finish(&mut state);
         let elapsed = start.elapsed();
         black_box(&state);
         timings.push(elapsed);
@@ -62,7 +74,7 @@ where
     median_ns_per_op(&timings[WARMUP_ITERS..], values.len())
 }
 
-pub fn measure_percentile_ns<S, R, F>(state: &S, quantile: f64, query: F) -> f64
+fn measure_percentile_ns<S, R, F>(state: &S, quantile: f64, query: F) -> f64
 where
     R: 'static,
     F: Fn(&S, f64) -> R,
@@ -82,7 +94,7 @@ where
 }
 
 /// Measure ns/op for merging `source` into a clone of itself.
-pub fn measure_merge_ns<S: Clone, MergeFn>(source: &S, merge: MergeFn) -> f64
+fn measure_merge_ns<S: Clone, MergeFn>(source: &S, merge: MergeFn) -> f64
 where MergeFn: Fn(&mut S, &S) {
     let mut timings = Vec::with_capacity(WARMUP_ITERS + MEASURE_ITERS);
 
@@ -100,44 +112,38 @@ where MergeFn: Fn(&mut S, &S) {
     median_ns_per_op(&timings[WARMUP_ITERS..], MERGE_ITERS)
 }
 
-/// Measure heap bytes used by creating and populating a histogram.
-pub fn measure_memory_bytes<S>(
+/// Measure retained heap bytes while the populated histogram is alive.
+fn measure_memory_bytes<S>(
     setup: &impl Fn() -> S,
     record_one: &mut impl FnMut(&mut S, u64),
+    finish: &mut impl FnMut(&mut S),
     values: &[u64],
 ) -> usize {
     // Warm up to avoid measuring one-time lazy allocations
-    let _ = {
+    {
         let mut h = setup();
         for &v in values {
             record_one(&mut h, v);
         }
-        h
-    };
+        finish(&mut h);
+        black_box(&h);
+    }
 
-    let before = alloc_tracker::live_bytes();
+    let live_before = alloc_tracker::live_bytes();
+
     let mut h = setup();
     for &v in values {
         record_one(&mut h, v);
     }
-    let after = alloc_tracker::live_bytes();
-    black_box(&h);
-    drop(h);
-    let _ = after.saturating_sub(before);
+    finish(&mut h);
 
-    // Measure again more precisely: the delta while h is alive
-    let before = alloc_tracker::live_bytes();
-    let mut h = setup();
-    for &v in values {
-        record_one(&mut h, v);
-    }
-    let after = alloc_tracker::live_bytes();
-    let memory = after.saturating_sub(before);
+    let live_after = alloc_tracker::live_bytes();
     black_box(&h);
-    memory
+
+    live_after.saturating_sub(live_before)
 }
 
-pub fn compute_accuracy<S, F>(name: &str, values: &[u64], state: &S, query: F) -> AccuracyResult
+fn compute_accuracy<S, F>(name: &str, values: &[u64], state: &S, query: F) -> AccuracyResult
 where F: Fn(&S, f64) -> f64 {
     let mut sorted = values.to_vec();
     sorted.sort_unstable();
@@ -154,123 +160,157 @@ where F: Fn(&S, f64) -> f64 {
     }
 }
 
-/// Run the full benchmark suite for a u64-returning histogram (no merge).
-pub fn run_full_bench<S, SetupFn, RecordFn, QueryFn>(
-    name: &str,
+pub fn bench_u64<S, SetupFn, RecordFn, FinishFn, QueryFn>(
+    family: &str,
+    config: &str,
     setup: SetupFn,
     mut record_one: RecordFn,
+    mut finish: FinishFn,
     query: QueryFn,
-) where
-    SetupFn: Fn() -> S,
+) -> BenchResult
+where
+    SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
+    FinishFn: FnMut(&mut S),
     QueryFn: Fn(&S, f64) -> u64,
 {
     let query_f64 = |s: &S, q: f64| -> f64 { query(s, q) as f64 };
-    let result = run_core(name, &setup, &mut record_one, &query_f64);
-    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+    let inputs = prepare_inputs();
+    run_core(
+        family,
+        config,
+        &inputs,
+        &setup,
+        &mut record_one,
+        &mut finish,
+        &query_f64,
+    )
 }
 
-/// Run the full benchmark suite for a u64-returning histogram with merge.
-pub fn run_bench_with_merge<S: Clone, SetupFn, RecordFn, QueryFn, MergeFn>(
-    name: &str,
+pub fn bench_u64_with_merge<S: Clone, SetupFn, RecordFn, FinishFn, QueryFn, MergeFn>(
+    family: &str,
+    config: &str,
     setup: SetupFn,
     mut record_one: RecordFn,
+    mut finish: FinishFn,
     query: QueryFn,
     merge_fn: MergeFn,
-) where
-    SetupFn: Fn() -> S,
+) -> BenchResult
+where
+    SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
+    FinishFn: FnMut(&mut S),
     QueryFn: Fn(&S, f64) -> u64,
     MergeFn: Fn(&mut S, &S),
 {
     let query_f64 = |s: &S, q: f64| -> f64 { query(s, q) as f64 };
-    let mut result = run_core(name, &setup, &mut record_one, &query_f64);
+    let inputs = prepare_inputs();
+    let mut result = run_core(
+        family,
+        config,
+        &inputs,
+        &setup,
+        &mut record_one,
+        &mut finish,
+        &query_f64,
+    );
 
-    eprintln!("[{name}] measuring merge...");
-    let state = build_state(&setup, &mut record_one);
+    eprintln!("[{}] measuring merge...", result.name);
+    let make_state = || setup(inputs.max_value);
+    let state = build_state(&make_state, &mut record_one, &mut finish, &inputs.lnorm);
     result.merge_ns = Some(measure_merge_ns(&state, &merge_fn));
-
-    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+    result
 }
 
-/// Run the full benchmark suite for an f64-returning histogram (no merge).
-pub fn run_full_bench_f64<S, SetupFn, RecordFn, QueryFn>(
-    name: &str,
+pub fn bench_f64<S, SetupFn, RecordFn, FinishFn, QueryFn>(
+    family: &str,
+    config: &str,
     setup: SetupFn,
     mut record_one: RecordFn,
+    mut finish: FinishFn,
     query: QueryFn,
-) where
-    SetupFn: Fn() -> S,
+) -> BenchResult
+where
+    SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
+    FinishFn: FnMut(&mut S),
     QueryFn: Fn(&S, f64) -> f64,
 {
-    let result = run_core(name, &setup, &mut record_one, &query);
-    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+    let inputs = prepare_inputs();
+    run_core(family, config, &inputs, &setup, &mut record_one, &mut finish, &query)
 }
 
-/// Run the full benchmark suite for an f64-returning histogram with merge.
-pub fn run_bench_f64_with_merge<S: Clone, SetupFn, RecordFn, QueryFn, MergeFn>(
-    name: &str,
+pub fn bench_f64_with_merge<S: Clone, SetupFn, RecordFn, FinishFn, QueryFn, MergeFn>(
+    family: &str,
+    config: &str,
     setup: SetupFn,
     mut record_one: RecordFn,
+    mut finish: FinishFn,
     query: QueryFn,
     merge_fn: MergeFn,
-) where
-    SetupFn: Fn() -> S,
+) -> BenchResult
+where
+    SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
+    FinishFn: FnMut(&mut S),
     QueryFn: Fn(&S, f64) -> f64,
     MergeFn: Fn(&mut S, &S),
 {
-    let mut result = run_core(name, &setup, &mut record_one, &query);
+    let inputs = prepare_inputs();
+    let mut result = run_core(family, config, &inputs, &setup, &mut record_one, &mut finish, &query);
 
-    eprintln!("[{name}] measuring merge...");
-    let state = build_state(&setup, &mut record_one);
+    eprintln!("[{}] measuring merge...", result.name);
+    let make_state = || setup(inputs.max_value);
+    let state = build_state(&make_state, &mut record_one, &mut finish, &inputs.lnorm);
     result.merge_ns = Some(measure_merge_ns(&state, &merge_fn));
-
-    println!("{}", serde_json::to_string_pretty(&result).unwrap());
+    result
 }
 
-fn build_state<S>(setup: &impl Fn() -> S, record_one: &mut impl FnMut(&mut S, u64)) -> S {
-    let lnorm = distributions::log_normal_api(N);
+fn build_state<S>(
+    setup: &impl Fn() -> S,
+    record_one: &mut impl FnMut(&mut S, u64),
+    finish: &mut impl FnMut(&mut S),
+    values: &[u64],
+) -> S {
     let mut state = setup();
-    for &v in &lnorm {
+    for &v in values {
         record_one(&mut state, v);
     }
+    finish(&mut state);
     state
 }
 
-fn run_core<S, SetupFn, RecordFn, QueryFn>(
-    name: &str,
+fn run_core<S, SetupFn, RecordFn, FinishFn, QueryFn>(
+    family: &str,
+    config: &str,
+    inputs: &BenchInputs,
     setup: &SetupFn,
     record_one: &mut RecordFn,
+    finish: &mut FinishFn,
     query: &QueryFn,
 ) -> BenchResult
 where
-    SetupFn: Fn() -> S,
+    SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
+    FinishFn: FnMut(&mut S),
     QueryFn: Fn(&S, f64) -> f64,
 {
-    eprintln!("[{name}] generating distributions...");
-    let seq = distributions::sequential(N);
-    let uni = distributions::uniform(N, 1_000_000);
-    let lnorm = distributions::log_normal_api(N);
+    let name = family.to_string();
+    let make_state = || setup(inputs.max_value);
 
     // --- Record throughput ---
     eprintln!("[{name}] measuring record throughput...");
-    let seq_ns = measure_record_ns(&seq, setup, &mut *record_one);
-    let uni_ns = measure_record_ns(&uni, setup, &mut *record_one);
-    let ln_ns = measure_record_ns(&lnorm, setup, &mut *record_one);
+    let seq_ns = measure_record_ns(&inputs.seq, &make_state, &mut *record_one, &mut *finish);
+    let uni_ns = measure_record_ns(&inputs.uni, &make_state, &mut *record_one, &mut *finish);
+    let ln_ns = measure_record_ns(&inputs.lnorm, &make_state, &mut *record_one, &mut *finish);
 
     // --- Memory ---
     eprintln!("[{name}] measuring memory...");
-    let memory_bytes = measure_memory_bytes(setup, record_one, &lnorm);
+    let memory_bytes = measure_memory_bytes(&make_state, record_one, finish, &inputs.lnorm);
 
     // --- Percentile latency ---
     eprintln!("[{name}] measuring percentile latency...");
-    let mut state = setup();
-    for &v in &lnorm {
-        record_one(&mut state, v);
-    }
+    let state = build_state(&make_state, record_one, finish, &inputs.lnorm);
     let p50_ns = measure_percentile_ns(&state, 0.50, query);
     let p90_ns = measure_percentile_ns(&state, 0.90, query);
     let p95_ns = measure_percentile_ns(&state, 0.95, query);
@@ -280,16 +320,19 @@ where
     // --- Accuracy ---
     eprintln!("[{name}] measuring accuracy...");
     let mut accuracy = Vec::new();
-    for (dist_name, values) in accuracy_distributions() {
-        let mut h = setup();
-        for &v in &values {
+    for (dist_name, values) in &inputs.accuracy {
+        let mut h = make_state();
+        for &v in values {
             record_one(&mut h, v);
         }
-        accuracy.push(compute_accuracy(dist_name, &values, &h, query));
+        finish(&mut h);
+        accuracy.push(compute_accuracy(dist_name, values, &h, query));
     }
 
     BenchResult {
-        name: name.to_string(),
+        name,
+        family: family.to_string(),
+        config: config.to_string(),
         record_throughput: RecordThroughput {
             sequential_ns: seq_ns,
             uniform_ns: uni_ns,
@@ -305,6 +348,31 @@ where
         memory_bytes,
         merge_ns: None,
         accuracy,
+    }
+}
+
+fn prepare_inputs() -> BenchInputs {
+    eprintln!("[bench] generating distributions...");
+    let seq = distributions::sequential(N);
+    let uni = distributions::uniform(N, 1_000_000);
+    let lnorm = distributions::log_normal_api(N);
+    let accuracy = accuracy_distributions();
+
+    let max_value = seq
+        .iter()
+        .chain(&uni)
+        .chain(&lnorm)
+        .copied()
+        .chain(accuracy.iter().flat_map(|(_, values)| values.iter().copied()))
+        .max()
+        .unwrap_or(2);
+
+    BenchInputs {
+        seq,
+        uni,
+        lnorm,
+        accuracy,
+        max_value: max_value.max(2),
     }
 }
 

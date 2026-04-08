@@ -16,10 +16,10 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,73.1 157.8,104.3 148.4,147.1 99.1,150.6 96.3,105.7" fill="#4878CF" fill-opacity="0.20" stroke="#4878CF" stroke-width="1.5"/>
-<circle cx="125.0" cy="73.1" r="3" fill="#4878CF"/>
-<circle cx="157.8" cy="104.3" r="3" fill="#4878CF"/>
-<circle cx="148.4" cy="147.1" r="3" fill="#4878CF"/>
+<polygon points="125.0,73.9 157.0,104.6 150.4,150.0 99.1,150.6 83.2,101.4" fill="#4878CF" fill-opacity="0.20" stroke="#4878CF" stroke-width="1.5"/>
+<circle cx="125.0" cy="73.9" r="3" fill="#4878CF"/>
+<circle cx="157.0" cy="104.6" r="3" fill="#4878CF"/>
+<circle cx="150.4" cy="150.0" r="3" fill="#4878CF"/>
 <circle cx="99.1" cy="150.6" r="3" fill="#4878CF"/>
-<circle cx="96.3" cy="105.7" r="3" fill="#4878CF"/>
+<circle cx="83.2" cy="101.4" r="3" fill="#4878CF"/>
 </svg>

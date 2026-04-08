@@ -1,19 +1,21 @@
 {
   "name": "hdrhistogram",
+  "family": "hdrhistogram",
+  "config": "fixed_bounds,max=observed_max,sigfig=2",
   "record_throughput": {
-    "sequential_ns": 2.365479,
-    "uniform_ns": 2.3247085,
-    "log_normal_ns": 2.0495
+    "sequential_ns": 2.300354,
+    "uniform_ns": 2.18675,
+    "log_normal_ns": 2.174146
   },
   "percentile_latency": {
-    "p50_ns": 122.4021,
-    "p90_ns": 164.69375,
-    "p95_ns": 176.50625,
-    "p99_ns": 197.7021,
-    "p999_ns": 225.5146
+    "p50_ns": 115.7646,
+    "p90_ns": 149.3292,
+    "p95_ns": 159.43125,
+    "p99_ns": 175.82085,
+    "p999_ns": 197.90205
   },
-  "memory_bytes": 8192,
-  "merge_ns": 501.541,
+  "memory_bytes": 15360,
+  "merge_ns": 795.209,
   "accuracy": [
     {
       "distribution": "uniform",

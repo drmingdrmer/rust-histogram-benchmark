@@ -21,16 +21,16 @@ fn main() {
         }
     }
 
-    let results: Vec<BenchResult> = if paths.is_empty() {
+    let mut results: Vec<BenchResult> = if paths.is_empty() {
         let mut input = String::new();
         std::io::stdin().read_to_string(&mut input).unwrap();
-        parse_results(&input)
+        vec![parse_result(&input)]
     } else {
         paths
             .iter()
-            .flat_map(|path| {
+            .map(|path| {
                 let content = fs::read_to_string(path).unwrap_or_else(|e| panic!("failed to read {path}: {e}"));
-                parse_results(&content)
+                parse_result(&content)
             })
             .collect()
     };
@@ -40,24 +40,16 @@ fn main() {
         std::process::exit(1);
     }
 
+    sort_results(&mut results);
+
     match format {
         Format::Text => print_text(&results),
         Format::Markdown => print_markdown(&results),
     }
 }
 
-fn parse_results(input: &str) -> Vec<BenchResult> {
-    if let Ok(r) = serde_json::from_str::<BenchResult>(input) {
-        return vec![r];
-    }
-    if let Ok(rs) = serde_json::from_str::<Vec<BenchResult>>(input) {
-        return rs;
-    }
-    input
-        .lines()
-        .filter(|line| !line.trim().is_empty())
-        .filter_map(|line| serde_json::from_str::<BenchResult>(line).ok())
-        .collect()
+fn parse_result(input: &str) -> BenchResult {
+    serde_json::from_str(input).unwrap_or_else(|e| panic!("failed to parse benchmark result: {e}"))
 }
 
 fn fmt_optional_f64(v: Option<f64>) -> String {
@@ -77,17 +69,28 @@ fn fmt_memory(bytes: usize) -> String {
     }
 }
 
+fn sort_results(results: &mut [BenchResult]) {
+    results.sort_by(|a, b| a.family.cmp(&b.family).then_with(|| a.name.cmp(&b.name)));
+}
+
 // ---------------------------------------------------------------------------
 // Text output (terminal)
 // ---------------------------------------------------------------------------
 
 fn print_text(results: &[BenchResult]) {
+    println!("Configurations\n");
+    println!("{:<26} {}", "Histogram", "config");
+    println!("{}", "-".repeat(86));
+    for r in results {
+        println!("{:<26} {}", r.name, r.config);
+    }
+
     println!("Recording Throughput (ns/op)\n");
-    println!("{:<20} {:>12} {:>12} {:>12}", "", "sequential", "uniform", "log-normal");
-    println!("{}", "-".repeat(58));
+    println!("{:<26} {:>12} {:>12} {:>12}", "", "sequential", "uniform", "log-normal");
+    println!("{}", "-".repeat(64));
     for r in results {
         println!(
-            "{:<20} {:>12.1} {:>12.1} {:>12.1}",
+            "{:<26} {:>12.1} {:>12.1} {:>12.1}",
             r.name,
             r.record_throughput.sequential_ns,
             r.record_throughput.uniform_ns,
@@ -97,13 +100,13 @@ fn print_text(results: &[BenchResult]) {
 
     println!("\nPercentile Query Latency (ns/op)\n");
     println!(
-        "{:<20} {:>10} {:>10} {:>10} {:>10} {:>10}",
+        "{:<26} {:>10} {:>10} {:>10} {:>10} {:>10}",
         "", "P50", "P90", "P95", "P99", "P99.9"
     );
-    println!("{}", "-".repeat(72));
+    println!("{}", "-".repeat(78));
     for r in results {
         println!(
-            "{:<20} {:>10.1} {:>10.1} {:>10.1} {:>10.1} {:>10.1}",
+            "{:<26} {:>10.1} {:>10.1} {:>10.1} {:>10.1} {:>10.1}",
             r.name,
             r.percentile_latency.p50_ns,
             r.percentile_latency.p90_ns,
@@ -113,30 +116,30 @@ fn print_text(results: &[BenchResult]) {
         );
     }
 
-    println!("\nMemory (after recording 2M log-normal values)\n");
-    println!("{:<20} {:>12}", "", "heap bytes");
-    println!("{}", "-".repeat(34));
+    println!("\nMemory (retained heap bytes after recording 2M log-normal values)\n");
+    println!("{:<26} {:>14}", "", "memory");
+    println!("{}", "-".repeat(42));
     for r in results {
-        println!("{:<20} {:>12}", r.name, fmt_memory(r.memory_bytes));
+        println!("{:<26} {:>14}", r.name, fmt_memory(r.memory_bytes));
     }
 
     println!("\nMerge Latency (ns/op)\n");
-    println!("{:<20} {:>12}", "", "merge");
-    println!("{}", "-".repeat(34));
+    println!("{:<26} {:>12}", "", "merge");
+    println!("{}", "-".repeat(40));
     for r in results {
-        println!("{:<20} {:>12}", r.name, fmt_optional_f64(r.merge_ns));
+        println!("{:<26} {:>12}", r.name, fmt_optional_f64(r.merge_ns));
     }
 
     println!("\nAccuracy: Relative Error %\n");
     let dist_names: Vec<&str> = results[0].accuracy.iter().map(|a| a.distribution.as_str()).collect();
     for dist in &dist_names {
         println!("  {dist}");
-        println!("  {:<18} {:>12} {:>12} {:>12}", "", "P50", "P95", "P99");
-        println!("  {}", "-".repeat(56));
+        println!("  {:<24} {:>12} {:>12} {:>12}", "", "P50", "P95", "P99");
+        println!("  {}", "-".repeat(62));
         for r in results {
             if let Some(a) = r.accuracy.iter().find(|a| a.distribution == *dist) {
                 println!(
-                    "  {:<18} {:>11.3}% {:>11.3}% {:>11.3}%",
+                    "  {:<24} {:>11.3}% {:>11.3}% {:>11.3}%",
                     r.name, a.p50_error_pct, a.p95_error_pct, a.p99_error_pct,
                 );
             }
@@ -150,6 +153,13 @@ fn print_text(results: &[BenchResult]) {
 // ---------------------------------------------------------------------------
 
 fn print_markdown(results: &[BenchResult]) {
+    println!("## Configurations\n");
+    println!("| Histogram | Config |");
+    println!("|---|---|");
+    for r in results {
+        println!("| {} | `{}` |", r.name, r.config);
+    }
+
     println!("## Recording Throughput (ns/op)\n");
     print!("| Histogram |");
     for label in ["sequential", "uniform", "log-normal"] {
@@ -182,8 +192,8 @@ fn print_markdown(results: &[BenchResult]) {
         );
     }
 
-    println!("\n## Memory (after recording 2M log-normal values)\n");
-    println!("| Histogram | heap bytes |");
+    println!("\n## Memory (retained heap bytes after recording 2M log-normal values)\n");
+    println!("| Histogram | memory |");
     println!("|---|---:|");
     for r in results {
         println!("| {} | {} |", r.name, fmt_memory(r.memory_bytes));

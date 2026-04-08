@@ -7,6 +7,8 @@ use serde::Serialize;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BenchResult {
     pub name: String,
+    pub family: String,
+    pub config: String,
     pub record_throughput: RecordThroughput,
     pub percentile_latency: PercentileLatency,
     pub memory_bytes: usize,

@@ -33,10 +33,6 @@ name = "bench-h2histogram"
 path = "src/bin/bench_h2histogram.rs"
 
 [[bin]]
-name = "bench-hdrhistogram-3"
-path = "src/bin/bench_hdrhistogram_3.rs"
-
-[[bin]]
 name = "bench-quantogram"
 path = "src/bin/bench_quantogram.rs"
 

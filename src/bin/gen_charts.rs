@@ -30,11 +30,11 @@ fn main() {
         .iter()
         .map(|p| {
             let content = fs::read_to_string(p).unwrap_or_else(|e| panic!("read {p}: {e}"));
-            serde_json::from_str(&content).unwrap_or_else(|e| panic!("parse {p}: {e}"))
+            parse_result(&content)
         })
         .collect();
 
-    results.sort_by(|a, b| a.name.cmp(&b.name));
+    sort_results(&mut results);
 
     let perf_svg = perf_bars_svg(&results);
     let radar_svgs = radar_svgs(&results);
@@ -43,27 +43,29 @@ fn main() {
     fs::create_dir_all(&output_dir).unwrap();
     fs::write(format!("{output_dir}/chart-perf.svg"), &perf_svg).unwrap();
     for (name, svg) in &radar_svgs {
-        fs::write(format!("{output_dir}/chart-radar-{name}.svg"), svg).unwrap();
+        fs::write(format!("{output_dir}/chart-radar-{}.svg", slugify(name)), svg).unwrap();
     }
     fs::write(format!("{output_dir}/chart-accuracy.svg"), &heatmap_svg).unwrap();
 
     let html = html_dashboard(&perf_svg, &radar_svgs, &heatmap_svg);
     fs::write(format!("{output_dir}/charts.html"), &html).unwrap();
 
-    eprintln!("Generated charts: perf, radar (x{}), accuracy, dashboard", radar_svgs.len());
+    eprintln!(
+        "Generated charts: perf, radar (x{}), accuracy, dashboard",
+        radar_svgs.len()
+    );
 }
 
 // ---------------------------------------------------------------------------
 // Colors
 // ---------------------------------------------------------------------------
 
-fn color_for(name: &str) -> &'static str {
-    match name {
+fn color_for(family: &str) -> &'static str {
+    match family {
         "base2histogram" => "#4878CF",
         "ddsketch" => "#D4A942",
         "h2histogram" => "#E87D2B",
         "hdrhistogram" => "#D65F5F",
-        "hdrhistogram-3" => "#6BB2A0",
         "quantogram" => "#56A354",
         "tdigest" => "#9F7FBA",
         _ => "#888888",
@@ -85,6 +87,14 @@ fn error_color(pct: f64) -> String {
         (255, (220.0 * (1.0 - s) + 60.0 * s) as u8, (50.0 * (1.0 - s)) as u8)
     };
     format!("#{r:02x}{g:02x}{b:02x}")
+}
+
+fn parse_result(input: &str) -> BenchResult {
+    serde_json::from_str(input).unwrap_or_else(|e| panic!("failed to parse benchmark result: {e}"))
+}
+
+fn sort_results(results: &mut [BenchResult]) {
+    results.sort_by(|a, b| a.family.cmp(&b.family).then_with(|| a.name.cmp(&b.name)));
 }
 
 // ---------------------------------------------------------------------------
@@ -110,6 +120,7 @@ fn svg_rect(buf: &mut String, x: f64, y: f64, w: f64, h: f64, attrs: &str) {
 
 struct BarEntry {
     name: String,
+    family: String,
     value: f64,
     skip: bool,
 }
@@ -123,6 +134,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                 .iter()
                 .map(|r| BarEntry {
                     name: r.name.clone(),
+                    family: r.family.clone(),
                     value: r.record_throughput.log_normal_ns,
                     skip: false,
                 })
@@ -135,6 +147,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                 .iter()
                 .map(|r| BarEntry {
                     name: r.name.clone(),
+                    family: r.family.clone(),
                     value: r.percentile_latency.p99_ns,
                     skip: false,
                 })
@@ -147,6 +160,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                 .iter()
                 .map(|r| BarEntry {
                     name: r.name.clone(),
+                    family: r.family.clone(),
                     value: r.memory_bytes as f64,
                     skip: false,
                 })
@@ -159,6 +173,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                 .iter()
                 .map(|r| BarEntry {
                     name: r.name.clone(),
+                    family: r.family.clone(),
                     value: r.merge_ns.unwrap_or(0.0),
                     skip: r.merge_ns.is_none(),
                 })
@@ -215,7 +230,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                 svg_text(&mut svg, left_margin + 8.0, text_y, na_attrs, "N/A");
             } else {
                 let bar_w = (entry.value / max_val * bar_area_w).max(3.0);
-                let color = color_for(&entry.name);
+                let color = color_for(&entry.family);
 
                 // Background track
                 svg_rect(
@@ -274,11 +289,9 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
     let axes = ["Record", "Query", "Lightweight", "Merge", "Accuracy"];
     let n_axes = axes.len();
 
-    // --- compute normalized scores (shared scale) ---
-
     let max_merge = results.iter().filter_map(|r| r.merge_ns).fold(0.0_f64, f64::max);
 
-    let raw: Vec<(String, [f64; 5])> = results
+    let raw: Vec<RadarSeries> = results
         .iter()
         .map(|r| {
             let key_dists = ["log_normal_api", "bimodal", "exponential"];
@@ -289,40 +302,44 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
                 .map(|a| a.p99_error_pct)
                 .collect();
             let avg_p99_error = key_errors.iter().sum::<f64>() / key_errors.len() as f64;
-            (
-                r.name.clone(),
-                [
+            RadarSeries {
+                name: r.name.clone(),
+                family: r.family.clone(),
+                values: [
                     r.record_throughput.log_normal_ns,
                     r.percentile_latency.p99_ns,
                     r.memory_bytes as f64,
                     r.merge_ns.unwrap_or(max_merge * 2.0),
                     avg_p99_error,
                 ],
-            )
+            }
         })
         .collect();
 
-    let mut scores: Vec<(String, [f64; 5])> = Vec::new();
+    let mut scores: Vec<RadarSeries> = raw
+        .iter()
+        .map(|series| RadarSeries {
+            name: series.name.clone(),
+            family: series.family.clone(),
+            values: [0.0; 5],
+        })
+        .collect();
+
     for axis_i in 0..n_axes {
-        let vals: Vec<f64> = raw.iter().map(|(_, v)| v[axis_i]).collect();
+        let vals: Vec<f64> = raw.iter().map(|series| series.values[axis_i]).collect();
         let min_v = vals.iter().copied().fold(f64::INFINITY, f64::min);
         let max_v = vals.iter().copied().fold(0.0_f64, f64::max);
         let ln_range = (max_v / min_v).ln();
 
-        for (j, (name, v)) in raw.iter().enumerate() {
-            if axis_i == 0 {
-                scores.push((name.clone(), [0.0; 5]));
-            }
+        for (j, series) in raw.iter().enumerate() {
             let score = if ln_range < 0.01 {
                 1.0
             } else {
-                1.0 - (v[axis_i] / min_v).ln() / ln_range
+                1.0 - (series.values[axis_i] / min_v).ln() / ln_range
             };
-            scores[j].1[axis_i] = score.clamp(0.08, 1.0);
+            scores[j].values[axis_i] = score.clamp(0.08, 1.0);
         }
     }
-
-    // --- generate one SVG per histogram ---
 
     let w = 240.0_f64;
     let h = 210.0;
@@ -332,19 +349,17 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
 
     scores
         .iter()
-        .map(|(name, vals)| {
-            let color = color_for(name);
+        .map(|series| {
+            let color = color_for(&series.family);
             let mut svg = String::new();
             write_svg_open(&mut svg, w, h);
             svg_rect(&mut svg, 0.0, 0.0, w, h, r#"fill="white" rx="6""#);
 
-            // Histogram name at top
             let name_attrs = format!(
                 r##"font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="{color}" text-anchor="middle""##
             );
-            svg_text(&mut svg, cx, 28.0, &name_attrs, &esc(name));
+            svg_text(&mut svg, cx, 28.0, &name_attrs, &esc(&series.name));
 
-            // Grid rings
             for ring in 1..=5 {
                 let r = radius * ring as f64 / 5.0;
                 let points = polygon_points(cx, cy, r, n_axes);
@@ -355,7 +370,6 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
                 .unwrap();
             }
 
-            // Axis lines
             for i in 0..n_axes {
                 let angle = axis_angle(i, n_axes);
                 let ex = cx + radius * angle.cos();
@@ -367,7 +381,6 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
                 .unwrap();
             }
 
-            // Axis labels — positioned outside the outermost ring
             for (i, label) in axes.iter().enumerate() {
                 let angle = axis_angle(i, n_axes);
                 let label_r = radius + 10.0;
@@ -386,9 +399,8 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
                 svg_text(&mut svg, lx, ly, &attrs, label);
             }
 
-            // Data polygon
             let mut points = String::new();
-            for (i, &score) in vals.iter().enumerate() {
+            for (i, &score) in series.values.iter().enumerate() {
                 let angle = axis_angle(i, n_axes);
                 let r = radius * score;
                 if i > 0 {
@@ -402,8 +414,7 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
             )
             .unwrap();
 
-            // Dots
-            for (i, &score) in vals.iter().enumerate() {
+            for (i, &score) in series.values.iter().enumerate() {
                 let angle = axis_angle(i, n_axes);
                 let r = radius * score;
                 let px = cx + r * angle.cos();
@@ -413,9 +424,16 @@ fn radar_svgs(results: &[BenchResult]) -> Vec<(String, String)> {
             }
 
             write_svg_close(&mut svg);
-            (name.clone(), svg)
+            (series.name.clone(), svg)
         })
         .collect()
+}
+
+#[derive(Clone)]
+struct RadarSeries {
+    name: String,
+    family: String,
+    values: [f64; 5],
 }
 
 fn axis_angle(i: usize, total: usize) -> f64 {
@@ -672,4 +690,16 @@ fn write_svg_close(buf: &mut String) {
 
 fn esc(s: &str) -> String {
     s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
+}
+
+fn slugify(s: &str) -> String {
+    s.chars()
+        .map(|ch| {
+            if ch.is_ascii_alphanumeric() {
+                ch.to_ascii_lowercase()
+            } else {
+                '-'
+            }
+        })
+        .collect()
 }

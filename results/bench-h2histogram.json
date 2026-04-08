@@ -1,43 +1,45 @@
 {
   "name": "h2histogram",
+  "family": "h2histogram",
+  "config": "grouping_power=4,max_value_power=64",
   "record_throughput": {
-    "sequential_ns": 2.0701045,
-    "uniform_ns": 1.426021,
-    "log_normal_ns": 1.47975
+    "sequential_ns": 2.0434375,
+    "uniform_ns": 1.422729,
+    "log_normal_ns": 1.430417
   },
   "percentile_latency": {
-    "p50_ns": 139.1021,
-    "p90_ns": 146.33545,
-    "p95_ns": 150.63125,
-    "p99_ns": 155.65625,
-    "p999_ns": 158.3271
+    "p50_ns": 408.10835,
+    "p90_ns": 454.97915,
+    "p95_ns": 458.20415,
+    "p99_ns": 476.925,
+    "p999_ns": 521.43125
   },
-  "memory_bytes": 2016,
-  "merge_ns": 68.667,
+  "memory_bytes": 7808,
+  "merge_ns": 215.667,
   "accuracy": [
     {
       "distribution": "uniform",
-      "p50_error_pct": 1.7184116389695927,
-      "p95_error_pct": 3.45175230107879,
-      "p99_error_pct": 0.7051382729122827
+      "p50_error_pct": 0.08038183370558254,
+      "p95_error_pct": 1.7208405758087237,
+      "p99_error_pct": 0.9497777726735028
     },
     {
       "distribution": "log_normal_api",
-      "p50_error_pct": 2.977667493796526,
-      "p95_error_pct": 4.466230936819173,
-      "p99_error_pct": 9.069767441860465
+      "p50_error_pct": 0.9925558312655087,
+      "p95_error_pct": 0.7625272331154684,
+      "p99_error_pct": 1.627906976744186
     },
     {
       "distribution": "bimodal",
-      "p50_error_pct": 7.142857142857142,
-      "p95_error_pct": 6.010016694490818,
-      "p99_error_pct": 0.42440318302387264
+      "p50_error_pct": 0.6493506493506493,
+      "p95_error_pct": 0.40066777963272115,
+      "p99_error_pct": 1.839080459770115
     },
     {
       "distribution": "exponential",
-      "p50_error_pct": 1.443001443001443,
-      "p95_error_pct": 6.041388518024032,
-      "p99_error_pct": 0.10864841373315949
+      "p50_error_pct": 0.8658008658008658,
+      "p95_error_pct": 0.36715620827770357,
+      "p99_error_pct": 2.6727509778357237
     },
     {
       "distribution": "pareto",

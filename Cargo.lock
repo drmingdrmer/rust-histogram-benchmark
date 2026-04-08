@@ -309,6 +309,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "reqsketch"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "87274f7be9e38c68737447afceebbc9b8654d59ac21200f82ef964f8f0bc63a5"
+dependencies = [
+ "rand 0.9.2",
+]
+
+[[package]]
 name = "rust-histogram-benchmark"
 version = "0.1.0"
 dependencies = [
@@ -318,6 +327,7 @@ dependencies = [
  "quantogram",
  "rand 0.9.2",
  "rand_distr",
+ "reqsketch",
  "serde",
  "serde_json",
  "sketches-ddsketch",

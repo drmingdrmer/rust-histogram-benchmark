@@ -7,6 +7,7 @@
 | h2histogram | `grouping_power=4,max_value_power=64` |
 | hdrhistogram | `fixed_bounds,max=observed_max,sigfig=2` |
 | quantogram | `bins_per_doubling=35,smallest_power=0,largest_power=observed_max_power` |
+| reqsketch | `k=12,rank_accuracy=high` |
 | tdigest | `max_size=100,batch_size=1000,local_sort+merge_sorted` |
 ## Recording Throughput (ns/op)
 
@@ -17,6 +18,7 @@
 | h2histogram | 2.0 | 1.4 | 1.4 |
 | hdrhistogram | 2.3 | 2.2 | 2.2 |
 | quantogram | 46.7 | 78.2 | 71.5 |
+| reqsketch | 13.0 | 33.6 | 33.6 |
 | tdigest | 3.0 | 15.1 | 15.9 |
 
 ## Percentile Query Latency (ns/op)
@@ -28,6 +30,7 @@
 | h2histogram | 408.1 | 455.0 | 458.2 | 476.9 | 521.4 |
 | hdrhistogram | 115.8 | 149.3 | 159.4 | 175.8 | 197.9 |
 | quantogram | 83.5 | 99.4 | 122.9 | 76.6 | 127.3 |
+| reqsketch | 9.7 | 8.6 | 8.9 | 9.7 | 10.8 |
 | tdigest | 39.1 | 8.9 | 7.3 | 4.5 | 3.3 |
 
 ## Memory (retained heap bytes after recording 2M log-normal values)
@@ -39,6 +42,7 @@
 | h2histogram | 7.6 KB |
 | hdrhistogram | 15.0 KB |
 | quantogram | 31.5 KB |
+| reqsketch | 61.9 KB |
 | tdigest | 9.4 KB |
 
 ## Merge Latency (ns/op)
@@ -50,6 +54,7 @@
 | h2histogram | 215.7 |
 | hdrhistogram | 795.2 |
 | quantogram | — |
+| reqsketch | 44774.8 |
 | tdigest | 1203.3 |
 
 ## Accuracy: Relative Error %
@@ -63,6 +68,7 @@
 | h2histogram | 0.080% | 1.721% | 0.950% |
 | hdrhistogram | 0.329% | 0.003% | 0.122% |
 | quantogram | 0.225% | 0.945% | 0.803% |
+| reqsketch | 1.936% | 0.025% | 0.009% |
 | tdigest | 0.109% | 0.020% | 0.020% |
 
 ### log_normal_api
@@ -74,6 +80,7 @@
 | h2histogram | 0.993% | 0.763% | 1.628% |
 | hdrhistogram | 0.000% | 0.109% | 0.388% |
 | quantogram | 0.744% | 0.000% | 0.310% |
+| reqsketch | 0.744% | 0.109% | 0.310% |
 | tdigest | 0.027% | 0.039% | 0.223% |
 
 ### bimodal
@@ -85,6 +92,7 @@
 | h2histogram | 0.649% | 0.401% | 1.839% |
 | hdrhistogram | 0.000% | 0.401% | 0.141% |
 | quantogram | 0.649% | 0.601% | 0.424% |
+| reqsketch | 0.000% | 0.033% | 0.018% |
 | tdigest | 0.091% | 0.982% | 0.184% |
 
 ### exponential
@@ -96,6 +104,7 @@
 | h2histogram | 0.866% | 0.367% | 2.673% |
 | hdrhistogram | 0.289% | 0.367% | 0.109% |
 | quantogram | 0.433% | 0.567% | 0.739% |
+| reqsketch | 0.289% | 0.200% | 0.130% |
 | tdigest | 0.020% | 0.042% | 0.118% |
 
 ### pareto
@@ -107,5 +116,6 @@
 | h2histogram | 0.000% | 0.000% | 0.000% |
 | hdrhistogram | 0.000% | 0.000% | 0.000% |
 | quantogram | 0.000% | 0.000% | 0.000% |
+| reqsketch | 0.000% | 0.000% | 0.000% |
 | tdigest | 0.000% | 0.745% | 1.280% |
 

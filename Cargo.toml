@@ -19,6 +19,7 @@ rand = "0.9.2"
 rand_distr = "0.5.1"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
+reqsketch = "0.1.1"
 
 [[bin]]
 name = "bench-base2histogram"
@@ -39,6 +40,10 @@ path = "src/bin/bench_quantogram.rs"
 [[bin]]
 name = "bench-ddsketch"
 path = "src/bin/bench_ddsketch.rs"
+
+[[bin]]
+name = "bench-reqsketch"
+path = "src/bin/bench_reqsketch.rs"
 
 [[bin]]
 name = "bench-tdigest"

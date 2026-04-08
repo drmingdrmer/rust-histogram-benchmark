@@ -16,10 +16,10 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,71.0 128.3,113.9 138.3,133.3 110.3,135.3 121.7,113.9" fill="#E87D2B" fill-opacity="0.20" stroke="#E87D2B" stroke-width="1.5"/>
+<polygon points="125.0,71.0 128.3,113.9 140.8,136.7 105.1,142.3 121.7,113.9" fill="#E87D2B" fill-opacity="0.20" stroke="#E87D2B" stroke-width="1.5"/>
 <circle cx="125.0" cy="71.0" r="3" fill="#E87D2B"/>
 <circle cx="128.3" cy="113.9" r="3" fill="#E87D2B"/>
-<circle cx="138.3" cy="133.3" r="3" fill="#E87D2B"/>
-<circle cx="110.3" cy="135.3" r="3" fill="#E87D2B"/>
+<circle cx="140.8" cy="136.7" r="3" fill="#E87D2B"/>
+<circle cx="105.1" cy="142.3" r="3" fill="#E87D2B"/>
 <circle cx="121.7" cy="113.9" r="3" fill="#E87D2B"/>
 </svg>

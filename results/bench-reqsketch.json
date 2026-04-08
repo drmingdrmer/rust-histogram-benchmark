@@ -1,0 +1,51 @@
+{
+  "name": "reqsketch",
+  "family": "reqsketch",
+  "config": "k=12,rank_accuracy=high",
+  "record_throughput": {
+    "sequential_ns": 12.954583,
+    "uniform_ns": 33.625,
+    "log_normal_ns": 33.551708
+  },
+  "percentile_latency": {
+    "p50_ns": 9.70205,
+    "p90_ns": 8.56665,
+    "p95_ns": 8.88335,
+    "p99_ns": 9.67915,
+    "p999_ns": 10.8417
+  },
+  "memory_bytes": 63424,
+  "merge_ns": 44774.75,
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 1.9355625628607935,
+      "p95_error_pct": 0.025035804146595588,
+      "p99_error_pct": 0.00919274348808458
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.7444168734491315,
+      "p95_error_pct": 0.10893246187363835,
+      "p99_error_pct": 0.31007751937984496
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0333889816360601,
+      "p99_error_pct": 0.01768346595932803
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.2886002886002886,
+      "p95_error_pct": 0.20026702269692925,
+      "p99_error_pct": 0.1303780964797914
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    }
+  ]
+}

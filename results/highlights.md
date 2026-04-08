@@ -1,13 +1,14 @@
 # Benchmark Highlights
 
-6 Rust histogram implementations, 2M samples, median of 20 iterations.
+7 Rust histogram implementations, 2M samples, median of 20 iterations.
 [Full results](report.md) | [Source](https://github.com/drmingdrmer/rust-histogram-benchmark)
 
 | Histogram | Memory | Record (ns) | P99 Query (ns) | Merge (ns) | P99 Error: log-normal | bimodal | exponential |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| base2histogram | 🥈 2.1 KB | 🥈 1.8 | 🥈 14.2 | 🏆 33.2 | 🏆 0.000% | 🏆 0.018% | 0.130% |
-| h2histogram | 7.6 KB | 🏆 1.5 | 475.1 | 203.0 | 1.628% | 1.839% | 2.673% |
-| hdrhistogram | 15.0 KB | 2.2 | 199.0 | 897.0 | 0.388% | 🥈 0.141% | 🏆 0.109% |
-| quantogram | 31.4 KB | 69.1 | 62.8 | — | 0.310% | 0.424% | 0.739% |
-| ddsketch | 🏆 2.0 KB | 4.5 | 71.9 | 🥈 153.1 | 0.782% | 0.999% | 0.401% |
-| tdigest | 9.4 KB | 15.6 | 🏆 4.4 | 1312.5 | 🥈 0.223% | 0.184% | 🥈 0.118% |
+| base2histogram | 🥈 2.1 KB | 🥈 1.8 | 13.5 | 🏆 34.8 | 🏆 0.000% | 🏆 0.018% | 0.130% |
+| h2histogram | 7.6 KB | 🏆 1.4 | 476.9 | 215.7 | 1.628% | 1.839% | 2.673% |
+| hdrhistogram | 15.0 KB | 2.2 | 175.8 | 795.2 | 0.388% | 🥈 0.141% | 🏆 0.109% |
+| quantogram | 31.5 KB | 71.5 | 76.6 | — | 0.310% | 0.424% | 0.739% |
+| ddsketch | 🏆 2.0 KB | 4.5 | 82.0 | 🥈 146.8 | 0.782% | 0.999% | 0.401% |
+| reqsketch | 61.9 KB | 33.6 | 🥈 9.7 | 44774.8 | 0.310% | 🏆 0.018% | 0.130% |
+| tdigest | 9.4 KB | 15.9 | 🏆 4.5 | 1203.3 | 🥈 0.223% | 0.184% | 🥈 0.118% |

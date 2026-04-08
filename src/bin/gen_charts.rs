@@ -67,6 +67,7 @@ fn color_for(family: &str) -> &'static str {
         "h2histogram" => "#E87D2B",
         "hdrhistogram" => "#D65F5F",
         "quantogram" => "#56A354",
+        "reqsketch" => "#4E9AA8",
         "tdigest" => "#9F7FBA",
         _ => "#888888",
     }

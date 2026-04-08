@@ -74,10 +74,10 @@ fn measure_record_ns<S>(
     median_ns_per_op(&timings[WARMUP_ITERS..], values.len())
 }
 
-fn measure_percentile_ns<S, R, F>(state: &S, quantile: f64, query: F) -> f64
+fn measure_percentile_ns<S, R, F>(state: &mut S, quantile: f64, query: &mut F) -> f64
 where
     R: 'static,
-    F: Fn(&S, f64) -> R,
+    F: FnMut(&mut S, f64) -> R,
 {
     let mut timings = Vec::with_capacity(WARMUP_ITERS + MEASURE_ITERS);
 
@@ -143,8 +143,8 @@ fn measure_memory_bytes<S>(
     live_after.saturating_sub(live_before)
 }
 
-fn compute_accuracy<S, F>(name: &str, values: &[u64], state: &S, query: F) -> AccuracyResult
-where F: Fn(&S, f64) -> f64 {
+fn compute_accuracy<S, F>(name: &str, values: &[u64], state: &mut S, query: &mut F) -> AccuracyResult
+where F: FnMut(&mut S, f64) -> f64 {
     let mut sorted = values.to_vec();
     sorted.sort_unstable();
 
@@ -166,15 +166,15 @@ pub fn bench_u64<S, SetupFn, RecordFn, FinishFn, QueryFn>(
     setup: SetupFn,
     mut record_one: RecordFn,
     mut finish: FinishFn,
-    query: QueryFn,
+    mut query: QueryFn,
 ) -> BenchResult
 where
     SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
     FinishFn: FnMut(&mut S),
-    QueryFn: Fn(&S, f64) -> u64,
+    QueryFn: FnMut(&mut S, f64) -> u64,
 {
-    let query_f64 = |s: &S, q: f64| -> f64 { query(s, q) as f64 };
+    let mut query_f64 = |s: &mut S, q: f64| -> f64 { query(s, q) as f64 };
     let inputs = prepare_inputs();
     run_core(
         family,
@@ -183,7 +183,7 @@ where
         &setup,
         &mut record_one,
         &mut finish,
-        &query_f64,
+        &mut query_f64,
     )
 }
 
@@ -193,17 +193,17 @@ pub fn bench_u64_with_merge<S: Clone, SetupFn, RecordFn, FinishFn, QueryFn, Merg
     setup: SetupFn,
     mut record_one: RecordFn,
     mut finish: FinishFn,
-    query: QueryFn,
+    mut query: QueryFn,
     merge_fn: MergeFn,
 ) -> BenchResult
 where
     SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
     FinishFn: FnMut(&mut S),
-    QueryFn: Fn(&S, f64) -> u64,
+    QueryFn: FnMut(&mut S, f64) -> u64,
     MergeFn: Fn(&mut S, &S),
 {
-    let query_f64 = |s: &S, q: f64| -> f64 { query(s, q) as f64 };
+    let mut query_f64 = |s: &mut S, q: f64| -> f64 { query(s, q) as f64 };
     let inputs = prepare_inputs();
     let mut result = run_core(
         family,
@@ -212,7 +212,7 @@ where
         &setup,
         &mut record_one,
         &mut finish,
-        &query_f64,
+        &mut query_f64,
     );
 
     eprintln!("[{}] measuring merge...", result.name);
@@ -228,16 +228,24 @@ pub fn bench_f64<S, SetupFn, RecordFn, FinishFn, QueryFn>(
     setup: SetupFn,
     mut record_one: RecordFn,
     mut finish: FinishFn,
-    query: QueryFn,
+    mut query: QueryFn,
 ) -> BenchResult
 where
     SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
     FinishFn: FnMut(&mut S),
-    QueryFn: Fn(&S, f64) -> f64,
+    QueryFn: FnMut(&mut S, f64) -> f64,
 {
     let inputs = prepare_inputs();
-    run_core(family, config, &inputs, &setup, &mut record_one, &mut finish, &query)
+    run_core(
+        family,
+        config,
+        &inputs,
+        &setup,
+        &mut record_one,
+        &mut finish,
+        &mut query,
+    )
 }
 
 pub fn bench_f64_with_merge<S: Clone, SetupFn, RecordFn, FinishFn, QueryFn, MergeFn>(
@@ -246,18 +254,26 @@ pub fn bench_f64_with_merge<S: Clone, SetupFn, RecordFn, FinishFn, QueryFn, Merg
     setup: SetupFn,
     mut record_one: RecordFn,
     mut finish: FinishFn,
-    query: QueryFn,
+    mut query: QueryFn,
     merge_fn: MergeFn,
 ) -> BenchResult
 where
     SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
     FinishFn: FnMut(&mut S),
-    QueryFn: Fn(&S, f64) -> f64,
+    QueryFn: FnMut(&mut S, f64) -> f64,
     MergeFn: Fn(&mut S, &S),
 {
     let inputs = prepare_inputs();
-    let mut result = run_core(family, config, &inputs, &setup, &mut record_one, &mut finish, &query);
+    let mut result = run_core(
+        family,
+        config,
+        &inputs,
+        &setup,
+        &mut record_one,
+        &mut finish,
+        &mut query,
+    );
 
     eprintln!("[{}] measuring merge...", result.name);
     let make_state = || setup(inputs.max_value);
@@ -287,13 +303,13 @@ fn run_core<S, SetupFn, RecordFn, FinishFn, QueryFn>(
     setup: &SetupFn,
     record_one: &mut RecordFn,
     finish: &mut FinishFn,
-    query: &QueryFn,
+    query: &mut QueryFn,
 ) -> BenchResult
 where
     SetupFn: Fn(u64) -> S,
     RecordFn: FnMut(&mut S, u64),
     FinishFn: FnMut(&mut S),
-    QueryFn: Fn(&S, f64) -> f64,
+    QueryFn: FnMut(&mut S, f64) -> f64,
 {
     let name = family.to_string();
     let make_state = || setup(inputs.max_value);
@@ -310,12 +326,12 @@ where
 
     // --- Percentile latency ---
     eprintln!("[{name}] measuring percentile latency...");
-    let state = build_state(&make_state, record_one, finish, &inputs.lnorm);
-    let p50_ns = measure_percentile_ns(&state, 0.50, query);
-    let p90_ns = measure_percentile_ns(&state, 0.90, query);
-    let p95_ns = measure_percentile_ns(&state, 0.95, query);
-    let p99_ns = measure_percentile_ns(&state, 0.99, query);
-    let p999_ns = measure_percentile_ns(&state, 0.999, query);
+    let mut state = build_state(&make_state, record_one, finish, &inputs.lnorm);
+    let p50_ns = measure_percentile_ns(&mut state, 0.50, query);
+    let p90_ns = measure_percentile_ns(&mut state, 0.90, query);
+    let p95_ns = measure_percentile_ns(&mut state, 0.95, query);
+    let p99_ns = measure_percentile_ns(&mut state, 0.99, query);
+    let p999_ns = measure_percentile_ns(&mut state, 0.999, query);
 
     // --- Accuracy ---
     eprintln!("[{name}] measuring accuracy...");
@@ -326,7 +342,7 @@ where
             record_one(&mut h, v);
         }
         finish(&mut h);
-        accuracy.push(compute_accuracy(dist_name, values, &h, query));
+        accuracy.push(compute_accuracy(dist_name, values, &mut h, query));
     }
 
     BenchResult {

@@ -1,13 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 634 294" width="634" height="294">
-<rect x="0.0" y="0.0" width="634.0" height="294.0" fill="white" rx="8"/>
-<text x="317.0" y="20.0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">P99 Accuracy Error %</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708 294" width="708" height="294">
+<rect x="0.0" y="0.0" width="708.0" height="294.0" fill="white" rx="8"/>
+<text x="354.0" y="20.0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">P99 Accuracy Error %</text>
 <text x="133.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,133.0,92.0)">base2histogram</text>
 <text x="207.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,207.0,92.0)">ddsketch</text>
 <text x="281.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,281.0,92.0)">h2histogram</text>
 <text x="355.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,355.0,92.0)">hdrhistogram</text>
-<text x="429.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,429.0,92.0)">quantogram</text>
-<text x="503.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,503.0,92.0)">reqsketch</text>
-<text x="577.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,577.0,92.0)">tdigest</text>
+<text x="429.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,429.0,92.0)">kllsketch</text>
+<text x="503.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,503.0,92.0)">quantogram</text>
+<text x="577.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,577.0,92.0)">reqsketch</text>
+<text x="651.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,651.0,92.0)">tdigest</text>
 <text x="86.0" y="121.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Log-Normal</text>
 <rect x="96.0" y="102.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
@@ -17,12 +18,14 @@
 <text x="280.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.628%</text>
 <rect x="318.0" y="102.0" width="72.0" height="30.0" fill="#b2d55c" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.388%</text>
-<rect x="392.0" y="102.0" width="72.0" height="30.0" fill="#a8d562" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.310%</text>
-<rect x="466.0" y="102.0" width="72.0" height="30.0" fill="#8bd272" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.078%</text>
-<rect x="540.0" y="102.0" width="72.0" height="30.0" fill="#9dd468" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.223%</text>
+<rect x="392.0" y="102.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">7.597%</text>
+<rect x="466.0" y="102.0" width="72.0" height="30.0" fill="#a8d562" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.310%</text>
+<rect x="540.0" y="102.0" width="72.0" height="30.0" fill="#8bd272" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.078%</text>
+<rect x="614.0" y="102.0" width="72.0" height="30.0" fill="#9dd468" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.223%</text>
 <text x="86.0" y="151.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Bimodal</text>
 <rect x="96.0" y="132.0" width="72.0" height="30.0" fill="#84d276" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.018%</text>
@@ -32,12 +35,14 @@
 <text x="280.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.839%</text>
 <rect x="318.0" y="132.0" width="72.0" height="30.0" fill="#93d36e" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.141%</text>
-<rect x="392.0" y="132.0" width="72.0" height="30.0" fill="#b7d65a" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.424%</text>
-<rect x="466.0" y="132.0" width="72.0" height="30.0" fill="#95d36c" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.159%</text>
-<rect x="540.0" y="132.0" width="72.0" height="30.0" fill="#99d36b" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.184%</text>
+<rect x="392.0" y="132.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">11.459%</text>
+<rect x="466.0" y="132.0" width="72.0" height="30.0" fill="#b7d65a" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.424%</text>
+<rect x="540.0" y="132.0" width="72.0" height="30.0" fill="#95d36c" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.159%</text>
+<rect x="614.0" y="132.0" width="72.0" height="30.0" fill="#99d36b" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.184%</text>
 <text x="86.0" y="181.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Exponential</text>
 <rect x="96.0" y="162.0" width="72.0" height="30.0" fill="#92d36e" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.130%</text>
@@ -47,12 +52,14 @@
 <text x="280.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">2.673%</text>
 <rect x="318.0" y="162.0" width="72.0" height="30.0" fill="#8fd370" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.109%</text>
-<rect x="392.0" y="162.0" width="72.0" height="30.0" fill="#ded944" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.739%</text>
-<rect x="466.0" y="162.0" width="72.0" height="30.0" fill="#c5d751" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.543%</text>
-<rect x="540.0" y="162.0" width="72.0" height="30.0" fill="#90d36f" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.118%</text>
+<rect x="392.0" y="162.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">8.627%</text>
+<rect x="466.0" y="162.0" width="72.0" height="30.0" fill="#ded944" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.739%</text>
+<rect x="540.0" y="162.0" width="72.0" height="30.0" fill="#c5d751" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.543%</text>
+<rect x="614.0" y="162.0" width="72.0" height="30.0" fill="#90d36f" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.118%</text>
 <text x="86.0" y="211.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Pareto</text>
 <rect x="96.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
@@ -62,12 +69,14 @@
 <text x="280.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
 <rect x="318.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
-<rect x="392.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
+<rect x="392.0" y="192.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">23.810%</text>
 <rect x="466.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="502.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
-<rect x="540.0" y="192.0" width="72.0" height="30.0" fill="#ffaf23" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.280%</text>
+<rect x="540.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
+<rect x="614.0" y="192.0" width="72.0" height="30.0" fill="#ffaf23" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.280%</text>
 <text x="86.0" y="241.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Uniform</text>
 <rect x="96.0" y="222.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">3.740%</text>
@@ -77,12 +86,14 @@
 <text x="280.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">0.950%</text>
 <rect x="318.0" y="222.0" width="72.0" height="30.0" fill="#91d36f" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.122%</text>
-<rect x="392.0" y="222.0" width="72.0" height="30.0" fill="#e6da3f" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">0.803%</text>
-<rect x="466.0" y="222.0" width="72.0" height="30.0" fill="#83d277" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.011%</text>
-<rect x="540.0" y="222.0" width="72.0" height="30.0" fill="#84d276" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.020%</text>
+<rect x="392.0" y="222.0" width="72.0" height="30.0" fill="#c0d655" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.498%</text>
+<rect x="466.0" y="222.0" width="72.0" height="30.0" fill="#e6da3f" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">0.803%</text>
+<rect x="540.0" y="222.0" width="72.0" height="30.0" fill="#83d277" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.011%</text>
+<rect x="614.0" y="222.0" width="72.0" height="30.0" fill="#84d276" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.020%</text>
 <rect x="96.0" y="264.0" width="4.5" height="8.0" fill="#82d278"/>
 <rect x="100.0" y="264.0" width="4.5" height="8.0" fill="#88d274"/>
 <rect x="104.0" y="264.0" width="4.5" height="8.0" fill="#8ed371"/>

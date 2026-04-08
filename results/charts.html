@@ -65,8 +65,8 @@
 <h1>Rust Histogram Benchmark</h1>
 
 <h2>Performance Comparison</h2>
-<div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 802" width="780" height="802">
-<rect x="0.0" y="0.0" width="780.0" height="802.0" fill="white" rx="8"/>
+<div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 886" width="780" height="886">
+<rect x="0.0" y="0.0" width="780.0" height="886.0" fill="white" rx="8"/>
 <text x="140.0" y="31.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Record Speed (log-normal, ns/op)</text>
 <text x="128.0" y="53.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
 <rect x="140.0" y="41.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
@@ -88,99 +88,118 @@
 <rect x="140.0" y="125.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
 <rect x="140.0" y="125.0" width="123.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
 <text x="271.3" y="137.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.9 ns</text>
-<text x="128.0" y="158.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<text x="128.0" y="158.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
 <rect x="140.0" y="146.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="146.0" width="257.7" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="405.7" y="158.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">33.2 ns</text>
-<text x="128.0" y="179.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="146.0" width="194.2" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="342.2" y="158.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">25.0 ns</text>
+<text x="128.0" y="179.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
 <rect x="140.0" y="167.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="167.0" width="555.0" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
-<text x="703.0" y="179.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">71.5 ns</text>
-<text x="140.0" y="225.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">P99 Query Latency (ns/op)</text>
-<text x="128.0" y="247.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
-<rect x="140.0" y="235.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="235.0" width="5.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="153.3" y="247.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">4.51 ns</text>
-<text x="128.0" y="268.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="167.0" width="257.7" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
+<text x="405.7" y="179.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">33.2 ns</text>
+<text x="128.0" y="200.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="188.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="188.0" width="555.0" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
+<text x="703.0" y="200.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">71.5 ns</text>
+<text x="140.0" y="246.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">P99 Query Latency (ns/op)</text>
+<text x="695.0" y="246.0" font-family="system-ui,sans-serif" font-size="10" fill="#777" text-anchor="end" font-style="italic">1 off-scale hidden</text>
+<text x="128.0" y="268.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
 <rect x="140.0" y="256.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="256.0" width="11.5" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="159.5" y="268.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.88 ns</text>
-<text x="128.0" y="289.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
+<rect x="140.0" y="256.0" width="5.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="153.3" y="268.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">4.51 ns</text>
+<text x="128.0" y="289.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
 <rect x="140.0" y="277.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="277.0" width="15.7" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="163.7" y="289.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">13.5 ns</text>
-<text x="128.0" y="310.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="277.0" width="11.5" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
+<text x="159.5" y="289.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.88 ns</text>
+<text x="128.0" y="310.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="298.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="298.0" width="89.1" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
-<text x="237.1" y="310.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">76.6 ns</text>
-<text x="128.0" y="331.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
+<rect x="140.0" y="298.0" width="15.7" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="163.7" y="310.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">13.5 ns</text>
+<text x="128.0" y="331.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
 <rect x="140.0" y="319.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="319.0" width="95.4" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="243.4" y="331.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">82.0 ns</text>
-<text x="128.0" y="352.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="319.0" width="89.1" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
+<text x="237.1" y="331.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">76.6 ns</text>
+<text x="128.0" y="352.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="340.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="340.0" width="204.6" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="352.6" y="352.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">175.8 ns</text>
-<text x="128.0" y="373.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="340.0" width="95.4" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="243.4" y="352.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">82.0 ns</text>
+<text x="128.0" y="373.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
 <rect x="140.0" y="361.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="361.0" width="555.0" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="703.0" y="373.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">476.9 ns</text>
-<text x="140.0" y="419.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Memory Usage (bytes)</text>
-<text x="128.0" y="441.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
-<rect x="140.0" y="429.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="429.0" width="17.9" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="165.9" y="441.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.0 KB</text>
-<text x="128.0" y="462.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
-<rect x="140.0" y="450.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="450.0" width="18.8" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="166.8" y="462.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.1 KB</text>
-<text x="128.0" y="483.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="361.0" width="204.6" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="352.6" y="373.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">175.8 ns</text>
+<text x="128.0" y="394.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="382.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="382.0" width="555.0" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="703.0" y="394.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">476.9 ns</text>
+<text x="128.0" y="415.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="403.0" width="555.0" height="16.0" fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3"/>
+<text x="148.0" y="415.0" font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic">off-scale</text>
+<text x="689.0" y="415.0" font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end">201793 ns</text>
+<text x="140.0" y="461.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Memory Usage (bytes)</text>
+<text x="695.0" y="461.0" font-family="system-ui,sans-serif" font-size="10" fill="#777" text-anchor="end" font-style="italic">1 off-scale hidden</text>
+<text x="128.0" y="483.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="471.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="471.0" width="68.3" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="216.3" y="483.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">7.6 KB</text>
-<text x="128.0" y="504.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
+<rect x="140.0" y="471.0" width="17.9" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="165.9" y="483.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.0 KB</text>
+<text x="128.0" y="504.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="492.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="492.0" width="84.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="232.0" y="504.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.4 KB</text>
-<text x="128.0" y="525.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="492.0" width="18.8" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="166.8" y="504.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.1 KB</text>
+<text x="128.0" y="525.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
 <rect x="140.0" y="513.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="513.0" width="134.4" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="282.4" y="525.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.0 KB</text>
-<text x="128.0" y="546.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="513.0" width="68.3" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="216.3" y="525.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">7.6 KB</text>
+<text x="128.0" y="546.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
 <rect x="140.0" y="534.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="534.0" width="282.4" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
-<text x="430.4" y="546.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">31.5 KB</text>
-<text x="128.0" y="567.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="534.0" width="84.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="232.0" y="546.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.4 KB</text>
+<text x="128.0" y="567.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
 <rect x="140.0" y="555.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="555.0" width="555.0" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="703.0" y="567.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">61.9 KB</text>
-<text x="140.0" y="613.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Merge Latency (ns/op)</text>
-<text x="128.0" y="635.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
-<rect x="140.0" y="623.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="623.0" width="3.0" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="151.0" y="635.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">34.8 ns</text>
-<text x="128.0" y="656.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
-<rect x="140.0" y="644.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="644.0" width="3.0" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="151.0" y="656.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">146.8 ns</text>
-<text x="128.0" y="677.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
-<rect x="140.0" y="665.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="665.0" width="3.0" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="151.0" y="677.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">215.7 ns</text>
-<text x="128.0" y="698.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="555.0" width="134.4" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="282.4" y="567.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.0 KB</text>
+<text x="128.0" y="588.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="576.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="576.0" width="282.4" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
+<text x="430.4" y="588.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">31.5 KB</text>
+<text x="128.0" y="609.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="597.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="597.0" width="555.0" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
+<text x="703.0" y="609.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">61.9 KB</text>
+<text x="128.0" y="630.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="618.0" width="555.0" height="16.0" fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3"/>
+<text x="148.0" y="630.0" font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic">off-scale</text>
+<text x="689.0" y="630.0" font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end">398.6 KB</text>
+<text x="140.0" y="676.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Merge Latency (ns/op)</text>
+<text x="695.0" y="676.0" font-family="system-ui,sans-serif" font-size="10" fill="#777" text-anchor="end" font-style="italic">2 off-scale hidden</text>
+<text x="128.0" y="698.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="686.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="686.0" width="9.9" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="157.9" y="698.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">795.2 ns</text>
-<text x="128.0" y="719.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
+<rect x="140.0" y="686.0" width="16.1" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="164.1" y="698.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">34.8 ns</text>
+<text x="128.0" y="719.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="707.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="707.0" width="14.9" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="162.9" y="719.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1203 ns</text>
-<text x="128.0" y="740.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="707.0" width="67.7" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="215.7" y="719.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">146.8 ns</text>
+<text x="128.0" y="740.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
 <rect x="140.0" y="728.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="728.0" width="555.0" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="703.0" y="740.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">44739 ns</text>
-<text x="128.0" y="761.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
-<text x="148.0" y="761.0" font-family="system-ui,sans-serif" font-size="11" fill="#999" font-style="italic">N/A</text>
+<rect x="140.0" y="728.0" width="99.5" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="247.5" y="740.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">215.7 ns</text>
+<text x="128.0" y="761.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="749.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="749.0" width="366.8" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="514.8" y="761.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">795.2 ns</text>
+<text x="128.0" y="782.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
+<rect x="140.0" y="770.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="770.0" width="555.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="703.0" y="782.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1203 ns</text>
+<text x="128.0" y="803.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="791.0" width="555.0" height="16.0" fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3"/>
+<text x="148.0" y="803.0" font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic">off-scale</text>
+<text x="689.0" y="803.0" font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end">21467 ns</text>
+<text x="128.0" y="824.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="812.0" width="555.0" height="16.0" fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3"/>
+<text x="148.0" y="824.0" font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic">off-scale</text>
+<text x="689.0" y="824.0" font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end">44739 ns</text>
+<text x="128.0" y="845.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<text x="148.0" y="845.0" font-family="system-ui,sans-serif" font-size="11" fill="#999" font-style="italic">N/A</text>
 </svg>
 </div>
 
@@ -204,10 +223,10 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,73.9 157.0,104.6 150.5,150.1 99.1,150.6 83.2,101.4" fill="#4878CF" fill-opacity="0.20" stroke="#4878CF" stroke-width="1.5"/>
+<polygon points="125.0,73.9 162.6,102.8 150.6,150.3 99.1,150.6 83.2,101.4" fill="#4878CF" fill-opacity="0.20" stroke="#4878CF" stroke-width="1.5"/>
 <circle cx="125.0" cy="73.9" r="3" fill="#4878CF"/>
-<circle cx="157.0" cy="104.6" r="3" fill="#4878CF"/>
-<circle cx="150.5" cy="150.1" r="3" fill="#4878CF"/>
+<circle cx="162.6" cy="102.8" r="3" fill="#4878CF"/>
+<circle cx="150.6" cy="150.3" r="3" fill="#4878CF"/>
 <circle cx="99.1" cy="150.6" r="3" fill="#4878CF"/>
 <circle cx="83.2" cy="101.4" r="3" fill="#4878CF"/>
 </svg>
@@ -230,12 +249,12 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,83.8 140.8,109.9 150.9,150.6 103.9,144.1 113.4,111.2" fill="#D4A942" fill-opacity="0.20" stroke="#D4A942" stroke-width="1.5"/>
+<polygon points="125.0,83.8 155.5,105.1 150.9,150.6 103.9,144.1 104.7,108.4" fill="#D4A942" fill-opacity="0.20" stroke="#D4A942" stroke-width="1.5"/>
 <circle cx="125.0" cy="83.8" r="3" fill="#D4A942"/>
-<circle cx="140.8" cy="109.9" r="3" fill="#D4A942"/>
+<circle cx="155.5" cy="105.1" r="3" fill="#D4A942"/>
 <circle cx="150.9" cy="150.6" r="3" fill="#D4A942"/>
 <circle cx="103.9" cy="144.1" r="3" fill="#D4A942"/>
-<circle cx="113.4" cy="111.2" r="3" fill="#D4A942"/>
+<circle cx="104.7" cy="108.4" r="3" fill="#D4A942"/>
 </svg>
 </div>
 <div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
@@ -256,12 +275,12 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,71.0 128.3,113.9 140.8,136.7 105.1,142.3 121.7,113.9" fill="#E87D2B" fill-opacity="0.20" stroke="#E87D2B" stroke-width="1.5"/>
+<polygon points="125.0,71.0 148.6,107.3 144.3,141.6 105.1,142.3 113.0,111.1" fill="#E87D2B" fill-opacity="0.20" stroke="#E87D2B" stroke-width="1.5"/>
 <circle cx="125.0" cy="71.0" r="3" fill="#E87D2B"/>
-<circle cx="128.3" cy="113.9" r="3" fill="#E87D2B"/>
-<circle cx="140.8" cy="136.7" r="3" fill="#E87D2B"/>
+<circle cx="148.6" cy="107.3" r="3" fill="#E87D2B"/>
+<circle cx="144.3" cy="141.6" r="3" fill="#E87D2B"/>
 <circle cx="105.1" cy="142.3" r="3" fill="#E87D2B"/>
-<circle cx="121.7" cy="113.9" r="3" fill="#E87D2B"/>
+<circle cx="113.0" cy="111.1" r="3" fill="#E87D2B"/>
 </svg>
 </div>
 <div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
@@ -282,12 +301,38 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,75.7 134.0,112.1 135.7,129.7 109.4,136.4 99.6,106.7" fill="#D65F5F" fill-opacity="0.20" stroke="#D65F5F" stroke-width="1.5"/>
+<polygon points="125.0,75.7 152.5,106.1 141.0,137.1 109.4,136.4 94.8,105.2" fill="#D65F5F" fill-opacity="0.20" stroke="#D65F5F" stroke-width="1.5"/>
 <circle cx="125.0" cy="75.7" r="3" fill="#D65F5F"/>
-<circle cx="134.0" cy="112.1" r="3" fill="#D65F5F"/>
-<circle cx="135.7" cy="129.7" r="3" fill="#D65F5F"/>
+<circle cx="152.5" cy="106.1" r="3" fill="#D65F5F"/>
+<circle cx="141.0" cy="137.1" r="3" fill="#D65F5F"/>
 <circle cx="109.4" cy="136.4" r="3" fill="#D65F5F"/>
-<circle cx="99.6" cy="106.7" r="3" fill="#D65F5F"/>
+<circle cx="94.8" cy="105.2" r="3" fill="#D65F5F"/>
+</svg>
+</div>
+<div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
+<rect x="0.0" y="0.0" width="240.0" height="210.0" fill="white" rx="6"/>
+<text x="125.0" y="28.0" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#4DAF7C" text-anchor="middle">kllsketch</text>
+<polygon points="125.0,106.2 133.4,112.3 130.2,122.1 119.8,122.1 116.6,112.3" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,97.4 141.7,109.6 135.3,129.2 114.7,129.2 108.3,109.6" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,88.6 150.1,106.8 140.5,136.4 109.5,136.4 99.9,106.8" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,79.8 158.5,104.1 145.7,143.5 104.3,143.5 91.5,104.1" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,71.0 166.8,101.4 150.9,150.6 99.1,150.6 83.2,101.4" fill="none" stroke="#d0d0d0" stroke-width="0.8"/>
+<line x1="125" y1="115" x2="125.0" y2="71.0" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="166.8" y2="101.4" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="150.9" y2="150.6" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="99.1" y2="150.6" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="83.2" y2="101.4" stroke="#ddd" stroke-width="0.5"/>
+<text x="125.0" y="66.0" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="middle">Record</text>
+<text x="176.4" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Query</text>
+<text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
+<text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
+<text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
+<polygon points="125.0,103.2 128.3,113.9 127.1,117.8 120.3,121.5 121.7,113.9" fill="#4DAF7C" fill-opacity="0.20" stroke="#4DAF7C" stroke-width="1.5"/>
+<circle cx="125.0" cy="103.2" r="3" fill="#4DAF7C"/>
+<circle cx="128.3" cy="113.9" r="3" fill="#4DAF7C"/>
+<circle cx="127.1" cy="117.8" r="3" fill="#4DAF7C"/>
+<circle cx="120.3" cy="121.5" r="3" fill="#4DAF7C"/>
+<circle cx="121.7" cy="113.9" r="3" fill="#4DAF7C"/>
 </svg>
 </div>
 <div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
@@ -308,12 +353,12 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,111.5 141.4,109.7 130.1,122.0 122.9,117.8 109.0,109.8" fill="#56A354" fill-opacity="0.20" stroke="#56A354" stroke-width="1.5"/>
+<polygon points="125.0,111.5 155.8,105.0 137.4,132.1 122.9,117.8 101.5,107.4" fill="#56A354" fill-opacity="0.20" stroke="#56A354" stroke-width="1.5"/>
 <circle cx="125.0" cy="111.5" r="3" fill="#56A354"/>
-<circle cx="141.4" cy="109.7" r="3" fill="#56A354"/>
-<circle cx="130.1" cy="122.0" r="3" fill="#56A354"/>
+<circle cx="155.8" cy="105.0" r="3" fill="#56A354"/>
+<circle cx="137.4" cy="132.1" r="3" fill="#56A354"/>
 <circle cx="122.9" cy="117.8" r="3" fill="#56A354"/>
-<circle cx="109.0" cy="109.8" r="3" fill="#56A354"/>
+<circle cx="101.5" cy="107.4" r="3" fill="#56A354"/>
 </svg>
 </div>
 <div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
@@ -334,12 +379,12 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,106.4 159.8,103.7 127.1,117.8 122.7,118.1 101.8,107.5" fill="#4E9AA8" fill-opacity="0.20" stroke="#4E9AA8" stroke-width="1.5"/>
+<polygon points="125.0,106.4 163.8,102.4 134.1,127.5 122.7,118.1 96.4,105.7" fill="#4E9AA8" fill-opacity="0.20" stroke="#4E9AA8" stroke-width="1.5"/>
 <circle cx="125.0" cy="106.4" r="3" fill="#4E9AA8"/>
-<circle cx="159.8" cy="103.7" r="3" fill="#4E9AA8"/>
-<circle cx="127.1" cy="117.8" r="3" fill="#4E9AA8"/>
+<circle cx="163.8" cy="102.4" r="3" fill="#4E9AA8"/>
+<circle cx="134.1" cy="127.5" r="3" fill="#4E9AA8"/>
 <circle cx="122.7" cy="118.1" r="3" fill="#4E9AA8"/>
-<circle cx="101.8" cy="107.5" r="3" fill="#4E9AA8"/>
+<circle cx="96.4" cy="105.7" r="3" fill="#4E9AA8"/>
 </svg>
 </div>
 <div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
@@ -360,27 +405,28 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,98.1 166.8,101.4 139.2,134.6 110.8,134.5 97.4,106.0" fill="#9F7FBA" fill-opacity="0.20" stroke="#9F7FBA" stroke-width="1.5"/>
+<polygon points="125.0,98.1 166.8,101.4 143.3,140.2 110.8,134.5 93.3,104.7" fill="#9F7FBA" fill-opacity="0.20" stroke="#9F7FBA" stroke-width="1.5"/>
 <circle cx="125.0" cy="98.1" r="3" fill="#9F7FBA"/>
 <circle cx="166.8" cy="101.4" r="3" fill="#9F7FBA"/>
-<circle cx="139.2" cy="134.6" r="3" fill="#9F7FBA"/>
+<circle cx="143.3" cy="140.2" r="3" fill="#9F7FBA"/>
 <circle cx="110.8" cy="134.5" r="3" fill="#9F7FBA"/>
-<circle cx="97.4" cy="106.0" r="3" fill="#9F7FBA"/>
+<circle cx="93.3" cy="104.7" r="3" fill="#9F7FBA"/>
 </svg>
 </div>
 </div>
 
 <h2>Accuracy Heatmap (P99 Error)</h2>
-<div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 634 294" width="634" height="294">
-<rect x="0.0" y="0.0" width="634.0" height="294.0" fill="white" rx="8"/>
-<text x="317.0" y="20.0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">P99 Accuracy Error %</text>
+<div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708 294" width="708" height="294">
+<rect x="0.0" y="0.0" width="708.0" height="294.0" fill="white" rx="8"/>
+<text x="354.0" y="20.0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">P99 Accuracy Error %</text>
 <text x="133.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,133.0,92.0)">base2histogram</text>
 <text x="207.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,207.0,92.0)">ddsketch</text>
 <text x="281.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,281.0,92.0)">h2histogram</text>
 <text x="355.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,355.0,92.0)">hdrhistogram</text>
-<text x="429.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,429.0,92.0)">quantogram</text>
-<text x="503.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,503.0,92.0)">reqsketch</text>
-<text x="577.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,577.0,92.0)">tdigest</text>
+<text x="429.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,429.0,92.0)">kllsketch</text>
+<text x="503.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,503.0,92.0)">quantogram</text>
+<text x="577.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,577.0,92.0)">reqsketch</text>
+<text x="651.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,651.0,92.0)">tdigest</text>
 <text x="86.0" y="121.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Log-Normal</text>
 <rect x="96.0" y="102.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
@@ -390,12 +436,14 @@
 <text x="280.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.628%</text>
 <rect x="318.0" y="102.0" width="72.0" height="30.0" fill="#b2d55c" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.388%</text>
-<rect x="392.0" y="102.0" width="72.0" height="30.0" fill="#a8d562" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.310%</text>
-<rect x="466.0" y="102.0" width="72.0" height="30.0" fill="#8bd272" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.078%</text>
-<rect x="540.0" y="102.0" width="72.0" height="30.0" fill="#9dd468" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.223%</text>
+<rect x="392.0" y="102.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">7.597%</text>
+<rect x="466.0" y="102.0" width="72.0" height="30.0" fill="#a8d562" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.310%</text>
+<rect x="540.0" y="102.0" width="72.0" height="30.0" fill="#8bd272" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.078%</text>
+<rect x="614.0" y="102.0" width="72.0" height="30.0" fill="#9dd468" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.223%</text>
 <text x="86.0" y="151.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Bimodal</text>
 <rect x="96.0" y="132.0" width="72.0" height="30.0" fill="#84d276" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.018%</text>
@@ -405,12 +453,14 @@
 <text x="280.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.839%</text>
 <rect x="318.0" y="132.0" width="72.0" height="30.0" fill="#93d36e" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.141%</text>
-<rect x="392.0" y="132.0" width="72.0" height="30.0" fill="#b7d65a" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.424%</text>
-<rect x="466.0" y="132.0" width="72.0" height="30.0" fill="#95d36c" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.159%</text>
-<rect x="540.0" y="132.0" width="72.0" height="30.0" fill="#99d36b" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.184%</text>
+<rect x="392.0" y="132.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">11.459%</text>
+<rect x="466.0" y="132.0" width="72.0" height="30.0" fill="#b7d65a" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.424%</text>
+<rect x="540.0" y="132.0" width="72.0" height="30.0" fill="#95d36c" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.159%</text>
+<rect x="614.0" y="132.0" width="72.0" height="30.0" fill="#99d36b" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.184%</text>
 <text x="86.0" y="181.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Exponential</text>
 <rect x="96.0" y="162.0" width="72.0" height="30.0" fill="#92d36e" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.130%</text>
@@ -420,12 +470,14 @@
 <text x="280.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">2.673%</text>
 <rect x="318.0" y="162.0" width="72.0" height="30.0" fill="#8fd370" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.109%</text>
-<rect x="392.0" y="162.0" width="72.0" height="30.0" fill="#ded944" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.739%</text>
-<rect x="466.0" y="162.0" width="72.0" height="30.0" fill="#c5d751" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.543%</text>
-<rect x="540.0" y="162.0" width="72.0" height="30.0" fill="#90d36f" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.118%</text>
+<rect x="392.0" y="162.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">8.627%</text>
+<rect x="466.0" y="162.0" width="72.0" height="30.0" fill="#ded944" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.739%</text>
+<rect x="540.0" y="162.0" width="72.0" height="30.0" fill="#c5d751" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.543%</text>
+<rect x="614.0" y="162.0" width="72.0" height="30.0" fill="#90d36f" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.118%</text>
 <text x="86.0" y="211.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Pareto</text>
 <rect x="96.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
@@ -435,12 +487,14 @@
 <text x="280.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
 <rect x="318.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
-<rect x="392.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
+<rect x="392.0" y="192.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">23.810%</text>
 <rect x="466.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="502.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
-<rect x="540.0" y="192.0" width="72.0" height="30.0" fill="#ffaf23" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.280%</text>
+<rect x="540.0" y="192.0" width="72.0" height="30.0" fill="#82d278" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.000%</text>
+<rect x="614.0" y="192.0" width="72.0" height="30.0" fill="#ffaf23" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">1.280%</text>
 <text x="86.0" y="241.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Uniform</text>
 <rect x="96.0" y="222.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="132.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">3.740%</text>
@@ -450,12 +504,14 @@
 <text x="280.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">0.950%</text>
 <rect x="318.0" y="222.0" width="72.0" height="30.0" fill="#91d36f" stroke="white" stroke-width="1.5" rx="2.5"/>
 <text x="354.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.122%</text>
-<rect x="392.0" y="222.0" width="72.0" height="30.0" fill="#e6da3f" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="428.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">0.803%</text>
-<rect x="466.0" y="222.0" width="72.0" height="30.0" fill="#83d277" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="502.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.011%</text>
-<rect x="540.0" y="222.0" width="72.0" height="30.0" fill="#84d276" stroke="white" stroke-width="1.5" rx="2.5"/>
-<text x="576.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.020%</text>
+<rect x="392.0" y="222.0" width="72.0" height="30.0" fill="#c0d655" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="428.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.498%</text>
+<rect x="466.0" y="222.0" width="72.0" height="30.0" fill="#e6da3f" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="502.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">0.803%</text>
+<rect x="540.0" y="222.0" width="72.0" height="30.0" fill="#83d277" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="576.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.011%</text>
+<rect x="614.0" y="222.0" width="72.0" height="30.0" fill="#84d276" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="650.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.020%</text>
 <rect x="96.0" y="264.0" width="4.5" height="8.0" fill="#82d278"/>
 <rect x="100.0" y="264.0" width="4.5" height="8.0" fill="#88d274"/>
 <rect x="104.0" y="264.0" width="4.5" height="8.0" fill="#8ed371"/>

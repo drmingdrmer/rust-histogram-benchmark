@@ -68,6 +68,7 @@ fn color_for(family: &str) -> &'static str {
         "ddsketch" => "#D4A942",
         "h2histogram" => "#E87D2B",
         "hdrhistogram" => "#D65F5F",
+        "kllsketch" => "#4DAF7C",
         "quantogram" => "#56A354",
         "reqsketch" => "#4E9AA8",
         "tdigest" => "#9F7FBA",
@@ -126,6 +127,7 @@ struct BarEntry {
     family: String,
     value: f64,
     skip: bool,
+    suppressed: bool,
 }
 
 fn perf_bars_svg(results: &[BenchResult]) -> String {
@@ -140,6 +142,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                     family: r.family.clone(),
                     value: r.record_throughput.log_normal_ns,
                     skip: false,
+                    suppressed: false,
                 })
                 .collect(),
         ),
@@ -153,6 +156,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                     family: r.family.clone(),
                     value: r.percentile_latency.p99_ns,
                     skip: false,
+                    suppressed: false,
                 })
                 .collect(),
         ),
@@ -166,6 +170,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                     family: r.family.clone(),
                     value: r.memory_bytes as f64,
                     skip: false,
+                    suppressed: false,
                 })
                 .collect(),
         ),
@@ -179,6 +184,7 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
                     family: r.family.clone(),
                     value: r.merge_ns.unwrap_or(0.0),
                     skip: r.merge_ns.is_none(),
+                    suppressed: false,
                 })
                 .collect(),
         ),
@@ -204,20 +210,21 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
     let mut y_offset = 15.0;
 
     for (title, unit, mut entries) in panels {
-        entries.sort_by(|a, b| {
-            if a.skip && !b.skip {
-                return std::cmp::Ordering::Greater;
-            }
-            if !a.skip && b.skip {
-                return std::cmp::Ordering::Less;
-            }
-            a.value.partial_cmp(&b.value).unwrap()
-        });
+        suppress_outliers(&mut entries);
 
-        let max_val = entries.iter().filter(|e| !e.skip).map(|e| e.value).fold(0.0_f64, f64::max);
+        entries.sort_by(|a, b| rank_entry(a).cmp(&rank_entry(b)).then_with(|| a.value.total_cmp(&b.value)));
+
+        let max_val = entries.iter().filter(|e| !e.skip && !e.suppressed).map(|e| e.value).fold(0.0_f64, f64::max);
+        let max_val = if max_val > 0.0 { max_val } else { 1.0 };
+        let suppressed_count = entries.iter().filter(|e| e.suppressed).count();
 
         let title_attrs = r##"font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333""##;
         svg_text(&mut svg, left_margin, y_offset + 16.0, title_attrs, title);
+        if suppressed_count > 0 {
+            let note = format!("{suppressed_count} off-scale hidden");
+            let note_attrs = r##"font-family="system-ui,sans-serif" font-size="10" fill="#777" text-anchor="end" font-style="italic""##;
+            svg_text(&mut svg, left_margin + bar_area_w, y_offset + 16.0, note_attrs, &note);
+        }
         y_offset += title_h;
 
         for entry in &entries {
@@ -231,6 +238,21 @@ fn perf_bars_svg(results: &[BenchResult]) -> String {
             if entry.skip {
                 let na_attrs = r##"font-family="system-ui,sans-serif" font-size="11" fill="#999" font-style="italic""##;
                 svg_text(&mut svg, left_margin + 8.0, text_y, na_attrs, "N/A");
+            } else if entry.suppressed {
+                svg_rect(
+                    &mut svg,
+                    left_margin,
+                    bar_y,
+                    bar_area_w,
+                    bar_h,
+                    r##"fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3""##,
+                );
+                let off_attrs =
+                    r##"font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic""##;
+                svg_text(&mut svg, left_margin + 8.0, text_y, off_attrs, "off-scale");
+                let raw_value = format_value(entry.value, unit);
+                let raw_attrs = r##"font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end""##;
+                svg_text(&mut svg, left_margin + bar_area_w - 6.0, text_y, raw_attrs, &raw_value);
             } else {
                 let bar_w = (entry.value / max_val * bar_area_w).max(3.0);
                 let color = color_for(&entry.family);
@@ -280,6 +302,64 @@ fn format_value(v: f64, unit: &str) -> String {
         format!("{v:.1} {unit}")
     } else {
         format!("{v:.2} {unit}")
+    }
+}
+
+fn rank_entry(entry: &BarEntry) -> u8 {
+    if entry.skip {
+        2
+    } else if entry.suppressed {
+        1
+    } else {
+        0
+    }
+}
+
+fn suppress_outliers(entries: &mut [BarEntry]) {
+    const MIN_VISIBLE: usize = 4;
+    const MAX_TO_MEDIAN_RATIO: f64 = 20.0;
+    const MAX_TO_SECOND_RATIO: f64 = 1.8;
+
+    loop {
+        let mut visible: Vec<(usize, f64)> = entries
+            .iter()
+            .enumerate()
+            .filter(|(_, e)| !e.skip && !e.suppressed)
+            .map(|(idx, e)| (idx, e.value))
+            .collect();
+
+        if visible.len() <= MIN_VISIBLE {
+            break;
+        }
+
+        visible.sort_by(|a, b| a.1.total_cmp(&b.1));
+
+        let len = visible.len();
+        let (max_idx, max_v) = visible[len - 1];
+        let second_v = visible[len - 2].1;
+        let median_v = if len % 2 == 1 {
+            visible[len / 2].1
+        } else {
+            (visible[len / 2 - 1].1 + visible[len / 2].1) / 2.0
+        };
+
+        let max_to_median = if median_v <= 0.0 {
+            f64::INFINITY
+        } else {
+            max_v / median_v
+        };
+        let max_to_second = if second_v <= 0.0 {
+            f64::INFINITY
+        } else {
+            max_v / second_v
+        };
+
+        if max_to_median > MAX_TO_MEDIAN_RATIO && max_to_second > MAX_TO_SECOND_RATIO {
+            entries[max_idx].suppressed = true;
+            continue;
+        }
+
+        break;
     }
 }
 

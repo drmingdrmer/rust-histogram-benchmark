@@ -15,6 +15,7 @@ BINS=(
     bench-quantogram
     bench-ddsketch
     bench-reqsketch
+    bench-kllsketch
     bench-tdigest
 )
 

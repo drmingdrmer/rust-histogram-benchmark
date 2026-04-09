@@ -1,0 +1,51 @@
+{
+  "name": "sparsehistogram",
+  "family": "sparsehistogram",
+  "config": "grouping_power=4,max_value_power=64,dense_record+freeze_sparse",
+  "record_throughput": {
+    "sequential_ns": 2.096625,
+    "uniform_ns": 1.4565835,
+    "log_normal_ns": 1.455917
+  },
+  "percentile_latency": {
+    "p50_ns": 162.9396,
+    "p90_ns": 204.5458,
+    "p95_ns": 219.8979,
+    "p99_ns": 236.08125,
+    "p999_ns": 257.39165
+  },
+  "memory_bytes": 1536,
+  "merge_ns": 567.25,
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.08038183370558254,
+      "p95_error_pct": 1.7208405758087237,
+      "p99_error_pct": 0.9497777726735028
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.9925558312655087,
+      "p95_error_pct": 0.7625272331154684,
+      "p99_error_pct": 1.627906976744186
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.6493506493506493,
+      "p95_error_pct": 0.40066777963272115,
+      "p99_error_pct": 1.839080459770115
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.8658008658008658,
+      "p95_error_pct": 0.36715620827770357,
+      "p99_error_pct": 2.6727509778357237
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    }
+  ]
+}

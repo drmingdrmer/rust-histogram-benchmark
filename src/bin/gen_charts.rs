@@ -129,6 +129,7 @@ fn color_for(family: &str) -> &'static str {
         "kllsketch" => "#4DAF7C",
         "quantogram" => "#56A354",
         "reqsketch" => "#4E9AA8",
+        "sparsehistogram" => "#3FA7D6",
         "tdigest" => "#9F7FBA",
         _ => "#888888",
     }

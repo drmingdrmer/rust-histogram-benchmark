@@ -11,6 +11,7 @@
 | kllsketch | `k=200` |
 | quantogram | `bins_per_doubling=35,smallest_power=0,largest_power=observed_max_power` |
 | reqsketch | `k=12,rank_accuracy=high` |
+| sparsehistogram | `grouping_power=4,max_value_power=64,dense_record+freeze_sparse` |
 | tdigest | `max_size=100,batch_size=1000,local_sort+merge_sorted` |
 ## Recording Throughput (ns/op)
 
@@ -25,6 +26,7 @@
 | kllsketch | 7.5 | 24.9 | 25.0 |
 | quantogram | 46.7 | 78.2 | 71.5 |
 | reqsketch | 13.0 | 33.5 | 33.2 |
+| sparsehistogram | 2.1 | 1.5 | 1.5 |
 | tdigest | 3.0 | 15.1 | 15.9 |
 
 ## Percentile Query Latency (ns/op)
@@ -40,6 +42,7 @@
 | kllsketch | 199201.3 | 201616.0 | 201286.0 | 201792.7 | 202202.8 |
 | quantogram | 83.5 | 99.4 | 122.9 | 76.6 | 127.3 |
 | reqsketch | 10.2 | 9.8 | 9.8 | 9.9 | 9.8 |
+| sparsehistogram | 162.9 | 204.5 | 219.9 | 236.1 | 257.4 |
 | tdigest | 39.1 | 8.9 | 7.3 | 4.5 | 3.3 |
 
 ## Memory (retained heap bytes after recording 2M log-normal values)
@@ -55,6 +58,7 @@
 | kllsketch | 398.6 KB |
 | quantogram | 31.5 KB |
 | reqsketch | 61.9 KB |
+| sparsehistogram | 1.5 KB |
 | tdigest | 9.4 KB |
 
 ## Merge Latency (ns/op)
@@ -70,6 +74,7 @@
 | kllsketch | 21467.0 |
 | quantogram | — |
 | reqsketch | 44738.8 |
+| sparsehistogram | 567.2 |
 | tdigest | 1203.3 |
 
 ## Accuracy: Relative Error %
@@ -87,6 +92,7 @@
 | kllsketch | 0.980% | 0.537% | 0.498% |
 | quantogram | 0.225% | 0.945% | 0.803% |
 | reqsketch | 0.543% | 0.002% | 0.011% |
+| sparsehistogram | 0.080% | 1.721% | 0.950% |
 | tdigest | 0.109% | 0.020% | 0.020% |
 
 ### log_normal_api
@@ -102,6 +108,7 @@
 | kllsketch | 0.744% | 2.288% | 7.597% |
 | quantogram | 0.744% | 0.000% | 0.310% |
 | reqsketch | 0.000% | 0.109% | 0.078% |
+| sparsehistogram | 0.993% | 0.763% | 1.628% |
 | tdigest | 0.027% | 0.039% | 0.223% |
 
 ### bimodal
@@ -117,6 +124,7 @@
 | kllsketch | 0.000% | 6.110% | 11.459% |
 | quantogram | 0.649% | 0.601% | 0.424% |
 | reqsketch | 0.649% | 0.367% | 0.159% |
+| sparsehistogram | 0.649% | 0.401% | 1.839% |
 | tdigest | 0.091% | 0.982% | 0.184% |
 
 ### exponential
@@ -132,6 +140,7 @@
 | kllsketch | 1.443% | 3.138% | 8.627% |
 | quantogram | 0.433% | 0.567% | 0.739% |
 | reqsketch | 1.587% | 0.067% | 0.543% |
+| sparsehistogram | 0.866% | 0.367% | 2.673% |
 | tdigest | 0.020% | 0.042% | 0.118% |
 
 ### pareto
@@ -147,5 +156,6 @@
 | kllsketch | 0.000% | 14.286% | 23.810% |
 | quantogram | 0.000% | 0.000% | 0.000% |
 | reqsketch | 0.000% | 0.000% | 0.000% |
+| sparsehistogram | 0.000% | 0.000% | 0.000% |
 | tdigest | 0.000% | 0.745% | 1.280% |
 

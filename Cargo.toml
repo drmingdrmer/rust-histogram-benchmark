@@ -60,6 +60,10 @@ name = "bench-gk"
 path = "src/bin/bench_gk.rs"
 
 [[bin]]
+name = "bench-sparsehistogram"
+path = "src/bin/bench_sparsehistogram.rs"
+
+[[bin]]
 name = "bench-tdigest"
 path = "src/bin/bench_tdigest.rs"
 

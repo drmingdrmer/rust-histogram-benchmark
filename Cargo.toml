@@ -56,6 +56,10 @@ name = "bench-ckms"
 path = "src/bin/bench_ckms.rs"
 
 [[bin]]
+name = "bench-gk"
+path = "src/bin/bench_gk.rs"
+
+[[bin]]
 name = "bench-tdigest"
 path = "src/bin/bench_tdigest.rs"
 

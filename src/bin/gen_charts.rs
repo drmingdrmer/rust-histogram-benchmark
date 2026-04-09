@@ -91,13 +91,17 @@ fn main() {
             &radar_svgs,
             &heatmap_svg,
         );
-        fs::write(format!("{output_dir}/charts-{}.html", category.slug), &page).unwrap();
+        let dashboard_path = if category.slug == "efficient" {
+            format!("{output_dir}/charts.html")
+        } else {
+            format!("{output_dir}/charts-{}.html", category.slug)
+        };
+        fs::write(dashboard_path, &page).unwrap();
 
         // Backward compatibility: keep old names pointing to the efficient set.
         if category.slug == "efficient" {
             fs::write(format!("{output_dir}/chart-perf.svg"), &perf_svg).unwrap();
             fs::write(format!("{output_dir}/chart-accuracy.svg"), &heatmap_svg).unwrap();
-            fs::write(format!("{output_dir}/charts.html"), &page).unwrap();
         }
 
         total_radar += radar_svgs.len();
@@ -119,6 +123,7 @@ fn color_for(family: &str) -> &'static str {
         "base2histogram" => "#4878CF",
         "ckms" => "#66A61E",
         "ddsketch" => "#D4A942",
+        "gkstream" => "#2D9D8F",
         "h2histogram" => "#E87D2B",
         "hdrhistogram" => "#D65F5F",
         "kllsketch" => "#4DAF7C",

@@ -1,118 +1,132 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 802" width="780" height="802">
-<rect x="0.0" y="0.0" width="780.0" height="802.0" fill="white" rx="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 886" width="780" height="886">
+<rect x="0.0" y="0.0" width="780.0" height="886.0" fill="white" rx="8"/>
 <text x="140.0" y="31.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Record Speed (log-normal, ns/op)</text>
 <text x="128.0" y="53.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
 <rect x="140.0" y="41.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="41.0" width="11.1" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="159.1" y="53.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1.43 ns</text>
+<rect x="140.0" y="41.0" width="10.4" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="158.4" y="53.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1.43 ns</text>
 <text x="128.0" y="74.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="62.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="62.0" width="14.4" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="162.4" y="74.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1.85 ns</text>
+<rect x="140.0" y="62.0" width="13.4" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="161.4" y="74.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1.85 ns</text>
 <text x="128.0" y="95.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
 <rect x="140.0" y="83.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="83.0" width="16.9" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="164.9" y="95.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.17 ns</text>
+<rect x="140.0" y="83.0" width="15.8" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="163.8" y="95.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.17 ns</text>
 <text x="128.0" y="116.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="104.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="104.0" width="34.7" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="182.7" y="116.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">4.47 ns</text>
+<rect x="140.0" y="104.0" width="32.5" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="180.5" y="116.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">4.47 ns</text>
 <text x="128.0" y="137.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
 <rect x="140.0" y="125.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="125.0" width="123.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="271.3" y="137.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.9 ns</text>
+<rect x="140.0" y="125.0" width="115.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="263.3" y="137.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.9 ns</text>
 <text x="128.0" y="158.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
 <rect x="140.0" y="146.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="146.0" width="257.7" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="405.7" y="158.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">33.2 ns</text>
+<rect x="140.0" y="146.0" width="241.1" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
+<text x="389.1" y="158.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">33.2 ns</text>
 <text x="128.0" y="179.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
 <rect x="140.0" y="167.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="167.0" width="555.0" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
-<text x="703.0" y="179.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">71.5 ns</text>
-<text x="140.0" y="225.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">P99 Query Latency (ns/op)</text>
-<text x="128.0" y="247.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
-<rect x="140.0" y="235.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="235.0" width="5.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="153.3" y="247.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">4.51 ns</text>
-<text x="128.0" y="268.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="167.0" width="519.2" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
+<text x="667.2" y="179.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">71.5 ns</text>
+<text x="128.0" y="200.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">gkstream</text>
+<rect x="140.0" y="188.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="188.0" width="555.0" height="16.0" fill="#2D9D8F" rx="3" opacity="0.85"/>
+<text x="703.0" y="200.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">76.4 ns</text>
+<text x="140.0" y="246.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">P99 Query Latency (ns/op)</text>
+<text x="128.0" y="268.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
 <rect x="140.0" y="256.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="256.0" width="11.5" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="159.5" y="268.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.88 ns</text>
-<text x="128.0" y="289.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
+<rect x="140.0" y="256.0" width="5.3" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="153.3" y="268.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">4.51 ns</text>
+<text x="128.0" y="289.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
 <rect x="140.0" y="277.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="277.0" width="15.7" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="163.7" y="289.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">13.5 ns</text>
-<text x="128.0" y="310.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="277.0" width="11.5" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
+<text x="159.5" y="289.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.88 ns</text>
+<text x="128.0" y="310.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="298.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="298.0" width="89.1" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
-<text x="237.1" y="310.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">76.6 ns</text>
-<text x="128.0" y="331.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
+<rect x="140.0" y="298.0" width="15.7" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="163.7" y="310.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">13.5 ns</text>
+<text x="128.0" y="331.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">gkstream</text>
 <rect x="140.0" y="319.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="319.0" width="95.4" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="243.4" y="331.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">82.0 ns</text>
-<text x="128.0" y="352.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="319.0" width="28.0" height="16.0" fill="#2D9D8F" rx="3" opacity="0.85"/>
+<text x="176.0" y="331.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">24.0 ns</text>
+<text x="128.0" y="352.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
 <rect x="140.0" y="340.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="340.0" width="204.6" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="352.6" y="352.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">175.8 ns</text>
-<text x="128.0" y="373.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="340.0" width="89.1" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
+<text x="237.1" y="352.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">76.6 ns</text>
+<text x="128.0" y="373.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="361.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="361.0" width="555.0" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="703.0" y="373.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">476.9 ns</text>
-<text x="140.0" y="419.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Memory Usage (bytes)</text>
-<text x="128.0" y="441.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
-<rect x="140.0" y="429.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="429.0" width="17.9" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="165.9" y="441.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.0 KB</text>
-<text x="128.0" y="462.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
-<rect x="140.0" y="450.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="450.0" width="18.8" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="166.8" y="462.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.1 KB</text>
-<text x="128.0" y="483.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="361.0" width="95.4" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="243.4" y="373.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">82.0 ns</text>
+<text x="128.0" y="394.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="382.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="382.0" width="204.6" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="352.6" y="394.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">175.8 ns</text>
+<text x="128.0" y="415.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="403.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="403.0" width="555.0" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="703.0" y="415.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">476.9 ns</text>
+<text x="140.0" y="461.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Memory Usage (bytes)</text>
+<text x="128.0" y="483.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="471.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="471.0" width="68.3" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="216.3" y="483.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">7.6 KB</text>
-<text x="128.0" y="504.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
+<rect x="140.0" y="471.0" width="17.9" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="165.9" y="483.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.0 KB</text>
+<text x="128.0" y="504.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="492.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="492.0" width="84.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="232.0" y="504.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.4 KB</text>
-<text x="128.0" y="525.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="492.0" width="18.8" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="166.8" y="504.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">2.1 KB</text>
+<text x="128.0" y="525.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">gkstream</text>
 <rect x="140.0" y="513.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="513.0" width="134.4" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="282.4" y="525.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.0 KB</text>
-<text x="128.0" y="546.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="513.0" width="53.8" height="16.0" fill="#2D9D8F" rx="3" opacity="0.85"/>
+<text x="201.8" y="525.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">6.0 KB</text>
+<text x="128.0" y="546.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
 <rect x="140.0" y="534.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="534.0" width="282.4" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
-<text x="430.4" y="546.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">31.5 KB</text>
-<text x="128.0" y="567.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="534.0" width="68.3" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="216.3" y="546.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">7.6 KB</text>
+<text x="128.0" y="567.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
 <rect x="140.0" y="555.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="555.0" width="555.0" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
-<text x="703.0" y="567.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">61.9 KB</text>
-<text x="140.0" y="613.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Merge Latency (ns/op)</text>
-<text x="695.0" y="613.0" font-family="system-ui,sans-serif" font-size="10" fill="#777" text-anchor="end" font-style="italic">1 off-scale hidden</text>
-<text x="128.0" y="635.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
-<rect x="140.0" y="623.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="623.0" width="16.1" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
-<text x="164.1" y="635.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">34.8 ns</text>
-<text x="128.0" y="656.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
-<rect x="140.0" y="644.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="644.0" width="67.7" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
-<text x="215.7" y="656.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">146.8 ns</text>
-<text x="128.0" y="677.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
-<rect x="140.0" y="665.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="665.0" width="99.5" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
-<text x="247.5" y="677.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">215.7 ns</text>
-<text x="128.0" y="698.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="555.0" width="84.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="232.0" y="567.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">9.4 KB</text>
+<text x="128.0" y="588.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="576.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="576.0" width="134.4" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="282.4" y="588.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">15.0 KB</text>
+<text x="128.0" y="609.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<rect x="140.0" y="597.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="597.0" width="282.4" height="16.0" fill="#56A354" rx="3" opacity="0.85"/>
+<text x="430.4" y="609.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">31.5 KB</text>
+<text x="128.0" y="630.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="618.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="618.0" width="555.0" height="16.0" fill="#4E9AA8" rx="3" opacity="0.85"/>
+<text x="703.0" y="630.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">61.9 KB</text>
+<text x="140.0" y="676.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Merge Latency (ns/op)</text>
+<text x="695.0" y="676.0" font-family="system-ui,sans-serif" font-size="10" fill="#777" text-anchor="end" font-style="italic">1 off-scale hidden</text>
+<text x="128.0" y="698.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">base2histogram</text>
 <rect x="140.0" y="686.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="686.0" width="366.8" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
-<text x="514.8" y="698.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">795.2 ns</text>
-<text x="128.0" y="719.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
+<rect x="140.0" y="686.0" width="16.1" height="16.0" fill="#4878CF" rx="3" opacity="0.85"/>
+<text x="164.1" y="698.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">34.8 ns</text>
+<text x="128.0" y="719.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ddsketch</text>
 <rect x="140.0" y="707.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
-<rect x="140.0" y="707.0" width="555.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
-<text x="703.0" y="719.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1203 ns</text>
-<text x="128.0" y="740.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
-<rect x="140.0" y="728.0" width="555.0" height="16.0" fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3"/>
-<text x="148.0" y="740.0" font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic">off-scale</text>
-<text x="689.0" y="740.0" font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end">44739 ns</text>
-<text x="128.0" y="761.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
-<text x="148.0" y="761.0" font-family="system-ui,sans-serif" font-size="11" fill="#999" font-style="italic">N/A</text>
+<rect x="140.0" y="707.0" width="67.7" height="16.0" fill="#D4A942" rx="3" opacity="0.85"/>
+<text x="215.7" y="719.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">146.8 ns</text>
+<text x="128.0" y="740.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">h2histogram</text>
+<rect x="140.0" y="728.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="728.0" width="99.5" height="16.0" fill="#E87D2B" rx="3" opacity="0.85"/>
+<text x="247.5" y="740.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">215.7 ns</text>
+<text x="128.0" y="761.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">hdrhistogram</text>
+<rect x="140.0" y="749.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="749.0" width="366.8" height="16.0" fill="#D65F5F" rx="3" opacity="0.85"/>
+<text x="514.8" y="761.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">795.2 ns</text>
+<text x="128.0" y="782.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">tdigest</text>
+<rect x="140.0" y="770.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="770.0" width="555.0" height="16.0" fill="#9F7FBA" rx="3" opacity="0.85"/>
+<text x="703.0" y="782.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">1203 ns</text>
+<text x="128.0" y="803.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">reqsketch</text>
+<rect x="140.0" y="791.0" width="555.0" height="16.0" fill="#fbfbfb" stroke="#e3e3e3" stroke-width="1" stroke-dasharray="2 2" rx="3"/>
+<text x="148.0" y="803.0" font-family="system-ui,sans-serif" font-size="10" fill="#888" font-style="italic">off-scale</text>
+<text x="689.0" y="803.0" font-family="system-ui,sans-serif" font-size="10" fill="#666" text-anchor="end">44739 ns</text>
+<text x="128.0" y="824.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">gkstream</text>
+<text x="148.0" y="824.0" font-family="system-ui,sans-serif" font-size="11" fill="#999" font-style="italic">N/A</text>
+<text x="128.0" y="845.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">quantogram</text>
+<text x="148.0" y="845.0" font-family="system-ui,sans-serif" font-size="11" fill="#999" font-style="italic">N/A</text>
 </svg>

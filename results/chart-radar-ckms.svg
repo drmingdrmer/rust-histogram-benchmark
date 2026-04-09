@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
 <rect x="0.0" y="0.0" width="240.0" height="210.0" fill="white" rx="6"/>
-<text x="125.0" y="28.0" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#4878CF" text-anchor="middle">base2histogram</text>
+<text x="125.0" y="28.0" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#66A61E" text-anchor="middle">ckms</text>
 <polygon points="125.0,106.2 133.4,112.3 130.2,122.1 119.8,122.1 116.6,112.3" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
 <polygon points="125.0,97.4 141.7,109.6 135.3,129.2 114.7,129.2 108.3,109.6" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
 <polygon points="125.0,88.6 150.1,106.8 140.5,136.4 109.5,136.4 99.9,106.8" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
@@ -16,10 +16,10 @@
 <text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
 <text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
 <text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
-<polygon points="125.0,73.9 157.0,104.6 150.5,150.1 99.1,150.6 83.2,101.4" fill="#4878CF" fill-opacity="0.20" stroke="#4878CF" stroke-width="1.5"/>
-<circle cx="125.0" cy="73.9" r="3" fill="#4878CF"/>
-<circle cx="157.0" cy="104.6" r="3" fill="#4878CF"/>
-<circle cx="150.5" cy="150.1" r="3" fill="#4878CF"/>
-<circle cx="99.1" cy="150.6" r="3" fill="#4878CF"/>
-<circle cx="83.2" cy="101.4" r="3" fill="#4878CF"/>
+<polygon points="125.0,111.5 128.3,113.9 127.1,117.8 122.9,117.8 121.7,113.9" fill="#66A61E" fill-opacity="0.20" stroke="#66A61E" stroke-width="1.5"/>
+<circle cx="125.0" cy="111.5" r="3" fill="#66A61E"/>
+<circle cx="128.3" cy="113.9" r="3" fill="#66A61E"/>
+<circle cx="127.1" cy="117.8" r="3" fill="#66A61E"/>
+<circle cx="122.9" cy="117.8" r="3" fill="#66A61E"/>
+<circle cx="121.7" cy="113.9" r="3" fill="#66A61E"/>
 </svg>

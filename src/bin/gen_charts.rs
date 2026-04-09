@@ -35,26 +35,78 @@ fn main() {
         .collect();
 
     sort_results(&mut results);
-
-    let perf_svg = perf_bars_svg(&results);
-    let radar_svgs = radar_svgs(&results);
-    let heatmap_svg = heatmap_svg(&results);
     let highlights_md = highlights_markdown(&results);
 
     fs::create_dir_all(&output_dir).unwrap();
-    fs::write(format!("{output_dir}/chart-perf.svg"), &perf_svg).unwrap();
-    for (name, svg) in &radar_svgs {
-        fs::write(format!("{output_dir}/chart-radar-{}.svg", slugify(name)), svg).unwrap();
-    }
-    fs::write(format!("{output_dir}/chart-accuracy.svg"), &heatmap_svg).unwrap();
     fs::write(format!("{output_dir}/highlights.md"), &highlights_md).unwrap();
 
-    let html = html_dashboard(&perf_svg, &radar_svgs, &heatmap_svg);
-    fs::write(format!("{output_dir}/charts.html"), &html).unwrap();
+    let categories = [
+        ChartCategory {
+            slug: "efficient",
+            title: "Efficient Category",
+            less_efficient: false,
+            description: "Core implementations with practical runtime/resource behavior.",
+        },
+        ChartCategory {
+            slug: "less-efficient",
+            title: "Less Efficient Category",
+            less_efficient: true,
+            description: "High-overhead implementations (CKMS, KLL) shown separately for readability.",
+        },
+    ];
+
+    let has_less_efficient = !filter_category_results(&results, true).is_empty();
+    let mut total_radar = 0usize;
+    let mut category_count = 0usize;
+    for category in categories {
+        let group = filter_category_results(&results, category.less_efficient);
+        if group.is_empty() {
+            continue;
+        }
+
+        let perf_svg = perf_bars_svg(&group);
+        let radar_svgs = radar_svgs(&group);
+        let heatmap_svg = heatmap_svg(&group);
+
+        fs::write(format!("{output_dir}/chart-perf-{}.svg", category.slug), &perf_svg).unwrap();
+        fs::write(
+            format!("{output_dir}/chart-accuracy-{}.svg", category.slug),
+            &heatmap_svg,
+        )
+        .unwrap();
+        for (name, svg) in &radar_svgs {
+            fs::write(format!("{output_dir}/chart-radar-{}.svg", slugify(name)), svg).unwrap();
+        }
+
+        let related_link = if category.slug == "efficient" && has_less_efficient {
+            Some(("Less Efficient Category", "charts-less-efficient.html"))
+        } else {
+            None
+        };
+        let page = html_dashboard(
+            category.title,
+            category.description,
+            related_link,
+            &perf_svg,
+            &radar_svgs,
+            &heatmap_svg,
+        );
+        fs::write(format!("{output_dir}/charts-{}.html", category.slug), &page).unwrap();
+
+        // Backward compatibility: keep old names pointing to the efficient set.
+        if category.slug == "efficient" {
+            fs::write(format!("{output_dir}/chart-perf.svg"), &perf_svg).unwrap();
+            fs::write(format!("{output_dir}/chart-accuracy.svg"), &heatmap_svg).unwrap();
+            fs::write(format!("{output_dir}/charts.html"), &page).unwrap();
+        }
+
+        total_radar += radar_svgs.len();
+        category_count += 1;
+    }
 
     eprintln!(
-        "Generated charts: perf, radar (x{}), accuracy, highlights, dashboard",
-        radar_svgs.len()
+        "Generated charts: categories ({}), radar (x{}), highlights, dashboards",
+        category_count, total_radar
     );
 }
 
@@ -65,6 +117,7 @@ fn main() {
 fn color_for(family: &str) -> &'static str {
     match family {
         "base2histogram" => "#4878CF",
+        "ckms" => "#66A61E",
         "ddsketch" => "#D4A942",
         "h2histogram" => "#E87D2B",
         "hdrhistogram" => "#D65F5F",
@@ -99,6 +152,22 @@ fn parse_result(input: &str) -> BenchResult {
 
 fn sort_results(results: &mut [BenchResult]) {
     results.sort_by(|a, b| a.family.cmp(&b.family).then_with(|| a.name.cmp(&b.name)));
+}
+
+#[derive(Clone, Copy)]
+struct ChartCategory<'a> {
+    slug: &'a str,
+    title: &'a str,
+    description: &'a str,
+    less_efficient: bool,
+}
+
+fn is_less_efficient_family(family: &str) -> bool {
+    matches!(family, "ckms" | "kllsketch")
+}
+
+fn filter_category_results(results: &[BenchResult], less_efficient: bool) -> Vec<BenchResult> {
+    results.iter().filter(|r| is_less_efficient_family(&r.family) == less_efficient).cloned().collect()
 }
 
 // ---------------------------------------------------------------------------
@@ -784,12 +853,22 @@ fn heatmap_svg(results: &[BenchResult]) -> String {
 // HTML dashboard
 // ---------------------------------------------------------------------------
 
-fn html_dashboard(perf: &str, radars: &[(String, String)], heatmap: &str) -> String {
+fn html_dashboard(
+    title: &str,
+    description: &str,
+    related_link: Option<(&str, &str)>,
+    perf: &str,
+    radars: &[(String, String)],
+    heatmap: &str,
+) -> String {
     let radar_items: String = radars
         .iter()
         .map(|(_, svg)| format!(r#"<div class="radar-item">{svg}</div>"#))
         .collect::<Vec<_>>()
         .join("\n");
+    let related_link_html = related_link
+        .map(|(label, href)| format!(r#"<p class="category-link"><a href="{href}">View {label}</a></p>"#))
+        .unwrap_or_default();
 
     format!(
         r#"<!DOCTYPE html>
@@ -797,7 +876,7 @@ fn html_dashboard(perf: &str, radars: &[(String, String)], heatmap: &str) -> Str
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rust Histogram Benchmark</title>
+<title>Rust Histogram Benchmark - {title}</title>
 <style>
   body {{
     font-family: system-ui, -apple-system, sans-serif;
@@ -812,6 +891,22 @@ fn html_dashboard(perf: &str, radars: &[(String, String)], heatmap: &str) -> Str
     font-weight: 600;
     border-bottom: 2px solid #e0e0e0;
     padding-bottom: 8px;
+  }}
+  .subtitle {{
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 0.95rem;
+  }}
+  .category-link {{
+    margin: 10px 0 0;
+  }}
+  .category-link a {{
+    color: #2456a6;
+    text-decoration: none;
+    font-weight: 600;
+  }}
+  .category-link a:hover {{
+    text-decoration: underline;
   }}
   h2 {{
     font-size: 1.1rem;
@@ -856,7 +951,9 @@ fn html_dashboard(perf: &str, radars: &[(String, String)], heatmap: &str) -> Str
 </style>
 </head>
 <body>
-<h1>Rust Histogram Benchmark</h1>
+<h1>{title}</h1>
+<p class="subtitle">{description}</p>
+{related_link_html}
 
 <h2>Performance Comparison</h2>
 <div class="chart">{perf}</div>

@@ -1,0 +1,51 @@
+{
+  "name": "ckms",
+  "family": "ckms",
+  "config": "epsilon=0.1",
+  "record_throughput": {
+    "sequential_ns": 788.1594795,
+    "uniform_ns": 3882.831875,
+    "log_normal_ns": 5048.406417
+  },
+  "percentile_latency": {
+    "p50_ns": 176443.8854,
+    "p90_ns": 252119.05625,
+    "p95_ns": 261938.8833,
+    "p99_ns": 276570.52705,
+    "p999_ns": 276368.8292
+  },
+  "memory_bytes": 1004688,
+  "merge_ns": 895198460.0,
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 6.348965133879743,
+      "p95_error_pct": 3.7502245487477457,
+      "p99_error_pct": 7.569241959058989
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 6.20347394540943,
+      "p95_error_pct": 21.350762527233115,
+      "p99_error_pct": 225.19379844961242
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 10.38961038961039,
+      "p95_error_pct": 815.4257095158597,
+      "p99_error_pct": 384.82758620689657
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 10.822510822510822,
+      "p95_error_pct": 5.507343124165554,
+      "p99_error_pct": 31.312472837896564
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 383757.14285714284,
+      "p99_error_pct": 127852.38095238096
+    }
+  ]
+}

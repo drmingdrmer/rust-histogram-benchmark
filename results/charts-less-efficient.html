@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rust Histogram Benchmark - Less Efficient Category</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+    background: #fafafa;
+    color: #333;
+  }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+  }
+  .subtitle {
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  .category-link {
+    margin: 10px 0 0;
+  }
+  .category-link a {
+    color: #2456a6;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .category-link a:hover {
+    text-decoration: underline;
+  }
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 32px;
+    color: #555;
+  }
+  .chart {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 8px;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .chart svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  .radar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .radar-item {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    padding: 4px;
+  }
+  .radar-item svg {
+    display: block;
+  }
+  footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #999;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<h1>Less Efficient Category</h1>
+<p class="subtitle">High-overhead implementations (CKMS, KLL) shown separately for readability.</p>
+
+
+<h2>Performance Comparison</h2>
+<div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 382" width="780" height="382">
+<rect x="0.0" y="0.0" width="780.0" height="382.0" fill="white" rx="8"/>
+<text x="140.0" y="31.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Record Speed (log-normal, ns/op)</text>
+<text x="128.0" y="53.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="41.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="41.0" width="3.0" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="151.0" y="53.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">25.0 ns</text>
+<text x="128.0" y="74.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="62.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="62.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="74.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">5048 ns</text>
+<text x="140.0" y="120.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">P99 Query Latency (ns/op)</text>
+<text x="128.0" y="142.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="130.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="130.0" width="404.9" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="552.9" y="142.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">201793 ns</text>
+<text x="128.0" y="163.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="151.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="151.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="163.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">276571 ns</text>
+<text x="140.0" y="209.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Memory Usage (bytes)</text>
+<text x="128.0" y="231.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="219.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="219.0" width="225.5" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="373.5" y="231.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">398.6 KB</text>
+<text x="128.0" y="252.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="240.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="240.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="252.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">981.1 KB</text>
+<text x="140.0" y="298.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Merge Latency (ns/op)</text>
+<text x="128.0" y="320.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="308.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="308.0" width="3.0" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="151.0" y="320.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">21467 ns</text>
+<text x="128.0" y="341.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="329.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="329.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="341.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">895198460 ns</text>
+</svg>
+</div>
+
+<h2>Normalized Radar (outer = better)</h2>
+<div class="radar-grid">
+<div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
+<rect x="0.0" y="0.0" width="240.0" height="210.0" fill="white" rx="6"/>
+<text x="125.0" y="28.0" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#66A61E" text-anchor="middle">ckms</text>
+<polygon points="125.0,106.2 133.4,112.3 130.2,122.1 119.8,122.1 116.6,112.3" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,97.4 141.7,109.6 135.3,129.2 114.7,129.2 108.3,109.6" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,88.6 150.1,106.8 140.5,136.4 109.5,136.4 99.9,106.8" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,79.8 158.5,104.1 145.7,143.5 104.3,143.5 91.5,104.1" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,71.0 166.8,101.4 150.9,150.6 99.1,150.6 83.2,101.4" fill="none" stroke="#d0d0d0" stroke-width="0.8"/>
+<line x1="125" y1="115" x2="125.0" y2="71.0" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="166.8" y2="101.4" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="150.9" y2="150.6" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="99.1" y2="150.6" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="83.2" y2="101.4" stroke="#ddd" stroke-width="0.5"/>
+<text x="125.0" y="66.0" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="middle">Record</text>
+<text x="176.4" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Query</text>
+<text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
+<text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
+<text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
+<polygon points="125.0,111.5 128.3,113.9 127.1,117.8 122.9,117.8 121.7,113.9" fill="#66A61E" fill-opacity="0.20" stroke="#66A61E" stroke-width="1.5"/>
+<circle cx="125.0" cy="111.5" r="3" fill="#66A61E"/>
+<circle cx="128.3" cy="113.9" r="3" fill="#66A61E"/>
+<circle cx="127.1" cy="117.8" r="3" fill="#66A61E"/>
+<circle cx="122.9" cy="117.8" r="3" fill="#66A61E"/>
+<circle cx="121.7" cy="113.9" r="3" fill="#66A61E"/>
+</svg>
+</div>
+<div class="radar-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" width="240" height="210">
+<rect x="0.0" y="0.0" width="240.0" height="210.0" fill="white" rx="6"/>
+<text x="125.0" y="28.0" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#4DAF7C" text-anchor="middle">kllsketch</text>
+<polygon points="125.0,106.2 133.4,112.3 130.2,122.1 119.8,122.1 116.6,112.3" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,97.4 141.7,109.6 135.3,129.2 114.7,129.2 108.3,109.6" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,88.6 150.1,106.8 140.5,136.4 109.5,136.4 99.9,106.8" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,79.8 158.5,104.1 145.7,143.5 104.3,143.5 91.5,104.1" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+<polygon points="125.0,71.0 166.8,101.4 150.9,150.6 99.1,150.6 83.2,101.4" fill="none" stroke="#d0d0d0" stroke-width="0.8"/>
+<line x1="125" y1="115" x2="125.0" y2="71.0" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="166.8" y2="101.4" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="150.9" y2="150.6" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="99.1" y2="150.6" stroke="#ddd" stroke-width="0.5"/>
+<line x1="125" y1="115" x2="83.2" y2="101.4" stroke="#ddd" stroke-width="0.5"/>
+<text x="125.0" y="66.0" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="middle">Record</text>
+<text x="176.4" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Query</text>
+<text x="156.7" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="start">Lightweight</text>
+<text x="93.3" y="163.7" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Merge</text>
+<text x="73.6" y="103.3" font-family="system-ui,sans-serif" font-size="15" fill="#999" text-anchor="end">Accuracy</text>
+<polygon points="125.0,71.0 166.8,101.4 150.9,150.6 99.1,150.6 83.2,101.4" fill="#4DAF7C" fill-opacity="0.20" stroke="#4DAF7C" stroke-width="1.5"/>
+<circle cx="125.0" cy="71.0" r="3" fill="#4DAF7C"/>
+<circle cx="166.8" cy="101.4" r="3" fill="#4DAF7C"/>
+<circle cx="150.9" cy="150.6" r="3" fill="#4DAF7C"/>
+<circle cx="99.1" cy="150.6" r="3" fill="#4DAF7C"/>
+<circle cx="83.2" cy="101.4" r="3" fill="#4DAF7C"/>
+</svg>
+</div>
+</div>
+
+<h2>Accuracy Heatmap (P99 Error)</h2>
+<div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 294" width="264" height="294">
+<rect x="0.0" y="0.0" width="264.0" height="294.0" fill="white" rx="8"/>
+<text x="132.0" y="20.0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">P99 Accuracy Error %</text>
+<text x="133.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,133.0,92.0)">ckms</text>
+<text x="207.0" y="92.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="start" transform="rotate(-50,207.0,92.0)">kllsketch</text>
+<text x="86.0" y="121.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Log-Normal</text>
+<rect x="96.0" y="102.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="132.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">225.194%</text>
+<rect x="170.0" y="102.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="206.0" y="121.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">7.597%</text>
+<text x="86.0" y="151.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Bimodal</text>
+<rect x="96.0" y="132.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="132.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">384.828%</text>
+<rect x="170.0" y="132.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="206.0" y="151.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">11.459%</text>
+<text x="86.0" y="181.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Exponential</text>
+<rect x="96.0" y="162.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="132.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">31.312%</text>
+<rect x="170.0" y="162.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="206.0" y="181.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">8.627%</text>
+<text x="86.0" y="211.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Pareto</text>
+<rect x="96.0" y="192.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="132.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">127852.381%</text>
+<rect x="170.0" y="192.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="206.0" y="211.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">23.810%</text>
+<text x="86.0" y="241.0" font-family="system-ui,sans-serif" font-size="10" fill="#444" text-anchor="end">Uniform</text>
+<rect x="96.0" y="222.0" width="72.0" height="30.0" fill="#ff3c00" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="132.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#fff" text-anchor="middle">7.569%</text>
+<rect x="170.0" y="222.0" width="72.0" height="30.0" fill="#c0d655" stroke="white" stroke-width="1.5" rx="2.5"/>
+<text x="206.0" y="241.0" font-family="system-ui,sans-serif" font-size="9.5" font-weight="500" fill="#333" text-anchor="middle">0.498%</text>
+<rect x="96.0" y="264.0" width="4.5" height="8.0" fill="#82d278"/>
+<rect x="100.0" y="264.0" width="4.5" height="8.0" fill="#88d274"/>
+<rect x="104.0" y="264.0" width="4.5" height="8.0" fill="#8ed371"/>
+<rect x="108.0" y="264.0" width="4.5" height="8.0" fill="#94d36d"/>
+<rect x="112.0" y="264.0" width="4.5" height="8.0" fill="#9bd46a"/>
+<rect x="116.0" y="264.0" width="4.5" height="8.0" fill="#a1d466"/>
+<rect x="120.0" y="264.0" width="4.5" height="8.0" fill="#a7d563"/>
+<rect x="124.0" y="264.0" width="4.5" height="8.0" fill="#add55f"/>
+<rect x="128.0" y="264.0" width="4.5" height="8.0" fill="#b4d65c"/>
+<rect x="132.0" y="264.0" width="4.5" height="8.0" fill="#bad658"/>
+<rect x="136.0" y="264.0" width="4.5" height="8.0" fill="#c0d755"/>
+<rect x="140.0" y="264.0" width="4.5" height="8.0" fill="#c6d751"/>
+<rect x="144.0" y="264.0" width="4.5" height="8.0" fill="#cdd84e"/>
+<rect x="148.0" y="264.0" width="4.5" height="8.0" fill="#d3d84a"/>
+<rect x="152.0" y="264.0" width="4.5" height="8.0" fill="#d9d947"/>
+<rect x="156.0" y="264.0" width="4.5" height="8.0" fill="#dfd943"/>
+<rect x="160.0" y="264.0" width="4.5" height="8.0" fill="#e6da3f"/>
+<rect x="164.0" y="264.0" width="4.5" height="8.0" fill="#ecda3c"/>
+<rect x="168.0" y="264.0" width="4.5" height="8.0" fill="#f2db39"/>
+<rect x="172.0" y="264.0" width="4.5" height="8.0" fill="#f8db35"/>
+<rect x="176.0" y="264.0" width="4.5" height="8.0" fill="#ffdc32"/>
+<rect x="180.0" y="264.0" width="4.5" height="8.0" fill="#ffd42f"/>
+<rect x="184.0" y="264.0" width="4.5" height="8.0" fill="#ffcb2c"/>
+<rect x="188.0" y="264.0" width="4.5" height="8.0" fill="#ffc42a"/>
+<rect x="192.0" y="264.0" width="4.5" height="8.0" fill="#ffbc28"/>
+<rect x="196.0" y="264.0" width="4.5" height="8.0" fill="#ffb425"/>
+<rect x="200.0" y="264.0" width="4.5" height="8.0" fill="#ffac23"/>
+<rect x="204.0" y="264.0" width="4.5" height="8.0" fill="#ffa320"/>
+<rect x="208.0" y="264.0" width="4.5" height="8.0" fill="#ff9c1e"/>
+<rect x="212.0" y="264.0" width="4.5" height="8.0" fill="#ff941b"/>
+<rect x="216.0" y="264.0" width="4.5" height="8.0" fill="#ff8c19"/>
+<rect x="220.0" y="264.0" width="4.5" height="8.0" fill="#ff8416"/>
+<rect x="224.0" y="264.0" width="4.5" height="8.0" fill="#ff7c13"/>
+<rect x="228.0" y="264.0" width="4.5" height="8.0" fill="#ff7411"/>
+<rect x="232.0" y="264.0" width="4.5" height="8.0" fill="#ff6c0f"/>
+<rect x="236.0" y="264.0" width="4.5" height="8.0" fill="#ff640c"/>
+<rect x="240.0" y="264.0" width="4.5" height="8.0" fill="#ff5c09"/>
+<rect x="244.0" y="264.0" width="4.5" height="8.0" fill="#ff5307"/>
+<rect x="248.0" y="264.0" width="4.5" height="8.0" fill="#ff4c05"/>
+<rect x="252.0" y="264.0" width="4.5" height="8.0" fill="#ff4402"/>
+<text x="96.0" y="283.0" font-family="system-ui,sans-serif" font-size="8.5" fill="#666">0%</text>
+<text x="176.0" y="283.0" font-family="system-ui,sans-serif" font-size="8.5" fill="#666" text-anchor="middle">1%</text>
+<text x="256.0" y="283.0" font-family="system-ui,sans-serif" font-size="8.5" fill="#666" text-anchor="end">2%+</text>
+</svg>
+</div>
+
+<footer>Generated by rust-histogram-benchmark</footer>
+</body>
+</html>

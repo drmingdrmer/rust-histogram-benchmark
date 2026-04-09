@@ -3,11 +3,13 @@
 Benchmark suite for Rust histogram implementations, measuring recording
 throughput, percentile query latency, and accuracy across distributions.
 
-## Normalized Radar (outer = better)
+## Category Dashboards
 
-<img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-kllsketch.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-reqsketch.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
+[Full charts dashboard](results/charts.html) | [Less-efficient charts](results/charts-less-efficient.html) | [Detailed report](results/report.md) | [Highlights](results/highlights.md)
 
-[Full charts dashboard](results/charts.html) | [Detailed report](results/report.md) | [Highlights](results/highlights.md)
+## Normalized Radar (Efficient Category, outer = better)
+
+<img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-reqsketch.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
 
 ## Implementations
 
@@ -16,6 +18,7 @@ throughput, percentile query latency, and accuracy across distributions.
 | [base2histogram] | 0.2 | Base-2 log-linear + trapezoidal interpolation | `u64` | [drmingdrmer/base2histogram](https://github.com/drmingdrmer/base2histogram) |
 | [hdrhistogram] | 7 | Linear sub-buckets within power-of-2 ranges | `u64` | [HdrHistogram/HdrHistogram_rust](https://github.com/HdrHistogram/HdrHistogram_rust) |
 | [histogram] (H2) | 1 | Base-2 log-linear | `u64` | [iopsystems/histogram](https://github.com/iopsystems/histogram) |
+| [quantiles] (CKMS) | 0.7 | CKMS biased quantile summary with rank error bounds | `f64` | [postmates/quantiles](https://github.com/postmates/quantiles) |
 | [sketch_oxide] (KLL) | 0.1 | KLL quantile sketch with absolute rank error bounds | `f64` | [yfedoseev/sketch_oxide](https://github.com/yfedoseev/sketch_oxide) |
 | [quantogram] | 0.4 | Log-bin histogram with absolute error guarantee | `f64` | [paulchernoch/quantogram](https://github.com/paulchernoch/quantogram) |
 | [sketches-ddsketch] | 0.4 | Logarithmic with relative accuracy guarantee | `f64` | [mheffner/rust-sketches-ddsketch](https://github.com/mheffner/rust-sketches-ddsketch) |
@@ -27,24 +30,24 @@ chosen to keep accuracy, memory, and throughput in a comparable middle ground.
 
 ## Feature Matrix
 
-| Feature | base2histogram | hdrhistogram | H2 histogram | quantogram | DDSketch | KLL sketch | reqsketch | t-digest |
-|---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| Native u64 recording | ✓ | ✓ | ✓ | | | | | |
-| Native f64 recording | | | | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Negative values | | | | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Percentile point estimate | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Percentile bucket range | | | ✓ | | | | | |
-| Interpolation | Trapezoidal | Linear | None | None | None | None | None | Centroid |
-| Formal error guarantee | | | | ✓ (abs) | ✓ (α) | ✓ (rank) | ✓ (relative rank) | |
-| Configurable precision | Compile-time | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime |
-| Fixed memory | ✓ | ✓ | ✓ | | | | | |
-| Atomic / concurrent | | | ✓ | | | | | |
-| Sliding window | ✓ | | | | | | | |
-| Merge support | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ |
-| Serde / serialization | | ✓ | ✓ | | | | | |
-| Sparse representation | | | ✓ | | | | | |
-| Value removal | | | ✓ | | | | | |
-| Inverse query (prank) | | ✓ | | | | ✓ | ✓ | |
+| Feature | base2histogram | hdrhistogram | H2 histogram | quantogram | DDSketch | CKMS | KLL sketch | reqsketch | t-digest |
+|---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Native u64 recording | ✓ | ✓ | ✓ | | | ✓ | | | |
+| Native f64 recording | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Negative values | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Percentile point estimate | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Percentile bucket range | | | ✓ | | | | | | |
+| Interpolation | Trapezoidal | Linear | None | None | None | None | None | None | Centroid |
+| Formal error guarantee | | | | ✓ (abs) | ✓ (α) | ✓ (ε rank) | ✓ (rank) | ✓ (relative rank) | |
+| Configurable precision | Compile-time | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime |
+| Fixed memory | ✓ | ✓ | ✓ | | | | | | |
+| Atomic / concurrent | | | ✓ | | | | | | |
+| Sliding window | ✓ | | | | | | | | |
+| Merge support | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Serde / serialization | | ✓ | ✓ | | | | | | |
+| Sparse representation | | | ✓ | | | | | | |
+| Value removal | | | ✓ | | | | | | |
+| Inverse query (prank) | | ✓ | | | | | ✓ | ✓ | |
 
 ## Methodology
 
@@ -76,7 +79,7 @@ Relative error = `|exact - estimated| / exact × 100%`.
 
 Note: H2 histogram returns a bucket range, not a point estimate. The
 benchmark uses the midpoint `(lo + hi) / 2` for comparison. DDSketch,
-KLL sketch, quantogram, reqsketch, and t-digest accept `f64`; u64 values are cast via `as f64`.
+CKMS, KLL sketch, quantogram, reqsketch, and t-digest accept `f64`; u64 values are cast via `as f64`.
 
 ## Configuration
 
@@ -89,6 +92,7 @@ The suite uses the following standard balanced configuration for each crate:
 | H2 histogram | `grouping_power=4`, `max_value_power=64` |
 | quantogram | `bins_per_doubling=35`, bounded powers |
 | DDSketch | `alpha=0.01`, `max_num_bins=2048`, `min_value=1.0` |
+| CKMS | `epsilon=0.1` |
 | KLL sketch | `k=200` |
 | reqsketch | `k=12`, `rank_accuracy=high` |
 | t-digest | `max_size=100`, `batch_size=1000`, `local_sort+merge_sorted` |

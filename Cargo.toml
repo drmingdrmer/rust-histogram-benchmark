@@ -16,6 +16,7 @@ quantogram = "0.4.4"
 sketches-ddsketch = "0.4.0"
 tdigest = "0.2.3"
 sketch_oxide = "0.1"
+quantiles = "0.7.1"
 rand = "0.9.2"
 rand_distr = "0.5.1"
 serde = { version = "1.0.228", features = ["derive"] }
@@ -49,6 +50,10 @@ path = "src/bin/bench_reqsketch.rs"
 [[bin]]
 name = "bench-kllsketch"
 path = "src/bin/bench_kllsketch.rs"
+
+[[bin]]
+name = "bench-ckms"
+path = "src/bin/bench_ckms.rs"
 
 [[bin]]
 name = "bench-tdigest"

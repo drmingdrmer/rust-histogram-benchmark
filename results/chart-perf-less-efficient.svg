@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 382" width="780" height="382">
+<rect x="0.0" y="0.0" width="780.0" height="382.0" fill="white" rx="8"/>
+<text x="140.0" y="31.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Record Speed (log-normal, ns/op)</text>
+<text x="128.0" y="53.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="41.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="41.0" width="3.0" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="151.0" y="53.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">25.0 ns</text>
+<text x="128.0" y="74.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="62.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="62.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="74.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">5048 ns</text>
+<text x="140.0" y="120.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">P99 Query Latency (ns/op)</text>
+<text x="128.0" y="142.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="130.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="130.0" width="404.9" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="552.9" y="142.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">201793 ns</text>
+<text x="128.0" y="163.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="151.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="151.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="163.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">276571 ns</text>
+<text x="140.0" y="209.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Memory Usage (bytes)</text>
+<text x="128.0" y="231.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="219.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="219.0" width="225.5" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="373.5" y="231.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">398.6 KB</text>
+<text x="128.0" y="252.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="240.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="240.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="252.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">981.1 KB</text>
+<text x="140.0" y="298.0" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#333">Merge Latency (ns/op)</text>
+<text x="128.0" y="320.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">kllsketch</text>
+<rect x="140.0" y="308.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="308.0" width="3.0" height="16.0" fill="#4DAF7C" rx="3" opacity="0.85"/>
+<text x="151.0" y="320.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">21467 ns</text>
+<text x="128.0" y="341.0" font-family="system-ui,sans-serif" font-size="12" fill="#444" text-anchor="end">ckms</text>
+<rect x="140.0" y="329.0" width="555.0" height="16.0" fill="#f5f5f5" rx="3"/>
+<rect x="140.0" y="329.0" width="555.0" height="16.0" fill="#66A61E" rx="3" opacity="0.85"/>
+<text x="703.0" y="341.0" font-family="system-ui,sans-serif" font-size="10" fill="#333" font-weight="500">895198460 ns</text>
+</svg>

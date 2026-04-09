@@ -10,6 +10,7 @@
 | h2histogram | `grouping_power=4,max_value_power=64` |
 | hdrhistogram | `fixed_bounds,max=observed_max,sigfig=2` |
 | kllsketch | `k=200` |
+| metricssummary | `alpha=0.01,max_buckets=2048,min_value=1.0` |
 | quantogram | `bins_per_doubling=35,smallest_power=0,largest_power=observed_max_power` |
 | reqsketch | `k=12,rank_accuracy=high` |
 | sparsehistogram | `grouping_power=4,max_value_power=64,dense_record+freeze_sparse` |
@@ -26,6 +27,7 @@
 | h2histogram | 2.0 | 1.4 | 1.4 |
 | hdrhistogram | 2.3 | 2.2 | 2.2 |
 | kllsketch | 7.5 | 24.9 | 25.0 |
+| metricssummary | 4.8 | 4.6 | 4.6 |
 | quantogram | 46.7 | 78.2 | 71.5 |
 | reqsketch | 13.0 | 33.5 | 33.2 |
 | sparsehistogram | 2.1 | 1.5 | 1.5 |
@@ -43,6 +45,7 @@
 | h2histogram | 408.1 | 455.0 | 458.2 | 476.9 | 521.4 |
 | hdrhistogram | 115.8 | 149.3 | 159.4 | 175.8 | 197.9 |
 | kllsketch | 199201.3 | 201616.0 | 201286.0 | 201792.7 | 202202.8 |
+| metricssummary | 54.8 | 64.8 | 69.3 | 74.3 | 81.9 |
 | quantogram | 83.5 | 99.4 | 122.9 | 76.6 | 127.3 |
 | reqsketch | 10.2 | 9.8 | 9.8 | 9.9 | 9.8 |
 | sparsehistogram | 162.9 | 204.5 | 219.9 | 236.1 | 257.4 |
@@ -60,6 +63,7 @@
 | h2histogram | 7.6 KB |
 | hdrhistogram | 15.0 KB |
 | kllsketch | 398.6 KB |
+| metricssummary | 2.0 KB |
 | quantogram | 31.5 KB |
 | reqsketch | 61.9 KB |
 | sparsehistogram | 1.5 KB |
@@ -77,6 +81,7 @@
 | h2histogram | 215.7 |
 | hdrhistogram | 795.2 |
 | kllsketch | 21467.0 |
+| metricssummary | 139.9 |
 | quantogram | — |
 | reqsketch | 44738.8 |
 | sparsehistogram | 567.2 |
@@ -96,6 +101,7 @@
 | h2histogram | 0.080% | 1.721% | 0.950% |
 | hdrhistogram | 0.329% | 0.003% | 0.122% |
 | kllsketch | 0.980% | 0.537% | 0.498% |
+| metricssummary | 0.783% | 0.596% | 0.494% |
 | quantogram | 0.225% | 0.945% | 0.803% |
 | reqsketch | 0.543% | 0.002% | 0.011% |
 | sparsehistogram | 0.080% | 1.721% | 0.950% |
@@ -113,6 +119,7 @@
 | h2histogram | 0.993% | 0.763% | 1.628% |
 | hdrhistogram | 0.000% | 0.109% | 0.388% |
 | kllsketch | 0.744% | 2.288% | 7.597% |
+| metricssummary | 0.875% | 0.801% | 0.782% |
 | quantogram | 0.744% | 0.000% | 0.310% |
 | reqsketch | 0.000% | 0.109% | 0.078% |
 | sparsehistogram | 0.993% | 0.763% | 1.628% |
@@ -130,6 +137,7 @@
 | h2histogram | 0.649% | 0.401% | 1.839% |
 | hdrhistogram | 0.000% | 0.401% | 0.141% |
 | kllsketch | 0.000% | 6.110% | 11.459% |
+| metricssummary | 0.681% | 0.553% | 0.999% |
 | quantogram | 0.649% | 0.601% | 0.424% |
 | reqsketch | 0.649% | 0.367% | 0.159% |
 | sparsehistogram | 0.649% | 0.401% | 1.839% |
@@ -147,6 +155,7 @@
 | h2histogram | 0.866% | 0.367% | 2.673% |
 | hdrhistogram | 0.289% | 0.367% | 0.109% |
 | kllsketch | 1.443% | 3.138% | 8.627% |
+| metricssummary | 0.918% | 0.520% | 0.401% |
 | quantogram | 0.433% | 0.567% | 0.739% |
 | reqsketch | 1.587% | 0.067% | 0.543% |
 | sparsehistogram | 0.866% | 0.367% | 2.673% |
@@ -164,6 +173,7 @@
 | h2histogram | 0.000% | 0.000% | 0.000% |
 | hdrhistogram | 0.000% | 0.000% | 0.000% |
 | kllsketch | 0.000% | 14.286% | 23.810% |
+| metricssummary | 100.000% | 0.411% | 0.554% |
 | quantogram | 0.000% | 0.000% | 0.000% |
 | reqsketch | 0.000% | 0.000% | 0.000% |
 | sparsehistogram | 0.000% | 0.000% | 0.000% |

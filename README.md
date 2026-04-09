@@ -9,7 +9,7 @@ throughput, percentile query latency, and accuracy across distributions.
 
 ## Normalized Radar (Efficient Category, outer = better)
 
-<img src="results/chart-radar-atomichistogram.svg" width="160"> <img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-gkstream.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-reqsketch.svg" width="160"> <img src="results/chart-radar-sparsehistogram.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
+<img src="results/chart-radar-atomichistogram.svg" width="160"> <img src="results/chart-radar-base2histogram.svg" width="160"> <img src="results/chart-radar-ddsketch.svg" width="160"> <img src="results/chart-radar-metricssummary.svg" width="160"> <img src="results/chart-radar-gkstream.svg" width="160"> <img src="results/chart-radar-h2histogram.svg" width="160"> <img src="results/chart-radar-hdrhistogram.svg" width="160"> <img src="results/chart-radar-quantogram.svg" width="160"> <img src="results/chart-radar-reqsketch.svg" width="160"> <img src="results/chart-radar-sparsehistogram.svg" width="160"> <img src="results/chart-radar-tdigest.svg" width="160">
 
 ## Implementations
 
@@ -25,6 +25,7 @@ throughput, percentile query latency, and accuracy across distributions.
 | [sketch_oxide] (KLL) | 0.1 | KLL quantile sketch with absolute rank error bounds | `f64` | [yfedoseev/sketch_oxide](https://github.com/yfedoseev/sketch_oxide) |
 | [quantogram] | 0.4 | Log-bin histogram with absolute error guarantee | `f64` | [paulchernoch/quantogram](https://github.com/paulchernoch/quantogram) |
 | [sketches-ddsketch] | 0.4 | Logarithmic with relative accuracy guarantee | `f64` | [mheffner/rust-sketches-ddsketch](https://github.com/mheffner/rust-sketches-ddsketch) |
+| [metrics-util] (Summary) | 0.20 | DDSketch-backed quantile summary | `f64` | [metrics-rs/metrics](https://github.com/metrics-rs/metrics) |
 | [reqsketch] | 0.1 | Relative-error quantile sketch (REQ) | `f64` | [pmcgleenon/reqsketch-rs](https://github.com/pmcgleenon/reqsketch-rs) |
 | [tdigest] | 0.2 | t-digest merging with centroid compression | `f64` | [MnO2/t-digest](https://github.com/MnO2/t-digest) |
 
@@ -33,24 +34,24 @@ chosen to keep accuracy, memory, and throughput in a comparable middle ground.
 
 ## Feature Matrix
 
-| Feature | base2histogram | hdrhistogram | H2 histogram | Atomic histogram | Sparse histogram | quantogram | DDSketch | CKMS | GK stream | KLL sketch | reqsketch | t-digest |
-|---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| Native u64 recording | ✓ | ✓ | ✓ | ✓ | ✓ | | | ✓ | ✓ | | | |
-| Native f64 recording | | | | | | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ |
-| Negative values | | | | | | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ |
-| Percentile point estimate | ✓ | ✓ | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Percentile bucket range | | | ✓ | ✓ | ✓ | | | | | | | |
-| Interpolation | Trapezoidal | Linear | None | None | None | None | None | None | None | None | None | Centroid |
-| Formal error guarantee | | | | | | ✓ (abs) | ✓ (α) | ✓ (ε rank) | ✓ (ε rank) | ✓ (rank) | ✓ (relative rank) | |
-| Configurable precision | Compile-time | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime |
-| Fixed memory | ✓ | ✓ | ✓ | ✓ | | | | | | | | |
-| Atomic / concurrent | | | | ✓ | | | | | | | | |
-| Sliding window | ✓ | | | | | | | | | | | |
-| Merge support | ✓ | ✓ | ✓ | | ✓ | | ✓ | ✓ | | ✓ | ✓ | ✓ |
-| Serde / serialization | | ✓ | ✓ | | ✓ | | | | | | | |
-| Sparse representation | | | | | ✓ | | | | | | | |
-| Value removal | | | ✓ | | ✓ | | | | | | | |
-| Inverse query (prank) | | ✓ | | | | | | | | ✓ | ✓ | |
+| Feature | base2histogram | hdrhistogram | H2 histogram | Atomic histogram | Sparse histogram | quantogram | DDSketch | Metrics summary | CKMS | GK stream | KLL sketch | reqsketch | t-digest |
+|---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Native u64 recording | ✓ | ✓ | ✓ | ✓ | ✓ | | | | ✓ | ✓ | | | |
+| Native f64 recording | | | | | | ✓ | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ |
+| Negative values | | | | | | ✓ | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ |
+| Percentile point estimate | ✓ | ✓ | | | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Percentile bucket range | | | ✓ | ✓ | ✓ | | | | | | | | |
+| Interpolation | Trapezoidal | Linear | None | None | None | None | None | None | None | None | None | None | Centroid |
+| Formal error guarantee | | | | | | ✓ (abs) | ✓ (α) | ✓ (α) | ✓ (ε rank) | ✓ (ε rank) | ✓ (rank) | ✓ (relative rank) | |
+| Configurable precision | Compile-time | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime | Runtime |
+| Fixed memory | ✓ | ✓ | ✓ | ✓ | | | | | | | | | |
+| Atomic / concurrent | | | | ✓ | | | | | | | | | |
+| Sliding window | ✓ | | | | | | | | | | | | |
+| Merge support | ✓ | ✓ | ✓ | | ✓ | | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ |
+| Serde / serialization | | ✓ | ✓ | | ✓ | | | | | | | | |
+| Sparse representation | | | | | ✓ | | | | | | | | |
+| Value removal | | | ✓ | | ✓ | | | | | | | | |
+| Inverse query (prank) | | ✓ | | | | | | | | | ✓ | ✓ | |
 
 ## Methodology
 
@@ -82,7 +83,7 @@ Relative error = `|exact - estimated| / exact × 100%`.
 
 Note: H2, atomic, and sparse histograms return bucket ranges, not point estimates. The
 benchmark uses the midpoint `(lo + hi) / 2` for comparison. DDSketch,
-CKMS, KLL sketch, quantogram, reqsketch, and t-digest accept `f64`; u64 values are cast via `as f64`.
+metrics summary, CKMS, KLL sketch, quantogram, reqsketch, and t-digest accept `f64`; u64 values are cast via `as f64`.
 Atomic histogram percentile queries are answered from a loaded snapshot.
 
 ## Configuration
@@ -96,6 +97,7 @@ The suite uses the following standard balanced configuration for each crate:
 | H2 histogram | `grouping_power=4`, `max_value_power=64` |
 | quantogram | `bins_per_doubling=35`, bounded powers |
 | DDSketch | `alpha=0.01`, `max_num_bins=2048`, `min_value=1.0` |
+| Metrics summary | `alpha=0.01`, `max_buckets=2048`, `min_value=1.0` |
 | CKMS | `epsilon=0.1` |
 | GK stream | `epsilon=0.01` |
 | Atomic histogram | `grouping_power=4`, `max_value_power=64`, `query=load_once_snapshot` |

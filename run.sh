@@ -14,6 +14,7 @@ BINS=(
     bench-h2histogram
     bench-quantogram
     bench-ddsketch
+    bench-metrics-summary
     bench-ckms
     bench-gk
     bench-atomichistogram

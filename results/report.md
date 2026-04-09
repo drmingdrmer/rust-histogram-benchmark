@@ -2,6 +2,7 @@
 
 | Histogram | Config |
 |---|---|
+| atomichistogram | `grouping_power=4,max_value_power=64,query=load_once_snapshot` |
 | base2histogram | `width=3` |
 | ckms | `epsilon=0.1` |
 | ddsketch | `alpha=0.01,max_num_bins=2048,min_value=1.0` |
@@ -17,6 +18,7 @@
 
 | Histogram | sequential | uniform | log-normal |
 |---|---:|---:|---:|
+| atomichistogram | 2.1 | 1.5 | 1.5 |
 | base2histogram | 2.1 | 2.0 | 1.8 |
 | ckms | 788.2 | 3882.8 | 5048.4 |
 | ddsketch | 4.6 | 4.5 | 4.5 |
@@ -33,6 +35,7 @@
 
 | Histogram | P50 | P90 | P95 | P99 | P99.9 |
 |---|---:|---:|---:|---:|---:|
+| atomichistogram | 408.1 | 438.6 | 452.6 | 469.4 | 523.9 |
 | base2histogram | 22.1 | 13.7 | 13.1 | 13.5 | 14.4 |
 | ckms | 176443.9 | 252119.1 | 261938.9 | 276570.5 | 276368.8 |
 | ddsketch | 51.0 | 62.7 | 67.3 | 82.0 | 78.8 |
@@ -49,6 +52,7 @@
 
 | Histogram | memory |
 |---|---:|
+| atomichistogram | 7.6 KB |
 | base2histogram | 2.1 KB |
 | ckms | 981.1 KB |
 | ddsketch | 2.0 KB |
@@ -65,6 +69,7 @@
 
 | Histogram | merge |
 |---|---:|
+| atomichistogram | — |
 | base2histogram | 34.8 |
 | ckms | 895198460.0 |
 | ddsketch | 146.8 |
@@ -83,6 +88,7 @@
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
+| atomichistogram | 0.080% | 1.721% | 0.950% |
 | base2histogram | 0.016% | 1.063% | 3.740% |
 | ckms | 6.349% | 3.750% | 7.569% |
 | ddsketch | 0.783% | 0.596% | 0.494% |
@@ -99,6 +105,7 @@
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
+| atomichistogram | 0.993% | 0.763% | 1.628% |
 | base2histogram | 0.000% | 0.109% | 0.000% |
 | ckms | 6.203% | 21.351% | 225.194% |
 | ddsketch | 0.875% | 0.801% | 0.782% |
@@ -115,6 +122,7 @@
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
+| atomichistogram | 0.649% | 0.401% | 1.839% |
 | base2histogram | 0.000% | 0.033% | 0.018% |
 | ckms | 10.390% | 815.426% | 384.828% |
 | ddsketch | 0.681% | 0.553% | 0.999% |
@@ -131,6 +139,7 @@
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
+| atomichistogram | 0.866% | 0.367% | 2.673% |
 | base2histogram | 0.000% | 0.100% | 0.130% |
 | ckms | 10.823% | 5.507% | 31.312% |
 | ddsketch | 0.918% | 0.520% | 0.401% |
@@ -147,6 +156,7 @@
 
 | Histogram | P50 | P95 | P99 |
 |---|---:|---:|---:|
+| atomichistogram | 0.000% | 0.000% | 0.000% |
 | base2histogram | 0.000% | 0.000% | 0.000% |
 | ckms | 0.000% | 383757.143% | 127852.381% |
 | ddsketch | 100.000% | 0.411% | 0.554% |

@@ -16,6 +16,7 @@ BINS=(
     bench-ddsketch
     bench-ckms
     bench-gk
+    bench-atomichistogram
     bench-sparsehistogram
     bench-reqsketch
     bench-kllsketch

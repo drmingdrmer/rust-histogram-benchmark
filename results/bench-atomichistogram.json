@@ -1,0 +1,51 @@
+{
+  "name": "atomichistogram",
+  "family": "atomichistogram",
+  "config": "grouping_power=4,max_value_power=64,query=load_once_snapshot",
+  "record_throughput": {
+    "sequential_ns": 2.0905835,
+    "uniform_ns": 1.4614585,
+    "log_normal_ns": 1.5032705
+  },
+  "percentile_latency": {
+    "p50_ns": 408.0646,
+    "p90_ns": 438.6,
+    "p95_ns": 452.60415,
+    "p99_ns": 469.39375,
+    "p999_ns": 523.88335
+  },
+  "memory_bytes": 7808,
+  "merge_ns": null,
+  "accuracy": [
+    {
+      "distribution": "uniform",
+      "p50_error_pct": 0.08038183370558254,
+      "p95_error_pct": 1.7208405758087237,
+      "p99_error_pct": 0.9497777726735028
+    },
+    {
+      "distribution": "log_normal_api",
+      "p50_error_pct": 0.9925558312655087,
+      "p95_error_pct": 0.7625272331154684,
+      "p99_error_pct": 1.627906976744186
+    },
+    {
+      "distribution": "bimodal",
+      "p50_error_pct": 0.6493506493506493,
+      "p95_error_pct": 0.40066777963272115,
+      "p99_error_pct": 1.839080459770115
+    },
+    {
+      "distribution": "exponential",
+      "p50_error_pct": 0.8658008658008658,
+      "p95_error_pct": 0.36715620827770357,
+      "p99_error_pct": 2.6727509778357237
+    },
+    {
+      "distribution": "pareto",
+      "p50_error_pct": 0.0,
+      "p95_error_pct": 0.0,
+      "p99_error_pct": 0.0
+    }
+  ]
+}

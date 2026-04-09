@@ -60,6 +60,10 @@ name = "bench-gk"
 path = "src/bin/bench_gk.rs"
 
 [[bin]]
+name = "bench-atomichistogram"
+path = "src/bin/bench_atomichistogram.rs"
+
+[[bin]]
 name = "bench-sparsehistogram"
 path = "src/bin/bench_sparsehistogram.rs"
 

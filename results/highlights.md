@@ -1,10 +1,11 @@
 # Benchmark Highlights
 
-11 Rust histogram implementations, 2M samples, median of 20 iterations.
+12 Rust histogram implementations, 2M samples, median of 20 iterations.
 [Full results](report.md) | [Source](https://github.com/drmingdrmer/rust-histogram-benchmark)
 
 | Histogram | Memory | Record (ns) | P99 Query (ns) | Merge (ns) | P99 Error: log-normal | bimodal | exponential |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| atomichistogram | 7.6 KB | 1.5 | 469.4 | — | 1.628% | 1.839% | 2.673% |
 | base2histogram | 2.1 KB | 1.8 | 13.5 | 🏆 34.8 | 🏆 0.000% | 🏆 0.018% | 0.130% |
 | ckms | 981.1 KB | 5048.4 | 276570.5 | 895198460.0 | 225.194% | 384.828% | 31.312% |
 | ddsketch | 🥈 2.0 KB | 4.5 | 82.0 | 🥈 146.8 | 0.782% | 0.999% | 0.401% |

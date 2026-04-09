@@ -120,6 +120,7 @@ fn main() {
 
 fn color_for(family: &str) -> &'static str {
     match family {
+        "atomichistogram" => "#2A9D5B",
         "base2histogram" => "#4878CF",
         "ckms" => "#66A61E",
         "ddsketch" => "#D4A942",
